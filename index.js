@@ -288,10 +288,12 @@ server.tool(
   "Captures a live snapshot image from an exterior public webcam URL and saves it as a local JPEG file",
   {
     url: z.string().describe("The URL of the public webcam page"),
+    name: z.string().optional().describe("Descriptive name of the webcam (used for filename)"),
+    location: z.string().optional().describe("Location of the webcam (used for filename)"),
     selector: z.string().optional().default("video").describe("CSS selector"),
     wait_ms: z.number().optional().default(5000)
   },
-  async ({ url, selector, wait_ms }) => {
+  async ({ url, name, location, selector, wait_ms }) => {
     const logs = getValidationLog();
     if (logs[url] && logs[url].status === "offline") {
       console.error(`Warning: This cam was recently reported as offline (${logs[url].timestamp})`);
@@ -350,9 +352,21 @@ server.tool(
       }
 
       // Generate local filename and save
-      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-      const sanitizedUrl = url.replace(/[^a-z0-9]/gi, "_").substring(0, 50);
-      const filename = `snapshot_${sanitizedUrl}_${timestamp}.jpg`;
+      const now = new Date();
+      const datePart = now.toISOString().split('T')[0];
+      const timePart = now.getHours().toString().padStart(2, '0') + "-" + now.getMinutes().toString().padStart(2, '0') + "-" + now.getSeconds().toString().padStart(2, '0');
+      const timestamp = `${datePart}_${timePart}`;
+      
+      let filePrefix = "snapshot";
+      if (name || location) {
+        const part1 = (name || "").replace(/[^a-z0-9]/gi, "_");
+        const part2 = (location || "").replace(/[^a-z0-9]/gi, "_");
+        filePrefix = [part1, part2].filter(Boolean).join("_").substring(0, 100).replace(/_+/g, "_").replace(/^_+|_+$/g, "");
+      } else {
+        filePrefix = url.replace(/[^a-z0-9]/gi, "_").substring(0, 50).replace(/_+/g, "_").replace(/^_+|_+$/g, "");
+      }
+
+      const filename = `${filePrefix}_${timestamp}.jpg`;
       const fullPath = path.join(SNAPSHOTS_DIR, filename);
       
       fs.writeFileSync(fullPath, buffer);
