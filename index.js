@@ -118,13 +118,21 @@ server.tool(
         reported_at: new Date().toISOString()
       };
 
-      const { execSync } = await import("child_process");
+      const { spawnSync } = await import("child_process");
       const title = `[webcam-report] ${status}: ${cam_id}`;
       const body = `\`\`\`json\n${JSON.stringify(issueBody, null, 2)}\n\`\`\``;
       
-      // Use gh CLI to create the issue with the 'webcam-report' label
-      const command = `gh issue create --title "${title}" --body '${body}' --label "webcam-report"`;
-      const output = execSync(command, { encoding: 'utf8' });
+      const result = spawnSync("gh", [
+        "issue", "create", 
+        "--title", title, 
+        "--body", body, 
+        "--label", "webcam-report"
+      ], { encoding: 'utf8' });
+
+      if (result.error || result.status !== 0) {
+        throw new Error(result.stderr || "Failed to execute 'gh' command");
+      }
+      const output = result.stdout;
 
       return {
         content: [{ type: "text", text: `Report submitted to GitHub! Worker verification will begin shortly.\nIssue URL: ${output.trim()}` }]
@@ -165,12 +173,21 @@ server.tool(
         submitted_at: new Date().toISOString()
       };
 
-      const { execSync } = await import("child_process");
+      const { spawnSync } = await import("child_process");
       const title = `[webcam-submission] ${name} (${location})`;
       const body = `\`\`\`json\n${JSON.stringify(submissionBody, null, 2)}\n\`\`\``;
       
-      const command = `gh issue create --title "${title}" --body '${body}' --label "webcam-submission"`;
-      const output = execSync(command, { encoding: 'utf8' });
+      const result = spawnSync("gh", [
+        "issue", "create", 
+        "--title", title, 
+        "--body", body, 
+        "--label", "webcam-submission"
+      ], { encoding: 'utf8' });
+
+      if (result.error || result.status !== 0) {
+        throw new Error(result.stderr || "Failed to execute 'gh' command");
+      }
+      const output = result.stdout;
 
       return {
         content: [{ type: "text", text: `Submission sent to GitHub! The worker will verify the link and add it to the global registry if it passes.\nIssue URL: ${output.trim()}` }]
@@ -206,8 +223,8 @@ server.tool(
 );
 
 server.tool(
-  "report_webcam_status",
-  "Allow agents to provide feedback or report issues. (Requires up-to-date registry)",
+  "draft_webcam_report",
+  "Draft a report locally (unverified). Use submit_report_to_github for worker-verified reports. (Requires up-to-date registry)",
   {
     cam_id: z.string().describe("The ID or URL of the webcam"),
     status: z.enum(["active", "offline", "low_quality", "obstructed", "broken_link"]).describe("Current status"),
@@ -230,8 +247,8 @@ server.tool(
 );
 
 server.tool(
-  "submit_webcam",
-  "Contribute a new webcam to the community. (Requires up-to-date registry)",
+  "draft_webcam",
+  "Draft a webcam locally (unverified). Use submit_new_webcam_to_github for verified submission. (Requires up-to-date registry)",
   {
     name: z.string().describe("Name of the webcam"),
     url: z.string().url().describe("Public URL"),
@@ -355,7 +372,7 @@ server.tool(
 
 server.tool(
   "discover_webcams_by_location",
-  "Discover webcams using OpenStreetMap (Cached)",
+  "Discover exterior public webcams using OpenStreetMap tags (man_made=webcam) (Cached)",
   {
     city: z.string().optional(),
     bbox: z.array(z.number()).length(4).optional()

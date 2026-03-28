@@ -1,6 +1,6 @@
 {
   "name": "open-public-cam",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "description": "Open source MCP server for publicly accessible webcams",
   "type": "module",
   "bin": {
@@ -15,11 +15,10 @@
     "public"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.28.0",
     "axios": "^1.14.0",
-    "dotenv": "^17.3.1",
     "playwright-chromium": "^1.58.2",
     "zod": "^4.3.6"
   }

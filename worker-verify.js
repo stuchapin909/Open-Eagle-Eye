@@ -1,6 +1,17 @@
 import { chromium } from "playwright-chromium";
 import fs from "fs";
 
+function normalizeUrl(url) {
+  try {
+    const u = new URL(url);
+    u.hash = "";
+    u.searchParams.sort();
+    return u.toString().toLowerCase().replace(/\/$/, "");
+  } catch (e) {
+    return url.toLowerCase().replace(/\/$/, "");
+  }
+}
+
 async function verifyCam(url, isSubmission = false) {
   let browser;
   try {
@@ -11,11 +22,11 @@ async function verifyCam(url, isSubmission = false) {
     // 1. Keyword Shield (Check title/meta before heavy loading)
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
     const title = await page.title();
-    const spamKeywords = ['crypto', 'casino', 'pharmacy', 'viagra', 'ads', 'marketing', 'earn money'];
+    const spamKeywords = ['crypto', 'casino', 'pharmacy', 'viagra', 'ads', 'marketing', 'earn money', 'security', 'cctv', 'private', 'login', 'admin', 'password', 'protected'];
     if (spamKeywords.some(k => title.toLowerCase().includes(k))) {
-      console.log("REJECTED: Spam keywords detected in title");
+      console.log("REJECTED: Spam or Privacy keywords detected in title");
       await browser.close();
-      return { active: false, reason: "spam_keywords" };
+      return { active: false, reason: "spam_or_privacy_keywords" };
     }
 
     // 2. Motion Detection (Take two snapshots 5s apart)
@@ -25,9 +36,17 @@ async function verifyCam(url, isSubmission = false) {
     await page.waitForTimeout(5000); // Wait for motion
     const shot2 = await page.screenshot({ type: 'jpeg', quality: 10 });
     
-    // Simple buffer comparison (entropy check)
-    if (shot1.equals(shot2)) {
-      console.log("REJECTED: Static image detected (No motion)");
+    // Improved buffer comparison (count differing bytes as a proxy for entropy)
+    let diffs = 0;
+    const minLen = Math.min(shot1.length, shot2.length);
+    for (let i = 0; i < minLen; i++) {
+      if (shot1[i] !== shot2[i]) diffs++;
+    }
+    const diffRatio = diffs / minLen;
+    const sizeRatio = Math.abs(shot1.length - shot2.length) / Math.max(shot1.length, shot2.length);
+
+    if (diffRatio < 0.005 && sizeRatio < 0.01) { // 0.5% byte diff AND <1% size change
+      console.log(`REJECTED: Static image detected (Diff Ratio: ${(diffRatio * 100).toFixed(4)}%)`);
       await browser.close();
       return { active: false, reason: "static_image" };
     }
@@ -74,7 +93,8 @@ else {
 
   // 3. Duplicate & Geo Check (Submission Only)
   if (isSubmission) {
-    const isDupUrl = registry.some(c => c.url === issueData.url);
+    const normalizedNew = normalizeUrl(issueData.url);
+    const isDupUrl = registry.some(c => normalizeUrl(c.url) === normalizedNew);
     const isDupLoc = registry.some(c => c.location === issueData.location && c.name === issueData.name);
     
     if (isDupUrl || isDupLoc) {

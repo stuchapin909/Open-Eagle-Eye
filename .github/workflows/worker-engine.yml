@@ -40,6 +40,7 @@ jobs:
           git config --global user.email "bot@open-public-cam.local"
           git add validation-log.json
           git commit -m "Worker: Nightly Batch Validation Complete" || echo "No changes to commit"
+          git pull --rebase || true
           git push
 
       - name: Extract JSON from Issue
@@ -63,6 +64,7 @@ jobs:
           git config --global user.email "bot@open-public-cam.local"
           git add community-registry.json validation-log.json
           git commit -m "Worker: Verified and updated registry for ${{ github.event.issue.title }}"
+          git pull --rebase || true
           git push
 
       - name: Comment and Close (Success)

@@ -1,9 +1,9 @@
 # open-public-cam (Keyless & Agent-Maintained)
 
-An open-source Model Context Protocol (MCP) server for a global, community-validated directory of public webcams. **No API keys required.**
+An open-source Model Context Protocol (MCP) server for a global, community-validated directory of **exterior webcams in public spaces**. **No API keys required.**
 
 ## 🌍 The Vision
-**open-public-cam** is a living, agent-maintained ecosystem. It empowers AI agents to see the world through public webcams while giving them the tools to discover, report, and maintain the global directory autonomously.
+**open-public-cam** is a living, agent-maintained ecosystem. It empowers AI agents to see the world through public webcams—specifically those looking at streets, landmarks, and nature—while giving them the tools to discover, report, and maintain the global directory autonomously.
 
 ---
 
@@ -11,7 +11,7 @@ An open-source Model Context Protocol (MCP) server for a global, community-valid
 
 - **Autonomous Growth**: Agents can submit new webcams; a worker verifies them and merges them automatically.
 - **Self-Cleaning Registry**: A nightly worker re-verifies the directory to prune dead or static feeds.
-- **Anti-Garbage Filters**: Motion detection and keyword shields prevent spam and "fake" cameras.
+- **Anti-Garbage Filters**: Motion detection, keyword shields, and **public-space checks** prevent spam and private feeds.
 - **Global Sync**: Stay updated with the community's latest findings via the `sync_registry` tool.
 - **Vision Capture**: High-quality JPEG snapshots from any public URL using Playwright.
 
@@ -32,11 +32,11 @@ npx playwright install chromium
 
 ### `get_webcam_snapshot`
 - **Purpose**: Returns a base64 JPEG of a live webcam feed.
-- **Logic**: Navigates via headless browser, waits for video/image load, and captures a frame.
+- **Scope**: Targeted at public, exterior feeds (cities, landmarks, weather).
 
 ### `submit_new_webcam_to_github`
 - **Purpose**: Contributes a new discovery to the global registry.
-- **Gatekeeper**: Triggers a worker that MUST see motion and pass keyword filters before merging.
+- **Gatekeeper**: Triggers a worker that MUST see motion, pass keyword filters, and confirm the feed is a public-space exterior view before merging.
 
 ### `submit_report_to_github`
 - **Purpose**: Reports a broken or offline camera.
@@ -52,22 +52,48 @@ npx playwright install chromium
 
 To ensure the registry remains high-quality without manual oversight, the **Worker Engine** employs:
 
-1. **Motion Detection**: The worker takes two snapshots 5 seconds apart. If 0% pixel change is detected, the camera is rejected as a "static image" or "dead feed."
-2. **Keyword Shield**: Automatic rejection of URLs containing spam keywords (crypto, gambling, etc.) in the page title or metadata.
-3. **Nightly Batch Validation**: Every 24 hours, the worker randomly tests batches of the registry to mark dead links as `offline`.
-4. **Strict De-duplication**: Prevents flooding by checking for duplicate URLs and geographical clashes.
+1. **Motion Detection**: The worker takes two snapshots 5 seconds apart. If 0.5% pixel change and 1% file size change is not detected, the camera is rejected as a "static image" or "dead feed."
+2. **Keyword Shield**: Automatic rejection of URLs containing spam keywords or privacy-sensitive terms (e.g., 'security', 'cctv', 'private') in the page title or metadata.
+3. **Public Space Enforcement**: Rejects feeds that appear to be indoor, private, or security-focused rather than scenic or informational.
+4. **Nightly Batch Validation**: Every 24 hours, the worker randomly tests batches of the registry to mark dead links as `offline`.
+5. **Strict De-duplication**: Prevents flooding by checking for duplicate URLs and geographical clashes.
+
+---
+
+## 🛡️ Validation: Confirming "Public & Exterior"
+
+To maintain a directory focused exclusively on public scenic views, the system uses a multi-layered validation approach:
+
+### 1. Keyword Shield (Negative Filtering)
+The `worker-verify.js` engine inspects the page title and metadata *before* accepting any submission. It automatically rejects cameras that contain privacy-sensitive or interior-focused terms:
+*   **Privacy terms**: `private`, `security`, `cctv`, `protected`.
+*   **Administrative terms**: `login`, `admin`, `password`, `dashboard`.
+*   **Commercial terms**: `casino`, `viagra`, `earn money`.
+
+If a page is titled *"Office Security Camera"* or *"Admin Login - Hallway,"* it is rejected instantly.
+
+### 2. OpenStreetMap Tags (Source Trust)
+The `discover_webcams_by_location` tool specifically searches the **Overpass API** for nodes tagged with `man_made=webcam`. 
+*   In the OSM community, `man_made=webcam` is the standard tag for cameras intended for public viewing (weather, traffic, tourism).
+*   By scoping discovery to these tags, we inherit the manual verification already performed by the global OSM mapping community.
+
+### 3. Tool Instruction & Agent Scoping
+The MCP tool descriptions in `index.js` act as "programming" for the AI agents that use this server. By explicitly defining the scope as:
+> *"Submit a newly discovered exterior public webcam (streets, landmarks, nature)..."*
+
+We leverage the LLM's internal reasoning to filter discoveries *before* they are even submitted to the worker, creating a high-quality "human-in-the-loop" effect without the human.
 
 ---
 
 ## 🤝 How to Participate
 
 ### For Humans:
-- **Fork & Improve**: Help us refine the `worker-verify.js` logic to handle more complex video players.
-- **Curate**: Add famous landmarks to the core `WEBCAMS` list in `index.js` via Pull Request.
+- **Fork & Improve**: Help us refine the `worker-verify.js` logic to handle more complex video players and improve public-space detection.
+- **Curate**: Add famous landmarks or scenic public views to the core `WEBCAMS` list in `index.js` via Pull Request.
 
 ### For AI Agents:
-- **Discover**: Use `discover_webcams_by_location` to find new feeds.
-- **Contribute**: Use `submit_new_webcam_to_github` to grow the global registry.
+- **Discover**: Use `discover_webcams_by_location` to find new public-space feeds.
+- **Contribute**: Use `submit_new_webcam_to_github` to grow the global registry of public views.
 - **Maintain**: Use `submit_report_to_github` to flag broken links for the community.
 
 ---
