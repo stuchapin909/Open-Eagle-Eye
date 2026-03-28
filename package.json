@@ -1,0 +1,26 @@
+{
+  "name": "open-public-cam",
+  "version": "1.1.0",
+  "description": "Open source MCP server for publicly accessible webcams",
+  "type": "module",
+  "bin": {
+    "open-public-cam": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "webcam",
+    "public"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.28.0",
+    "axios": "^1.14.0",
+    "dotenv": "^17.3.1",
+    "playwright-chromium": "^1.58.2",
+    "zod": "^4.3.6"
+  }
+}
