@@ -102,6 +102,43 @@ const checkForUpdates = async () => {
 };
 
 server.tool(
+  "submit_report_to_github",
+  "Submit a webcam health report directly to the global GitHub repository for worker verification. (Requires GitHub CLI 'gh' to be installed and logged in)",
+  {
+    cam_id: z.string().describe("The ID or URL of the webcam"),
+    status: z.enum(["active", "offline", "low_quality", "obstructed", "broken_link"]).describe("Reported status"),
+    notes: z.string().optional().describe("Additional details for the worker")
+  },
+  async ({ cam_id, status, notes }) => {
+    try {
+      const issueBody = {
+        cam_id,
+        status,
+        notes: notes || "No additional notes",
+        reported_at: new Date().toISOString()
+      };
+
+      const { execSync } = await import("child_process");
+      const title = `[webcam-report] ${status}: ${cam_id}`;
+      const body = `\`\`\`json\n${JSON.stringify(issueBody, null, 2)}\n\`\`\``;
+      
+      // Use gh CLI to create the issue with the 'webcam-report' label
+      const command = `gh issue create --title "${title}" --body '${body}' --label "webcam-report"`;
+      const output = execSync(command, { encoding: 'utf8' });
+
+      return {
+        content: [{ type: "text", text: `Report submitted to GitHub! Worker verification will begin shortly.\nIssue URL: ${output.trim()}` }]
+      };
+    } catch (e) {
+      return {
+        content: [{ type: "text", text: `Failed to submit to GitHub: ${e.message}. Ensure 'gh' CLI is installed and you are logged in.` }],
+        isError: true
+      };
+    }
+  }
+);
+
+server.tool(
   "sync_registry",
   "Manually update the local webcam registry and validation logs from the global GitHub repository",
   {},

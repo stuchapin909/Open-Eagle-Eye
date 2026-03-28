@@ -1,0 +1,85 @@
+name: Verify Webcam Report
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  verify:
+    if: contains(github.event.issue.labels.*.name, 'webcam-report')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install chromium --with-deps
+
+      - name: Extract JSON from issue body
+        id: extract_json
+        run: |
+          # Extract the JSON block from the issue body
+          JSON_DATA=$(echo "${{ github.event.issue.body }}" | sed -n '/```json/,/```/p' | sed '1d;$d')
+          echo "DATA=$JSON_DATA" >> $GITHUB_OUTPUT
+
+      - name: Run verification worker
+        id: worker
+        run: |
+          node worker-verify.js '${{ steps.extract_json.outputs.DATA }}'
+        continue-on-error: true
+
+      - name: Commit verified changes
+        if: steps.worker.outcome == 'success'
+        run: |
+          git config --global user.name "Webcam-Worker-Bot"
+          git config --global user.email "bot@open-public-cam.local"
+          git add validation-log.json
+          git commit -m "Worker: Verified and updated status for ${{ github.event.issue.title }}"
+          git push
+
+      - name: Comment and close issue (Success)
+        if: steps.worker.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "✅ **Worker Verified**: The report has been confirmed. The global registry has been updated. All users will see this update when they next sync."
+            });
+            github.rest.issues.update({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'closed'
+            });
+
+      - name: Comment and close issue (Failure)
+        if: steps.worker.outcome != 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "❌ **Worker Check Failed**: The webcam appears to be active or the link is still valid. No changes were made to the registry. Closing report."
+            });
+            github.rest.issues.update({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'closed'
+            });
