@@ -1,6 +1,8 @@
 name: Webcam Worker Engine
 
 on:
+  push:
+    branches: [master]
   issues:
     types: [opened]
   schedule:
