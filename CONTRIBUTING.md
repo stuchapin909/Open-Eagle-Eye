@@ -16,13 +16,22 @@ The most valuable contribution is new webcam sources. Here's the process:
 
 3. **Check it's a public space** -- streets, parks, landmarks, traffic, weather, nature. No private interiors, security cameras, or password-protected feeds.
 
-4. **Add it** -- edit `cameras.json` and push, or open a PR. The GitHub Action will:
-   - Validate the schema (name, url, location, timezone, category)
-   - Verify the URL returns an image
+4. **Add it** -- edit `cameras.json` and push, or open a PR. Each entry requires:
+   - `id` -- unique identifier, lowercase with hyphens (e.g. `nyc-fdr-brooklyn-bridge`)
+   - `name` -- human-readable name
+   - `url` -- direct image URL
+   - `city` -- city name (e.g. `London`, `New York`, `Sydney`)
+   - `location` -- descriptive location string (e.g. `Manhattan, New York, USA`)
+   - `timezone` -- IANA timezone (e.g. `America/New_York`)
+   - `category` -- one of the categories below
+   - `coordinates` -- `{ "lat": ..., "lng": ... }` if available
+
+   The GitHub Action will:
+   - Validate the schema
+   - Verify the URL returns a valid image
    - Use vision AI to confirm it's a real webcam
    - Reject non-webcam images (logos, error pages, ads)
-
-5. **Pick a good ID** -- lowercase, hyphens, descriptive. e.g. `nyc-fdr-brooklyn-bridge`.
+   - Auto-remove invalid entries on push, comment on PRs
 
 ## What makes a good source
 
@@ -41,10 +50,22 @@ The most valuable contribution is new webcam sources. Here's the process:
 - Pages requiring JavaScript to load the image
 - URLs behind CAPTCHAs or cookie consent
 - Anything requiring authentication
+- URLs that serve images only with specific browser headers (Sec-Fetch-Dest, etc.) -- these break for programmatic access
 
 ## Categories
 
 Use one of: `city`, `park`, `highway`, `airport`, `port`, `weather`, `nature`, `landmark`, `other`
+
+## Camera sources
+
+Current sources in the registry:
+
+| Region | Source | Count | Auth |
+|---|---|---|---|
+| London | TfL JamCam API | 424 | API key for discovery only, images public |
+| New York | NYC TMC API | 100 | None |
+| Sydney | NSW Live Traffic | 153 | None |
+| Regional NSW | NSW Live Traffic | 44 | None |
 
 ## Code contributions
 

@@ -39,12 +39,16 @@ A valid webcam URL is any endpoint that returns a JPEG or PNG on a plain HTTP GE
 | Tool | Description |
 |---|---|
 | `get_webcam_snapshot` | Fetch a live snapshot — saves to disk, returns JSON with file path |
-| `list_webcams` | List all cameras with filters (location, category) |
-| `search_webcams` | Search by name, location, or category |
-| `draft_webcam` | Add a new camera to the local community registry |
+| `list_webcams` | List cameras with filters (city, location, category) |
+| `search_webcams` | Search by name, location, city, or category |
+| `draft_webcam` | Add a new camera to the local registry |
 | `draft_webcam_report` | Report a broken or offline camera |
 | `get_config_info` | Check API key configuration status |
 | `sync_registry` | Pull latest cameras from GitHub |
+
+### Filtering
+
+Every camera has a `city` field. Use `list_webcams` with `city: "Sydney"` to get a short, focused list instead of dumping all cameras into context. Available cities: London, New York, Sydney, Regional NSW.
 
 ### Output format
 
@@ -54,21 +58,28 @@ Every tool returns structured JSON. Snapshots save to disk and return the file p
 ```json
 {
   "success": true,
-  "file_path": "/path/to/snapshots/nyc_cam_1234.jpg",
+  "file_path": "/path/to/snapshots/a1b2c3d4e5f6a7b8.jpg",
   "size_bytes": 14579,
   "content_type": "image/jpeg",
-  "camera": { "id": "nyc-bb-21-...", "name": "BB-21 North Rdwy", "location": "Manhattan, New York, USA" }
+  "camera": {
+    "id": "nyc-bb-21-north-rdwy-at-above-south-st",
+    "name": "BB-21 North Rdwy @ Above South St",
+    "city": "New York",
+    "location": "Manhattan, New York, USA",
+    "coordinates": { "lat": 40.708, "lng": -73.999 }
+  }
 }
 ```
 
 ## Registry
 
-**721 cameras** across three cities:
+**721 cameras** across four regions:
 - 424 London TfL JamCams (all boroughs)
 - 100 NYC TMC traffic cams (all 5 boroughs)
-- 197 NSW traffic cams (Sydney metro + regional New South Wales)
+- 153 Sydney metro traffic cams
+- 44 Regional NSW traffic cams
 
-All verified, all work with zero API keys at fetch time. Cameras live in `cameras.json` — one file, one source of truth.
+Every camera has `city`, `location`, `timezone`, and `coordinates` (lat/lng). Cameras live in `cameras.json` — one file, one source of truth.
 
 ### Self-healing
 
@@ -78,12 +89,22 @@ A GitHub Action runs nightly at 3 AM UTC:
 - Vision AI (GPT-4o-mini via GitHub Models) catches cameras returning error pages or placeholders
 - Suspect cameras that recover are cleared automatically
 
+### Security
+
+- **SSRF protection** — blocks private IPs, cloud metadata endpoints, non-HTTP protocols, and DNS rebinding
+- **Content-type whitelist** — only `image/jpeg` and `image/png` accepted
+- **No redirect following** — prevents redirect-based SSRF bypasses
+- **Push/PR cap** — max 500 cameras per push to prevent DoS via oversized PRs
+- **Issue spam protection** — max 5 issues per run, dedup check before opening
+- **Random filenames** — snapshots use random hex filenames, no camera ID in the path
+
 ## Use cases
 
 - **Live traffic monitoring** — agents can check current conditions at specific intersections
 - **Weather observation** — outdoor cameras show real-time weather and visibility
 - **Location verification** — confirm what's happening at a place right now
 - **Timezone-aware research** — check daytime/nighttime conditions across cities
+- **Geospatial queries** — coordinates enable distance-based filtering
 - **Building automation** — feed live camera data into agent workflows
 
 ## API Keys (optional)
@@ -105,7 +126,7 @@ Use `get_config_info` to check which cameras need keys and whether yours are set
 ## Adding cameras
 
 1. Find a direct-image URL (must return `image/jpeg` or `image/png` on plain GET)
-2. Use `draft_webcam` with the URL, location, and timezone
+2. Use `draft_webcam` with the URL, city, location, timezone, and optional coordinates
 3. Test with `get_webcam_snapshot`
 4. Open a PR to contribute — the validator will check it automatically
 
