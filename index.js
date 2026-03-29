@@ -22,7 +22,7 @@ const VERSION = "6.3.0";
 
 // GitHub Constants
 const GITHUB_OWNER = "stuchapin909";
-const GITHUB_REPO = "Eagle-Eye";
+const GITHUB_REPO = "Open-Eagle-Eye";
 const GITHUB_RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/master`;
 
 if (!fs.existsSync(SNAPSHOTS_DIR)) fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
