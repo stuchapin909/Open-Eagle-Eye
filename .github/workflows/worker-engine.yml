@@ -56,9 +56,8 @@ jobs:
         run: |
           node worker-verify.js '${{ steps.extract_json.outputs.DATA }}'
           if [ -f worker-results.txt ]; then
-            RESULTS=$(cat worker-results.txt)
             echo "RESULTS<<EOF" >> $GITHUB_OUTPUT
-            echo "$RESULTS" >> $GITHUB_OUTPUT
+            cat worker-results.txt >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
           else
             echo "RESULTS=No detailed results found." >> $GITHUB_OUTPUT
