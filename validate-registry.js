@@ -40,6 +40,8 @@ const MAX_CONSECUTIVE_FAILURES = 2;
 const STALE_THRESHOLD_DAYS = 7;
 // Max issues per run (spam protection)
 const MAX_ISSUES_PER_RUN = 5;
+// Max cameras to validate per push/PR (DoS protection)
+const MAX_PUSH_VALIDATIONS = 500;
 
 const FETCH_HEADERS = {
   'User-Agent': 'open-public-cam-validator',
@@ -403,8 +405,26 @@ async function main() {
     saveCameras(allCameras);
 
   } else {
-    for (let i = 0; i < allCameras.length; i++) {
-      const entry = allCameras[i];
+    // Push/PR mode: cap to prevent DoS via massive PRs
+    if (allCameras.length > MAX_PUSH_VALIDATIONS) {
+      console.log(`REJECT: ${allCameras.length} cameras exceeds push limit of ${MAX_PUSH_VALIDATIONS}`);
+      console.log(`PRs should add cameras incrementally. Split into smaller PRs if needed.`);
+      if (EVENT_NAME === "pull_request") {
+        await postPRComment(
+          `## Registry Validation\n\n**REJECTED:** ${allCameras.length} cameras exceeds the maximum of ${MAX_PUSH_VALIDATIONS} per push/PR.\n\nPlease split your submission into smaller PRs or remove invalid entries.`
+        );
+        process.exit(1);
+      }
+      // Push mode: only validate the first MAX_PUSH_VALIDATIONS
+      console.log(`Push mode: validating first ${MAX_PUSH_VALIDATIONS} cameras only.`);
+    }
+    const capped = allCameras.length > MAX_PUSH_VALIDATIONS;
+    const camerasToValidate = capped
+      ? allCameras.slice(0, MAX_PUSH_VALIDATIONS)
+      : allCameras;
+
+    for (let i = 0; i < camerasToValidate.length; i++) {
+      const entry = camerasToValidate[i];
       const id = entry.id || `entry-${i}`;
       console.log(`CHECK ${id}...`);
 
@@ -412,7 +432,7 @@ async function main() {
       if (schemaErrors.length > 0) {
         results.push({ id, name: entry.name, url: entry.url, status: "reject", details: `Schema: ${schemaErrors.join("; ")}` });
         log[id] = { status: "offline", notes: `Schema: ${schemaErrors.join("; ")}`, last_checked: new Date().toISOString(), consecutive_failures: MAX_CONSECUTIVE_FAILURES };
-        if (EVENT_NAME === "push") {
+        if (EVENT_NAME === "push" && !capped) {
           allCameras.splice(i, 1); i--; removedCount++;
         }
         continue;
@@ -424,7 +444,7 @@ async function main() {
         result.status = "reject";
         results.push(result);
         log[id] = { status: "offline", notes: result.details, last_checked: new Date().toISOString(), consecutive_failures: MAX_CONSECUTIVE_FAILURES, last_failure_reason: result.details };
-        if (EVENT_NAME === "push") {
+        if (EVENT_NAME === "push" && !capped) {
           allCameras.splice(i, 1); i--; removedCount++;
         }
       } else {
@@ -433,7 +453,7 @@ async function main() {
       }
     }
 
-    if (EVENT_NAME === "push") saveCameras(allCameras);
+    if (EVENT_NAME === "push" && !capped) saveCameras(allCameras);
   }
 
   saveLog(log);

@@ -1,6 +1,6 @@
 {
   "name": "openeagleeye",
-  "version": "6.2.0",
+  "version": "6.3.0",
   "description": "Instant webcam snapshots from public cameras worldwide via MCP",
   "type": "module",
   "bin": {
@@ -27,8 +27,8 @@
     "LICENSE"
   ],
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.28.0",
-    "axios": "^1.14.0",
-    "zod": "^4.3.6"
+    "@modelcontextprotocol/sdk": "1.28.0",
+    "axios": "1.14.0",
+    "zod": "4.3.6"
   }
 }
