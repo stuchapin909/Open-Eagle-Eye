@@ -145,17 +145,58 @@ jobs:
             const isSuccess = exitCode === "0";
             const issueNumber = context.issue.number;
             const repo = context.repo.owner + "/" + context.repo.repo;
+            const labels = context.payload.issue.labels.map(l => l.name);
+            const isSubmission = labels.includes('webcam-submission');
+            
             let statusEmoji = isSuccess ? "✅" : "❌";
             let statusText = isSuccess ? "Worker Verified" : "Worker Check Failed";
+            
+            // Link to the GHOST branch
             const img1 = `https://raw.githubusercontent.com/${repo}/gh-evidence/verification-evidence/issue-${issueNumber}-shot1.jpg`;
             const img2 = `https://raw.githubusercontent.com/${repo}/gh-evidence/verification-evidence/issue-${issueNumber}-shot2.jpg`;
-            const commentBody = `${statusEmoji} **${statusText}**: The deterministic verification process is complete.\n\n### 📸 Visual Evidence\n*(Stored on isolated branch)*\n| Shot 1 (T+0s) | Shot 2 (T+5s) |\n| :---: | :---: |\n| ![](${img1}) | ![](${img2}) |\n\n### 🛠 Technical Findings\n\`\`\`\n${results.trim()}\n\`\`\``;
+            
+            // Build dynamic decision logic description
+            let decisionMsg = "";
+            if (isSuccess) {
+              decisionMsg = isSubmission 
+                ? "The link is active and showing motion. It has been merged into the global registry."
+                : "The health report was confirmed (link is dead or static). The camera has been flagged as offline.";
+            } else {
+              decisionMsg = isSubmission
+                ? "The submission was rejected because the link appears dead, static, or triggered privacy filters."
+                : "The health report was refuted. The camera appears to be active and healthy.";
+            }
+
+            const commentBody = `${statusEmoji} **${statusText}**: The deterministic verification process is complete.
+
+    ### 🕵️ Methodology
+    To maintain a high-quality, autonomous registry, the worker:
+    1. Orchestrates a headless Chromium instance to the target URL.
+    2. Executes a **Multi-Layered Anti-Ad Strategy** (Network blocking + CSS Cloaking).
+    3. Bypasses common cookie and GDPR consent barriers.
+    4. Performs an **Entropy-Based Motion Check**: Captures two frames 5 seconds apart and calculates the pixel difference ratio to distinguish live video from static placeholders.
+
+    ### 📸 Visual Evidence
+    *(Images stored on isolated `gh-evidence` branch)*
+    | Shot 1 (T+0s) | Shot 2 (T+5s) |
+    | :---: | :---: |
+    | ![](${img1}) | ![](${img2}) |
+
+    ### 🛠 Decision & Findings
+    > **${decisionMsg}**
+
+    **Technical Details:**
+    \`\`\`
+    ${results.trim()}
+    \`\`\``;
+            
             github.rest.issues.createComment({
               issue_number: issueNumber,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: commentBody
             });
+            
             github.rest.issues.update({
               issue_number: issueNumber,
               owner: context.repo.owner,
