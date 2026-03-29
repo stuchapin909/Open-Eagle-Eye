@@ -15,8 +15,8 @@ const SNAPSHOTS_DIR = path.join(__dirname, "snapshots");
 const USER_CONFIG_DIR = path.join(os.homedir(), ".openeagleeye");
 const USER_CONFIG_PATH = path.join(USER_CONFIG_DIR, "config.json");
 
-// Version 6.0.0 — Renamed to Open Eagle Eye, npm: openeagleeye
-const VERSION = "6.0.0";
+// Renamed to Open Eagle Eye, npm: openeagleeye
+const VERSION = "6.2.0";
 
 // GitHub Constants
 const GITHUB_OWNER = "stuchapin909";

@@ -50,7 +50,7 @@ jobs:
         run: |
           git config --global user.name "registry-bot"
           git config --global user.email "bot@open-public-cam.local"
-          git add community-registry.json validation-log.json
+          git add community-registry.json
           git diff --cached --quiet || (git commit -m "Validator: auto-remove invalid entries" && git push)
 
       - name: Commit cron results
@@ -58,5 +58,5 @@ jobs:
         run: |
           git config --global user.name "registry-bot"
           git config --global user.email "bot@open-public-cam.local"
-          git add community-registry.json validation-log.json
+          git add community-registry.json
           git diff --cached --quiet || (git commit -m "Validator: nightly health check" && git push)

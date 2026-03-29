@@ -32,7 +32,7 @@ A valid webcam URL is any endpoint that returns a JPEG or PNG on a plain HTTP GE
 
 | Tool | Description |
 |---|---|
-| `get_webcam_snapshot` | Fetch a live snapshot — returns base64 image data |
+| `get_webcam_snapshot` | Fetch a live snapshot — saves to disk, returns JSON with file path |
 | `list_webcams` | List all cameras with filters (location, category) — returns JSON |
 | `search_webcams` | Search by name, location, or category — returns JSON |
 | `draft_webcam` | Add a new camera to the local registry |

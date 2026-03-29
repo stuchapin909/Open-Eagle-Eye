@@ -1,8 +1,9 @@
 scripts/
 snapshots/
-tfl-cameras.json
 validation-log.json
 validate-registry.js
-AGENT-GUIDE.md
 stderr.log
 node_modules.bad/
+.github/
+.gitignore
+.npmignore
