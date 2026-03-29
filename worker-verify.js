@@ -5,8 +5,13 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const RESULTS_FILE = "worker-results.txt";
+const EVIDENCE_DIR = "verification-evidence";
 
-// Deterministic logging for reliable CI capture
+// Ensure evidence directory exists
+if (!fs.existsSync(EVIDENCE_DIR)) {
+  fs.mkdirSync(EVIDENCE_DIR, { recursive: true });
+}
+
 function logFinding(msg) {
   fs.appendFileSync(RESULTS_FILE, msg + "\n");
   console.log(msg);
@@ -29,7 +34,7 @@ function normalizeUrl(url) {
   }
 }
 
-async function verifyCam(url, isSubmission = false) {
+async function verifyCam(url, issueNum = null) {
   let browser;
   try {
     browser = await chromium.launch({ headless: true });
@@ -97,6 +102,13 @@ async function verifyCam(url, isSubmission = false) {
     
     await page.waitForTimeout(5000);
     const shot2 = await page.screenshot({ type: 'jpeg', quality: 10 });
+
+    // Save evidence if issue number provided
+    if (issueNum) {
+      fs.writeFileSync(path.join(EVIDENCE_DIR, `issue-${issueNum}-shot1.jpg`), shot1);
+      fs.writeFileSync(path.join(EVIDENCE_DIR, `issue-${issueNum}-shot2.jpg`), shot2);
+      logFinding(`EVIDENCE: Saved shot1 and shot2 for Issue #${issueNum}`);
+    }
     
     let diffs = 0;
     const minLen = Math.min(shot1.length, shot2.length);
@@ -132,6 +144,12 @@ async function main() {
   const args = process.argv.slice(2);
   if (fs.existsSync(RESULTS_FILE)) fs.unlinkSync(RESULTS_FILE);
 
+  let issueNum = null;
+  const issueIdx = args.indexOf("--issue");
+  if (issueIdx !== -1 && args[issueIdx + 1]) {
+    issueNum = args[issueIdx + 1];
+  }
+
   if (args[0] === "--batch") {
     console.log("Starting Nightly Batch Validation...");
     const registry = JSON.parse(fs.readFileSync(path.join(__dirname, "community-registry.json"), "utf8"));
@@ -148,7 +166,8 @@ async function main() {
     }
     fs.writeFileSync(path.join(__dirname, "validation-log.json"), JSON.stringify(log, null, 2));
   } else {
-    const issueData = JSON.parse(args[0]);
+    const jsonStr = args.find(a => a.startsWith("{"));
+    const issueData = JSON.parse(jsonStr);
     const isSubmission = !!issueData.name;
     const registry = JSON.parse(fs.readFileSync(path.join(__dirname, "community-registry.json"), "utf8"));
 
@@ -160,7 +179,7 @@ async function main() {
       }
     }
 
-    const result = await verifyCam(issueData.url || issueData.cam_id, isSubmission);
+    const result = await verifyCam(issueData.url || issueData.cam_id, issueNum);
     if (isSubmission) {
       if (result.active) {
         logFinding("VERIFICATION: SUCCESS_ACTIVE");
