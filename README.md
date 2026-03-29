@@ -2,12 +2,19 @@
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 
-Instant webcam snapshots from public cameras worldwide. One HTTP GET, sub-second captures, no browser automation. Most cameras work with zero config; some optionally require free API keys.
+MCP server that gives AI agents instant access to public webcam feeds worldwide. One HTTP GET, sub-second captures, no browser automation, no stream decoding. Built for agents — returns structured JSON and base64 images.
 
 ## Quick start
 
-```bash
-npx openeagleeye
+```json
+{
+  "mcpServers": {
+    "openeagleeye": {
+      "command": "npx",
+      "args": ["-y", "openeagleeye"]
+    }
+  }
+}
 ```
 
 Or install globally:
@@ -17,84 +24,87 @@ npm install -g openeagleeye
 openeagleeye
 ```
 
-Open Eagle Eye runs as an MCP server. Add it to your MCP client config:
-
-```json
-{
-  "mcpServers": {
-    "open-eagle-eye": {
-      "command": "npx",
-      "args": ["-y", "openeagleeye"]
-    }
-  }
-}
-```
-
 ## How it works
 
-A valid webcam URL is any endpoint that returns a JPEG or PNG image on a plain HTTP GET. That's it. No JavaScript rendering, no stream decoding, no ffmpeg. Most city traffic cameras, weather stations, and park cams expose exactly this.
+A valid webcam URL is any endpoint that returns a JPEG or PNG on a plain HTTP GET. No JavaScript rendering, no RTSP, no ffmpeg. Most city traffic cameras, weather stations, and park cams expose exactly this. The server fetches the image and returns it as base64 data the agent can display or analyze.
 
 ## MCP Tools
 
 | Tool | Description |
 |---|---|
-| `get_webcam_snapshot` | Capture a live snapshot from any registered webcam |
-| `list_webcams` | List all webcams with status, location counts, and auth indicators |
-| `search_webcams` | Search by name or location |
-| `draft_webcam` | Add a webcam entry to the local registry (supports auth metadata) |
-| `draft_webcam_report` | Report a broken or offline webcam |
-| `get_config_info` | Show API key configuration status |
-| `sync_registry` | Pull latest community data from GitHub |
+| `get_webcam_snapshot` | Fetch a live snapshot — returns base64 image data |
+| `list_webcams` | List all cameras with filters (location, category) — returns JSON |
+| `search_webcams` | Search by name, location, or category — returns JSON |
+| `draft_webcam` | Add a new camera to the local registry |
+| `draft_webcam_report` | Report a broken or offline camera |
+| `get_config_info` | Check API key configuration status |
+| `sync_registry` | Pull latest community cameras from GitHub |
+
+### Output format
+
+Every tool returns structured JSON (or base64 images for snapshots). Agents can reliably parse responses without regexing text blobs.
+
+**Snapshot response** — returns `type: "image"` with base64 data and metadata:
+```json
+{
+  "content": [{ "type": "image", "data": "<base64>", "mimeType": "image/jpeg" }],
+  "_meta": { "camera": { "id": "...", "name": "...", "location": "..." } }
+}
+```
+
+**List/Search response** — JSON with camera array:
+```json
+{
+  "version": "6.0.0",
+  "total": 524,
+  "shown": 524,
+  "locations": { "London, UK": 424, "Manhattan, New York, USA": 38 },
+  "cameras": [
+    { "id": "nyc-bb-21-...", "name": "BB-21 North Rdwy", "location": "Manhattan, New York, USA", "category": "city", "verified": true, "status": "active", "auth_required": false }
+  ]
+}
+```
+
+## Registry
+
+**524 cameras** across two cities:
+- 424 London TfL JamCams (all boroughs)
+- 100 NYC TMC traffic cams (all 5 boroughs)
+
+All verified, all work with zero API keys.
+
+Cameras live in two places:
+- **Curated list** (built in) — verified cameras shipped with the server
+- **Community registry** (`community-registry.json`) — user-submitted cameras
 
 ## API Keys (optional)
 
-Most cameras work out of the box with zero configuration. Some cameras require a free API key from their provider. If so, the tool will tell you where to sign up and how to configure it.
+Most cameras work out of the box. Some require a free API key. If a snapshot fails with a key error, the response tells you where to sign up and how to configure it.
 
 Create `~/.openeagleeye/config.json`:
 
 ```json
 {
   "api_keys": {
-    "TFL_API_KEY": "your-tfl-app-key-here"
+    "PROVIDER_API_KEY": "your-key-here"
   }
 }
 ```
 
-Use `get_config_info` to check which cameras need keys and whether yours are configured.
+Use `get_config_info` to check which cameras need keys and whether yours are set.
 
-## Registry
+## Adding cameras
 
-Webcams live in two places:
-
-- **Curated list** (built in) -- verified cameras that ship with the server
-- **Community registry** (`community-registry.json`) -- user-submitted
-
-### Adding a webcam
-
-1. Find a direct-image URL
-2. Use `draft_webcam` to add it locally
-3. Verify with `get_webcam_snapshot`
+1. Find a direct-image URL (must return `image/jpeg` or `image/png` on plain GET)
+2. Use `draft_webcam` with the URL, location, and timezone
+3. Test with `get_webcam_snapshot`
 4. Open a PR to contribute
 
-### Webcam schema
-
-```json
-{
-  "id": "my-cam",
-  "name": "My Webcam",
-  "url": "https://example.com/webcam.jpg",
-  "category": "city",
-  "location": "City, Country",
-  "timezone": "Europe/London",
-  "verified": true
-}
-```
-
-Categories: `city`, `park`, `highway`, `airport`, `port`, `weather`, `nature`, `landmark`, `other`
+Good sources: city DOTs, weather stations, ski resorts, national parks, ports, airports.
 
 ## Contributing
 
-Pull requests welcome. Changes to `community-registry.json` are validated automatically.
+Pull requests welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 

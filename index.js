@@ -26,7 +26,7 @@ const GITHUB_RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GIT
 if (!fs.existsSync(SNAPSHOTS_DIR)) fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
 if (!fs.existsSync(USER_CONFIG_DIR)) fs.mkdirSync(USER_CONFIG_DIR, { recursive: true });
 
-const server = new McpServer({ name: "eagle-eye", version: VERSION });
+const server = new McpServer({ name: "openeagleeye", version: VERSION });
 
 // v5.0.0 Curated List — verified direct-image webcams with auth metadata
 // Auth schema (optional field on each camera):
@@ -5275,20 +5275,16 @@ function buildRequestConfig(cam) {
 // SNAPSHOT TOOL
 server.tool(
   "get_webcam_snapshot",
-  "Capture a live snapshot from a registered webcam.",
-  { cam_id: z.string().describe("Webcam ID or URL") },
+  "Fetch a live snapshot from a registered public webcam. Returns the image as base64-encoded JPEG/PNG data that the agent can display or analyze. Use list_webcams or search_webcams first to find camera IDs.",
+  { cam_id: z.string().describe("Camera ID from list_webcams/search_webcams, or a direct image URL") },
   async ({ cam_id }) => {
     const cam = findWebcam(cam_id);
-    if (!cam) return { content: [{ type: "text", text: `Error: Cam '${cam_id}' not found.` }], isError: true };
+    if (!cam) return { content: [{ type: "text", text: JSON.stringify({ error: "Camera not found", cam_id }) }], isError: true };
 
-    // Check auth requirements
     const config = buildRequestConfig(cam);
     if (config.error) {
-      return { content: [{ type: "text", text: config.error }], isError: true };
+      return { content: [{ type: "text", text: JSON.stringify({ error: "API key required", details: config.error, camera: cam.name }) }], isError: true };
     }
-
-    const filename = `${cam.id.substring(0, 30)}_${Date.now()}.jpg`.replace(/[^a-z0-9.]/gi, '_');
-    const fullPath = path.join(SNAPSHOTS_DIR, filename);
 
     try {
       const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024 });
@@ -5296,58 +5292,77 @@ server.tool(
       if (!ct.includes('image/')) throw new Error(`Not an image (content-type: ${ct})`);
       const buf = Buffer.from(response.data);
       if (buf.length > 5 * 1024 * 1024) throw new Error(`Response too large (${(buf.length / 1024 / 1024).toFixed(1)}MB, max 5MB)`);
-      fs.writeFileSync(fullPath, buf);
-      if (!fs.existsSync(fullPath)) throw new Error("No output file created.");
-      return { content: [{ type: "text", text: `Snapshot captured: ${fullPath}` }] };
-    } catch (e) { return { content: [{ type: "text", text: `Snapshot failed: ${e.message}` }], isError: true }; }
+      const mimeType = ct.includes('png') ? 'image/png' : 'image/jpeg';
+      return {
+        content: [{
+          type: "image",
+          data: buf.toString('base64'),
+          mimeType
+        }],
+        _meta: { camera: { id: cam.id, name: cam.name, location: cam.location, category: cam.category } }
+      };
+    } catch (e) { return { content: [{ type: "text", text: JSON.stringify({ error: "Snapshot failed", message: e.message, camera: cam.name, id: cam.id }) }], isError: true }; }
   }
 );
 
 // REGISTRY TOOLS
-server.tool("list_webcams", "List all registered webcams.", {}, async () => {
+server.tool("list_webcams", "List all registered public webcams. Returns cameras as a JSON array with id, name, location, category, and auth status. Use this to discover available cameras before calling get_webcam_snapshot.", { location: z.string().optional().describe("Filter by location (e.g. 'London', 'Manhattan')"), category: z.string().optional().describe("Filter by category: city, park, highway, airport, port, weather, nature, landmark, other") }, async ({ location, category }) => {
   const all = [...CURATED_WEBCAMS, ...getCommunityData()];
+  if (all.length === 0) return { content: [{ type: "text", text: JSON.stringify({ version: VERSION, total: 0, cameras: [], message: "Registry is empty. Use draft_webcam to add entries." }) }] };
+
   const logs = getValidationLog();
-  if (all.length === 0) return { content: [{ type: "text", text: `v${VERSION} — Registry is empty. Use draft_webcam to add entries.` }] };
+  let filtered = all;
+  if (location) filtered = filtered.filter(c => (c.location || "").toLowerCase().includes(location.toLowerCase()));
+  if (category) filtered = filtered.filter(c => (c.category || "") === category);
+
+  const cameras = filtered.map(c => ({
+    id: c.id,
+    name: c.name,
+    location: c.location || "Unknown",
+    category: c.category || "other",
+    timezone: c.timezone || null,
+    verified: c.verified || false,
+    status: logs[c.id]?.status || "active",
+    auth_required: c.auth?.key_required || false,
+  }));
 
   const locations = {};
-  for (const c of all) {
-    const loc = c.location || "Unknown";
-    locations[loc] = (locations[loc] || 0) + 1;
-  }
+  for (const c of all) { const loc = c.location || "Unknown"; locations[loc] = (locations[loc] || 0) + 1; }
 
-  const locSummary = Object.entries(locations).sort((a, b) => b[1] - a[1])
-    .map(([loc, count]) => `  ${loc}: ${count}`)
-    .join("\n");
-
-  const authRequired = all.filter(c => c.auth?.key_required).length;
-  const authInfo = authRequired > 0 ? `\n\nAuth-required cameras: ${authRequired}` : "";
-
-  const list = all.map(c => {
-    const icon = (logs[c.id]?.status || "active") === "active" ? "+" : "-";
-    const lock = c.auth?.key_required ? " [KEY]" : "";
-    return `${icon} ${c.name} (${c.location}) — ID: ${c.id} [${c.category || "uncategorized"}]${lock}`;
-  }).join("\n");
-
-  return { content: [{ type: "text", text: `v${VERSION} Registry (${all.length} cameras):\n\n${locSummary}${authInfo}\n\n${list}` }] };
+  return { content: [{ type: "text", text: JSON.stringify({ version: VERSION, total: all.length, shown: cameras.length, locations, cameras }, null, 2) }] };
 });
 
-server.tool("search_webcams", "Search registry by name or location.", { query: z.string() }, async ({ query }) => {
+server.tool("search_webcams", "Search webcams by name, location, or category. Returns matching cameras as a JSON array. Use when the user asks about cameras in a specific place or of a specific type.", { query: z.string().describe("Search term — matches against camera name, location, and category") }, async ({ query }) => {
   const all = [...CURATED_WEBCAMS, ...getCommunityData()];
-  const results = all.filter(c => c.name.toLowerCase().includes(query.toLowerCase()) || c.location.toLowerCase().includes(query.toLowerCase()));
-  if (results.length === 0) return { content: [{ type: "text", text: `No results for "${query}".` }] };
-  return { content: [{ type: "text", text: JSON.stringify(results, null, 2) }] };
+  const q = query.toLowerCase();
+  const results = all.filter(c =>
+    c.name.toLowerCase().includes(q) ||
+    (c.location || "").toLowerCase().includes(q) ||
+    (c.category || "").toLowerCase().includes(q)
+  );
+  if (results.length === 0) return { content: [{ type: "text", text: JSON.stringify({ query, total: 0, cameras: [] }) }] };
+  const cameras = results.map(c => ({
+    id: c.id,
+    name: c.name,
+    location: c.location || "Unknown",
+    category: c.category || "other",
+    timezone: c.timezone || null,
+    verified: c.verified || false,
+    auth_required: c.auth?.key_required || false,
+  }));
+  return { content: [{ type: "text", text: JSON.stringify({ query, total: cameras.length, cameras }, null, 2) }] };
 });
 
 // DRAFT TOOLS
-server.tool("draft_webcam", "Add a local unverified webcam entry.", {
-  name: z.string(),
-  url: z.string().url(),
-  location: z.string(),
-  timezone: z.string(),
-  category: z.string().optional(),
+server.tool("draft_webcam", "Add a new webcam to the local community registry. The webcam URL must return a JPEG or PNG image on a plain HTTP GET. The entry is stored locally and not verified automatically — use get_webcam_snapshot to test it after drafting.", {
+  name: z.string().describe("Human-readable camera name"),
+  url: z.string().url().describe("Direct image URL — must return JPEG or PNG on HTTP GET"),
+  location: z.string().describe("Location description (e.g. 'Manhattan, New York, USA')"),
+  timezone: z.string().describe("IANA timezone (e.g. 'America/New_York', 'Europe/London')"),
+  category: z.enum(["city", "park", "highway", "airport", "port", "weather", "nature", "landmark", "other"]).optional().describe("Camera category"),
   auth_provider: z.string().optional().describe("Provider name if API key is needed (e.g. 'Transport for London')"),
   auth_signup_url: z.string().optional().describe("URL to register for API key"),
-  auth_key_required: z.boolean().optional().describe("Whether the image URL requires an API key"),
+  auth_key_required: z.boolean().optional().describe("Whether the image URL requires an API key at fetch time"),
   auth_key_type: z.enum(["query_params", "header"]).optional().describe("How to inject the key"),
   auth_key_names: z.array(z.string()).optional().describe("Query param or header names for the key"),
   auth_config_key: z.string().optional().describe("Key name to use in ~/.openeagleeye/config.json"),
@@ -5379,26 +5394,26 @@ server.tool("draft_webcam", "Add a local unverified webcam entry.", {
 
   community.push(entry);
   saveRegistry(community);
-  return { content: [{ type: "text", text: `Drafted: ${camFields.name} (ID: ${id})${entry.auth ? ' [auth-required]' : ''}` }] };
+  return { content: [{ type: "text", text: JSON.stringify({ success: true, id, name: camFields.name, url: camFields.url, auth_required: entry.auth?.key_required || false, message: "Camera drafted locally. Use get_webcam_snapshot to test." }) }] };
 });
 
-server.tool("draft_webcam_report", "Save a local health report for a webcam.", {
-  cam_id: z.string(),
-  status: z.enum(["active", "offline", "broken_link", "low_quality"]),
-  notes: z.string().optional()
+server.tool("draft_webcam_report", "Report a webcam issue (broken link, offline, low quality). Saves the report locally. Use when a snapshot fails or shows unexpected content.", {
+  cam_id: z.string().describe("Camera ID to report"),
+  status: z.enum(["active", "offline", "broken_link", "low_quality"]).describe("Current status of the camera"),
+  notes: z.string().optional().describe("Additional details about the issue")
 }, async ({ cam_id, status, notes }) => {
   const cam = findWebcam(cam_id);
-  if (cam && isNighttimeAt(cam.timezone)) return { content: [{ type: "text", text: "Report blocked: nighttime at webcam location." }], isError: true };
+  if (cam && isNighttimeAt(cam.timezone)) return { content: [{ type: "text", text: JSON.stringify({ error: "Report blocked: nighttime at webcam location", camera: cam.name, timezone: cam.timezone }) }], isError: true };
   const logs = getValidationLog();
   logs[cam_id] = { status, notes, timestamp: new Date().toISOString() };
   saveLog(logs);
-  return { content: [{ type: "text", text: `Report saved for ${cam_id}.` }] };
+  return { content: [{ type: "text", text: JSON.stringify({ success: true, cam_id, status, notes: notes || null, timestamp: logs[cam_id].timestamp }) }] };
 });
 
 // --- CONFIG TOOL ---
-server.tool("get_config_info", "Show current configuration and API key status.", {}, async () => {
+server.tool("get_config_info", "Check API key configuration status. Returns which cameras require keys and whether those keys are configured in ~/.openeagleeye/config.json. Use when a snapshot fails with an API key error.", {}, async () => {
   const config = getUserConfig();
-  const apiKeys = config.api_keys || {};
+  const apiKeys = getUserApiKeys();
   const all = [...CURATED_WEBCAMS, ...getCommunityData()];
 
   const authCams = all.filter(c => c.auth?.key_required);
@@ -5407,32 +5422,24 @@ server.tool("get_config_info", "Show current configuration and API key status.",
     const hasKey = configKey && apiKeys[configKey];
     return {
       camera: c.name,
+      id: c.id,
       provider: c.auth.provider,
       config_key: configKey,
-      key_set: hasKey || false,
+      key_set: !!hasKey,
       signup_url: c.auth.signup_url,
     };
   });
 
-  const info = [
-    `Config: ${USER_CONFIG_PATH}`,
-    `API keys configured: ${Object.keys(apiKeys).length}`,
-    `Auth-required cameras: ${authCams.length}`,
-  ];
-
-  if (status.length > 0) {
-    info.push("", "Auth status:");
-    for (const s of status) {
-      const icon = s.key_set ? "+" : "-";
-      info.push(`  ${icon} ${s.camera} (${s.provider}) — key: ${s.config_key || "none"} ${s.key_set ? "SET" : "MISSING"}`);
-    }
-  }
-
-  return { content: [{ type: "text", text: info.join("\n") }] };
+  return { content: [{ type: "text", text: JSON.stringify({
+    config_path: USER_CONFIG_PATH,
+    api_keys_configured: Object.keys(apiKeys).length,
+    auth_required_cameras: status.length,
+    cameras: status,
+  }, null, 2) }] };
 });
 
 // --- SYNC ---
-server.tool("sync_registry", "Sync community data from GitHub.", {}, async () => {
+server.tool("sync_registry", "Pull the latest community webcam registry from GitHub. Overwrites local community-registry.json and validation-log.json with upstream data. Use to get new cameras added by others.", {}, async () => {
   try {
     const [reg, logs] = await Promise.all([
       axios.get(`${GITHUB_RAW_BASE}/community-registry.json`),
@@ -5441,14 +5448,14 @@ server.tool("sync_registry", "Sync community data from GitHub.", {}, async () =>
     if (!Array.isArray(reg.data)) throw new Error("Invalid registry data: expected array");
     if (typeof logs.data !== "object" || Array.isArray(logs.data)) throw new Error("Invalid log data: expected object");
     saveRegistry(reg.data); saveLog(logs.data);
-    return { content: [{ type: "text", text: "Registry synced." }] };
+    return { content: [{ type: "text", text: JSON.stringify({ success: true, cameras_synced: reg.data.length, source: GITHUB_RAW_BASE }) }] };
   } catch (e) { return { content: [{ type: "text", text: `Sync failed: ${e.message}` }], isError: true }; }
 });
 
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error(`Eagle Eye v${VERSION}`);
+  console.error(`Open Eagle Eye v${VERSION}`);
 }
 
 main().catch(console.error);
