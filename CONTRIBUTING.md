@@ -68,6 +68,8 @@ Current sources in the registry:
 | Regional NSW | NSW Live Traffic | 44 | None |
 | Singapore | LTA Traffic Images API | 90 | None |
 | Ontario | MTO 511 API | 923 | None |
+| Alberta | Alberta 511 API | 369 | None |
+| Washington | WSDOT KML feed | 1,654 | None |
 
 ## Code contributions
 

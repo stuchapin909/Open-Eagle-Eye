@@ -48,7 +48,7 @@ A valid webcam URL is any endpoint that returns a JPEG or PNG on a plain HTTP GE
 
 ### Filtering
 
-Every camera has a `city` field. Use `list_webcams` with `city: "Sydney"` to get a short, focused list instead of dumping all cameras into context. Available cities: London, New York, Sydney, Singapore, Toronto, and others.
+Every camera has a `city` field. Use `list_webcams` with `city: "Sydney"` to get a short, focused list instead of dumping all cameras into context. Available cities: London, New York, Sydney, Singapore, Toronto, Calgary, Spokane, and others.
 
 ### Output format
 
@@ -73,13 +73,15 @@ Every tool returns structured JSON. Snapshots save to disk and return the file p
 
 ## Registry
 
-**1,734 cameras** across four countries:
+**3,757 cameras** across five countries:
 - 424 London TfL JamCams (all boroughs)
 - 100 NYC TMC traffic cams (all 5 boroughs)
  - 153 Sydney metro traffic cams
 - 44 Regional NSW traffic cams
 - 90 Singapore LTA traffic cams
 - 923 Ontario MTO traffic cams
+- 369 Alberta 511 traffic cams
+- 1,654 WSDOT traffic cams (Washington State)
 
 Every camera has `city`, `location`, `timezone`, and `coordinates` (lat/lng). Cameras live in `cameras.json` — one file, one source of truth.
 
