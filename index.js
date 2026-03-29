@@ -199,7 +199,7 @@ server.tool(
     const fullPath = path.join(SNAPSHOTS_DIR, filename);
 
     try {
-      const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024 });
+      const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024, maxRedirects: 0 });
       const ct = response.headers['content-type'] || "";
       // Strict content-type: only jpeg and png
       if (!ALLOWED_CONTENT_TYPES.some(t => ct.includes(t))) throw new Error(`Rejected content-type: ${ct} (only image/jpeg and image/png allowed)`);

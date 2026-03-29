@@ -172,6 +172,7 @@ async function checkUrl(urlStr) {
       responseType: 'arraybuffer',
       maxContentLength: 5 * 1024 * 1024,
       maxBodyLength: 5 * 1024 * 1024,
+      maxRedirects: 0,
     });
     const ct = resp.headers['content-type'] || "";
     const data = Buffer.from(resp.data);
