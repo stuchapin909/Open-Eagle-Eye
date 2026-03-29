@@ -26,6 +26,7 @@
     "validate-registry.js",
     "AGENT-GUIDE.md",
     "README.md",
+    "CONTRIBUTING.md",
     "LICENSE"
   ],
   "dependencies": {

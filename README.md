@@ -1,5 +1,8 @@
 # Eagle Eye
 
+[![Registry Validator](https://github.com/stuchapin909/Eagle-Eye/actions/workflows/validate-registry.yml/badge.svg)](https://github.com/stuchapin909/Eagle-Eye/actions/workflows/validate-registry.yml)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue)
+
 Instant webcam snapshots from public cameras worldwide. One HTTP GET, sub-second captures, no API keys, no browser automation.
 
 ## Quick start
