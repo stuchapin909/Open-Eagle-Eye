@@ -66,6 +66,8 @@ Current sources in the registry:
 | New York | NYC TMC API | 100 | None |
 | Sydney | NSW Live Traffic | 153 | None |
 | Regional NSW | NSW Live Traffic | 44 | None |
+| Singapore | LTA Traffic Images API | 90 | None |
+| Ontario | MTO 511 API | 923 | None |
 
 ## Code contributions
 

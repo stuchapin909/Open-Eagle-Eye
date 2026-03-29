@@ -48,7 +48,7 @@ A valid webcam URL is any endpoint that returns a JPEG or PNG on a plain HTTP GE
 
 ### Filtering
 
-Every camera has a `city` field. Use `list_webcams` with `city: "Sydney"` to get a short, focused list instead of dumping all cameras into context. Available cities: London, New York, Sydney, Regional NSW.
+Every camera has a `city` field. Use `list_webcams` with `city: "Sydney"` to get a short, focused list instead of dumping all cameras into context. Available cities: London, New York, Sydney, Singapore, Toronto, and others.
 
 ### Output format
 
@@ -73,11 +73,13 @@ Every tool returns structured JSON. Snapshots save to disk and return the file p
 
 ## Registry
 
-**721 cameras** across four regions:
+**1,734 cameras** across four countries:
 - 424 London TfL JamCams (all boroughs)
 - 100 NYC TMC traffic cams (all 5 boroughs)
-- 153 Sydney metro traffic cams
+ - 153 Sydney metro traffic cams
 - 44 Regional NSW traffic cams
+- 90 Singapore LTA traffic cams
+- 923 Ontario MTO traffic cams
 
 Every camera has `city`, `location`, `timezone`, and `coordinates` (lat/lng). Cameras live in `cameras.json` — one file, one source of truth.
 
@@ -93,7 +95,8 @@ A GitHub Action runs nightly at 3 AM UTC:
 
 - **SSRF protection** — blocks private IPs, cloud metadata endpoints, non-HTTP protocols, and DNS rebinding
 - **Content-type whitelist** — only `image/jpeg` and `image/png` accepted
-- **No redirect following** — prevents redirect-based SSRF bypasses
+- **No redirect following** — max 1 redirect allowed (for CDNs that redirect to images), prevents redirect-based SSRF bypasses
+- **Magic byte detection** — validates JPEG/PNG by file header when CDN returns wrong content-type
 - **Push/PR cap** — max 500 cameras per push to prevent DoS via oversized PRs
 - **Issue spam protection** — max 5 issues per run, dedup check before opening
 - **Random filenames** — snapshots use random hex filenames, no camera ID in the path

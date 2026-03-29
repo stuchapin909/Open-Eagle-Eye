@@ -127,6 +127,14 @@ const HUMAN_HEADERS = {
   'Sec-Fetch-Site': 'cross-site'
 };
 
+// --- Magic byte detection for CDNs that return wrong content-type ---
+function detectImageType(buffer) {
+  if (buffer.length < 4) return null;
+  if (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) return "image/jpeg";
+  if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) return "image/png";
+  return null;
+}
+
 async function validateImageUrl(url) {
   try {
     const resp = await axios.get(url, { timeout: 5000, headers: HUMAN_HEADERS, responseType: 'stream' });
@@ -199,11 +207,20 @@ server.tool(
     const fullPath = path.join(SNAPSHOTS_DIR, filename);
 
     try {
-      const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024, maxRedirects: 0 });
-      const ct = response.headers['content-type'] || "";
+      const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024, maxRedirects: 1 });
+      let ct = response.headers['content-type'] || "";
       // Strict content-type: only jpeg and png
-      if (!ALLOWED_CONTENT_TYPES.some(t => ct.includes(t))) throw new Error(`Rejected content-type: ${ct} (only image/jpeg and image/png allowed)`);
+      let isAllowed = ALLOWED_CONTENT_TYPES.some(t => ct.includes(t));
+      // Fallback: check magic bytes for CDNs with wrong content-type
       const buf = Buffer.from(response.data);
+      if (!isAllowed) {
+        const detected = detectImageType(buf);
+        if (detected) {
+          isAllowed = true;
+          ct = detected;
+        }
+      }
+      if (!isAllowed) throw new Error(`Rejected content-type: ${ct} (only image/jpeg and image/png allowed)`);
       if (buf.length > 5 * 1024 * 1024) throw new Error(`Response too large (${(buf.length / 1024 / 1024).toFixed(1)}MB, max 5MB)`);
       fs.writeFileSync(fullPath, buf);
       if (!fs.existsSync(fullPath)) throw new Error("No output file created.");

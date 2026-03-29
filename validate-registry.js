@@ -166,6 +166,16 @@ function validateSchema(entry, index) {
   return errors;
 }
 
+// --- Magic byte detection for CDNs that return wrong content-type ---
+function detectImageType(buffer) {
+  if (buffer.length < 4) return null;
+  // JPEG: FF D8 FF
+  if (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) return "image/jpeg";
+  // PNG: 89 50 4E 47
+  if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) return "image/png";
+  return null;
+}
+
 // --- URL liveness check ---
 async function checkUrl(urlStr) {
   // SSRF check first
@@ -181,12 +191,20 @@ async function checkUrl(urlStr) {
       responseType: 'arraybuffer',
       maxContentLength: 5 * 1024 * 1024,
       maxBodyLength: 5 * 1024 * 1024,
-      maxRedirects: 0,
+      maxRedirects: 1,
     });
     const ct = resp.headers['content-type'] || "";
     const data = Buffer.from(resp.data);
     // Strict content-type check: only jpeg and png
-    const isAllowedImage = ALLOWED_CONTENT_TYPES.some(t => ct.includes(t));
+    let isAllowedImage = ALLOWED_CONTENT_TYPES.some(t => ct.includes(t));
+    // Fallback: some CDNs return application/octet-stream for valid images — check magic bytes
+    if (!isAllowedImage) {
+      const detected = detectImageType(data);
+      if (detected) {
+        isAllowedImage = true;
+        ct = detected;
+      }
+    }
     return { ok: true, isImage: isAllowedImage, contentType: ct, size: data.length, status: resp.status, data };
   } catch (e) {
     return { ok: false, status: e.response?.status || 0, error: e.message.substring(0, 100) };
