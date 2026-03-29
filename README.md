@@ -1,15 +1,12 @@
 # open-public-cam
 
-An open-source MCP server for discovering and capturing snapshots from publicly accessible webcams. No API keys, no browser automation.
+An open-source MCP server for capturing snapshots from publicly accessible webcams. Direct-image only — one HTTP GET, sub-second captures. No API keys, no browser automation, no ffmpeg.
 
 ## How it works
 
-Two capture strategies, both fast:
+The server captures webcams by fetching URLs that return images directly (JPEG/PNG). No JavaScript rendering, no stream decoding, no heavy dependencies.
 
-- **direct_image** -- the URL returns a JPEG/PNG directly. One HTTP GET, sub-second.
-- **direct_stream** -- the URL is a stream (HLS, RTSP). ffmpeg grabs a single frame, a few seconds.
-
-No yt-dlp, no browser, no headless Chrome.
+A valid webcam URL is any endpoint that returns an image with `Content-Type: image/jpeg` or `image/png` on a plain HTTP GET.
 
 ## Installation
 
@@ -19,76 +16,60 @@ cd open-public-cam
 npm install
 ```
 
-### External dependencies
-
-Only ffmpeg is needed (for direct_stream captures):
-
-```bash
-# macOS
-brew install ffmpeg
-
-# Ubuntu/Debian
-sudo apt install ffmpeg
-
-# Windows — download from https://ffmpeg.org/
-```
-
-The server detects ffmpeg at startup. If missing, direct_stream captures will fail but direct_image still works.
+No external dependencies beyond Node.js and npm.
 
 ## MCP Tools
 
 ### `get_webcam_snapshot`
-Capture a live JPEG snapshot. Returns a local file path.
+Capture a live JPEG snapshot from a registered webcam. Returns a local file path.
 
 ### `list_webcams`
-List all webcams in the registry with status.
+List all webcams in the registry with status indicators.
 
 ### `search_webcams`
-Search registry by name or location.
-
-### `discover_webcams_by_location`
-Find webcams near a city using OpenStreetMap's Overpass API.
+Search the registry by name or location (case-insensitive).
 
 ### `draft_webcam`
-Create a local unverified webcam entry.
+Add a webcam entry to the local community registry. Unverified — no URL validation.
 
 ### `draft_webcam_report`
-Save a local health report (blocks at nighttime).
+Save a local health report for a webcam. Blocks reports during nighttime at the webcam's location.
 
 ### `submit_new_webcam_to_github`
-Submit a webcam via GitHub issue (validates URL first).
+Submit a webcam via GitHub issue. Validates that the URL returns an image before submitting.
 
 ### `submit_report_to_github`
 Report a broken webcam via GitHub issue.
 
 ### `sync_registry`
-Pull latest community data from GitHub.
+Pull latest community registry and validation data from GitHub.
 
 ## Registry
 
 Webcams live in two places:
 
-- **Curated list** (`CURATED_WEBCAMS` in index.js) -- verified, ships with the server
-- **Community registry** (`community-registry.json`) -- user-submitted, synced via GitHub
+- **Curated list** (in `index.js`) — verified, ships with the server
+- **Community registry** (`community-registry.json`) — user-submitted, synced via GitHub
 
-### Adding a webcam
+### Webcam schema
 
-```js
+```json
 {
-  id: "my-cam",
-  name: "My Webcam",
-  url: "https://example.com/webcam.jpg",  // direct JPEG URL
-  access_strategy: { type: "direct_image" },
-  category: "city",
-  location: "City, Country",
-  timezone: "Europe/London",
-  verified: true
+  "id": "my-cam",
+  "name": "My Webcam",
+  "url": "https://example.com/webcam.jpg",
+  "category": "city",
+  "location": "City, Country",
+  "timezone": "Europe/London",
+  "verified": true
 }
 ```
 
-Strategy types:
-- `direct_image` -- URL returns a JPEG/PNG image directly
-- `direct_stream` -- URL is a stream (HLS .m3u8, RTSP, etc.)
+Categories: `city`, `park`, `highway`, `airport`, `port`, `weather`, `nature`, `landmark`, `other`
+
+## For AI Agents
+
+See [AGENT-GUIDE.md](AGENT-GUIDE.md) for instructions on discovering and adding new webcam sources. Covers what makes a valid direct-image URL, common URL patterns, and how to verify sources before adding them.
 
 ## Ethical guidelines
 
