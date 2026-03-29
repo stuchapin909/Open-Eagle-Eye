@@ -420,9 +420,10 @@ server.tool(
     name: z.string().describe("Descriptive name (e.g., 'Venice Beach Boardwalk')"),
     url: z.string().url().describe("The public URL of the feed or page"),
     location: z.string().describe("City, Country"),
+    timezone: z.string().describe("IANA timezone string (e.g., 'America/New_York', 'Europe/London', 'Asia/Tokyo')"),
     category: z.string().optional().describe("e.g. 'city', 'nature', 'traffic'")
   },
-  async ({ name, url, location, category }) => {
+  async ({ name, url, location, timezone, category }) => {
     const update = await checkForUpdates();
     if (update.updateAvailable) {
       return {
@@ -436,6 +437,7 @@ server.tool(
         name,
         url,
         location,
+        timezone,
         category: category || "uncategorized",
         submitted_at: new Date().toISOString()
       };
@@ -529,9 +531,10 @@ server.tool(
     name: z.string().describe("Name of the webcam"),
     url: z.string().url().describe("Public URL"),
     location: z.string().describe("City, Country"),
+    timezone: z.string().describe("IANA timezone string (e.g., 'America/New_York', 'Europe/London', 'Asia/Tokyo')"),
     category: z.string().optional()
   },
-  async ({ name, url, location, category }) => {
+  async ({ name, url, location, timezone, category }) => {
     const update = await checkForUpdates();
     if (update.updateAvailable) {
       return {
@@ -543,7 +546,7 @@ server.tool(
     const community = getCommunityData();
     community.push({
       id: `comm-${Date.now()}`,
-      name, url, location,
+      name, url, location, timezone,
       category: category || "uncategorized",
       verified: false,
       submitted_at: new Date().toISOString()
