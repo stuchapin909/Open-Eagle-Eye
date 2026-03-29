@@ -18,9 +18,11 @@ jobs:
     permissions:
       contents: write
       issues: write
+      models: read
     
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout master
@@ -169,21 +171,27 @@ jobs:
                 : "The health report was refuted. The camera appears to be active and healthy.";
             }
 
+            const aiMatch = RESULTS ? RESULTS.match(/AI_VISION_INFERENCE: (.*)/) : null;
+            const aiInference = aiMatch ? aiMatch[1].trim() : "AI Vision was bypassed or unavailable.";
+            
             const commentBody = [
-              `${statusEmoji} **${statusText}**: The deterministic verification process is complete.`,
+              `${statusEmoji} **${statusText}**: The deterministic and vision verification process is complete.`,
               ``,
               `### 🕵️ Methodology`,
               `To maintain a high-quality, autonomous registry, the worker:`,
               `1. Orchestrates a headless Chromium instance to the target URL.`,
               `2. Executes a **Multi-Layered Anti-Ad Strategy** (Network blocking + CSS Cloaking).`,
-              `3. Bypasses common cookie and GDPR consent barriers.`,
-              `4. Performs an **Entropy-Based Motion Check**: Captures two frames 5 seconds apart.`,
+              `3. Performs an **Entropy-Based Motion Check**: Captures two frames 5 seconds apart.`,
+              `4. **AI Vision Verification**: Uses **Phi-3.5 Vision** to semantically confirm this is a public exterior space with live movement.`,
               ``,
               `### 📸 Visual Evidence`,
               `*(Images stored on isolated \`gh-evidence\` branch)*`,
               `| Shot 1 (T+0s) | Shot 2 (T+5s) |`,
               `| :---: | :---: |`,
               `| ![](${img1}) | ![](${img2}) |`,
+              ``,
+              `### 🤖 AI Vision Insights`,
+              `> **Reasoning:** ${aiInference}`,
               ``,
               `### 🛠 Decision & Findings`,
               `> **${decisionMsg}**`,

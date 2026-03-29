@@ -1,3 +1,4 @@
+import axios from "axios";
 import { chromium } from "playwright-chromium";
 import fs from "fs";
 import path from "path";
@@ -15,6 +16,48 @@ if (!fs.existsSync(EVIDENCE_DIR)) {
 function logFinding(msg) {
   fs.appendFileSync(RESULTS_FILE, msg + "\n");
   console.log(msg);
+}
+
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const MODEL_NAME = "Phi-3.5-vision-instruct"; // Native GitHub/Microsoft model optimized for reasoning
+
+async function performVisionCheck(shot1, shot2) {
+  if (!GITHUB_TOKEN) return { score: 1.0, reason: "skipped_no_token" };
+  
+  try {
+    const b64_1 = shot1.toString('base64');
+    const b64_2 = shot2.toString('base64');
+    
+    const response = await axios.post(
+      "https://models.inference.ai.azure.com/chat/completions",
+      {
+        model: MODEL_NAME,
+        messages: [
+          {
+            role: "user",
+            content: [
+              { type: "text", text: "Analyze these two frames from a potentially public webcam (taken 5 seconds apart). Is this a public exterior space (streets, park, beach, landmark)? Is it a live feed or a static placeholder/pre-roll ad? Give a decision (PASS/FAIL) and a brief reasoning." },
+              { type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64_1}` } },
+              { type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64_2}` } }
+            ]
+          }
+        ],
+        temperature: 0.1
+      },
+      { headers: { Authorization: `Bearer ${GITHUB_TOKEN}` } }
+    );
+    
+    const decision = response.data.choices[0].message.content;
+    logFinding(`AI_VISION_INFERENCE: ${decision.replace(/\n/g, ' ')}`);
+    return { 
+      active: decision.includes("PASS"), 
+      reason: decision.includes("PASS") ? "ai_verified_active" : "ai_rejected",
+      inference: decision
+    };
+  } catch (e) {
+    logFinding(`AI_VISION_ERROR: ${e.response?.status || e.message}`);
+    return null;
+  }
 }
 
 const AD_DOMAINS = [
@@ -113,25 +156,35 @@ async function verifyCam(url, issueNum = null) {
     let diffs = 0;
     const minLen = Math.min(shot1.length, shot2.length);
     for (let i = 0; i < minLen; i++) {
-      if (shot1[i] !== shot2[i]) diffs++;
+        if (shot1[i] !== shot2[i]) diffs++;
     }
     const diffRatio = diffs / minLen;
     const sizeRatio = Math.abs(shot1.length - shot2.length) / Math.max(shot1.length, shot2.length);
 
-    if (diffRatio < 0.005 && sizeRatio < 0.01) {
-      const reason = "static_image_or_placeholder";
-      logFinding(`REASON: ${reason}`);
-      logFinding(`PIXEL_DIFF_RATIO: ${(diffRatio * 100).toFixed(4)}%`);
-      logFinding(`FILE_SIZE_RATIO: ${(sizeRatio * 100).toFixed(4)}%`);
-      await browser.close();
-      return { active: false, reason };
+    // 1. Deterministic Result (Pixel Diff)
+    const deterministicActive = diffRatio >= 0.005 || sizeRatio >= 0.01;
+    logFinding(`DETERMINISTIC_PIXEL_DIFF: ${(diffRatio * 100).toFixed(4)}%`);
+    logFinding(`DETERMINISTIC_SIZE_DIFF: ${(sizeRatio * 100).toFixed(4)}%`);
+    
+    // 2. Vision Result (AI Semantic Reasoning)
+    let visionActive = deterministicActive;
+    let visionReason = null;
+    if (GITHUB_TOKEN) {
+      const visionResult = await performVisionCheck(shot1, shot2);
+      if (visionResult) {
+        visionActive = visionResult.active;
+        visionReason = visionResult.reason;
+      }
     }
 
-    const exists = await page.$(selector) || await page.$('video, img, canvas');
-    logFinding(`REASON: verified_active`);
-    logFinding(`PIXEL_DIFF_RATIO: ${(diffRatio * 100).toFixed(4)}%`);
+    const finalActive = visionActive; // AI has Veto/Rescue power
+    const finalReason = visionActive ? "verified_active" : (visionReason || "static_image_or_placeholder");
+
+    logFinding(`FINAL_DECISION: ${finalActive ? "ACTIVE" : "INACTIVE"}`);
+    logFinding(`REASON: ${finalReason}`);
+
     await browser.close();
-    return { active: !!exists };
+    return { active: finalActive, reason: finalReason };
   } catch (e) {
     logFinding(`REASON: execution_error`);
     logFinding(`ERROR_MSG: ${e.message}`);
