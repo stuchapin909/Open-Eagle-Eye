@@ -15,10 +15,7 @@ concurrency:
 
 jobs:
   worker:
-    if: |
-      github.event_name == 'schedule' ||
-      contains(github.event.issue.labels.*.name, 'webcam-report') ||
-      contains(github.event.issue.labels.*.name, 'webcam-submission')
+    # Build on push, but only run verify on schedule or specific issues
     runs-on: ubuntu-latest
     permissions:
       contents: write
