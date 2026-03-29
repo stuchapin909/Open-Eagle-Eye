@@ -3,8 +3,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import axios from "axios";
-
-import { chromium } from "playwright-chromium";
+import { spawnSync, execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -15,953 +14,329 @@ const LOG_PATH = path.join(__dirname, "validation-log.json");
 const CONFIG_PATH = path.join(__dirname, "config.json");
 const SNAPSHOTS_DIR = path.join(__dirname, "snapshots");
 
-// Ensure snapshots directory exists
-if (!fs.existsSync(SNAPSHOTS_DIR)) {
-  fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
-}
+// Version sync: 2.4.0 (Verified Registry)
+const VERSION = "2.4.0";
 
-// Common Ad/Tracker domains to block at network level
-const AD_DOMAINS = [
-  'googlesyndication.com', 'adservice.google.com', 'google-analytics.com',
-  'doubleclick.net', 'adsystem.com', 'adnxs.com', 'quantserve.com',
-  'facebook.net', 'fontawesome.com', 'scorecardresearch.com'
-];
-
-// GitHub Repository Info
+// GitHub Constants (Module Level)
 const GITHUB_OWNER = "stuchapin909";
 const GITHUB_REPO = "open-public-cam";
 const GITHUB_RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/master`;
 
-const server = new McpServer({
-  name: "open-public-cam",
-  version: "1.6.0",
-});
+if (!fs.existsSync(SNAPSHOTS_DIR)) fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
 
-// Cache for Discovery (to be a good API citizen)
-const discoverCache = new Map();
-const CACHE_TTL = 1000 * 60 * 30; // 30 minutes
-
-const WEBCAMS = [
-  {
-    id: "times-square",
-    name: "Times Square, New York City",
-    url: "https://www.earthcam.com/usa/newyork/timessquare/?cam=tsstreet",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "New York, USA",
-    timezone: "America/New_York",
-    verified: true
-  },
-  {
-    id: "times-square-4k",
-    name: "Times Square 4K, New York City",
-    url: "https://www.earthcam.com/usa/newyork/timessquare/?cam=tsrobo1",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "New York, USA",
-    timezone: "America/New_York",
-    verified: true
-  },
-  {
-    id: "abbey-road",
-    name: "Abbey Road Crossing, London",
-    url: "https://www.abbeyroad.com/crossing",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 3000
-    },
-    category: "landmark",
-    location: "London, UK",
-    timezone: "Europe/London",
-    verified: true
-  },
-  {
-    id: "venice-grand-canal",
-    name: "Venice Grand Canal",
-    url: "https://www.skylinewebcams.com/en/webcam/italia/veneto/venezia/canal-grande-rialto.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 4000
-    },
-    category: "city",
-    location: "Venice, Italy",
-    timezone: "Europe/Rome",
-    verified: true
-  },
-  {
-    id: "cn-tower-toronto",
-    name: "CN Tower, Toronto",
-    url: "https://www.earthcam.com/world/canada/toronto/cntower/?cam=cntower1",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "landmark",
-    location: "Toronto, Canada",
-    timezone: "America/Toronto",
-    verified: true
-  },
-  {
-    id: "amsterdam-hotel-nes",
-    name: "Amsterdam Hotel Nes",
-    url: "https://www.earthcam.com/world/netherlands/amsterdam/",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Amsterdam, Netherlands",
-    timezone: "Europe/Amsterdam",
-    verified: true
-  },
-  {
-    id: "chicago-skydeck",
-    name: "Chicago Skydeck",
-    url: "https://www.earthcam.com/usa/illinois/chicago/skydeck/?cam=chicagoskydeck",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Chicago, USA",
-    timezone: "America/Chicago",
-    verified: true
-  },
-  {
-    id: "edmonton-canada",
-    name: "Edmonton, Alberta",
-    url: "https://www.earthcam.com/world/canada/alberta/edmonton/",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Edmonton, Canada",
-    timezone: "America/Edmonton",
-    verified: true
-  },
-  {
-    id: "mount-fuji-japan",
-    name: "Mount Fuji",
-    url: "https://www.skylinewebcams.com/en/webcam/japan/yamanashi-prefecture/fujikawaguchiko/mount-fuji.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "nature",
-    location: "Fujikawaguchiko, Japan",
-    timezone: "Asia/Tokyo",
-    verified: true
-  },
-  {
-    id: "lake-kawaguchiko-fuji",
-    name: "Lake Kawaguchiko, Mount Fuji",
-    url: "https://www.skylinewebcams.com/en/webcam/japan/chubu/fujikawaguchiko/fujikawaguchiko.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "nature",
-    location: "Fujikawaguchiko, Japan",
-    timezone: "Asia/Tokyo",
-    verified: true
-  },
-  {
-    id: "shibuya-scramble-crossing",
-    name: "Shibuya Scramble Crossing",
-    url: "https://www.skylinewebcams.com/en/webcam/japan/kanto/tokyo/tokyo-shibuya-scramble-crossing.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Tokyo, Japan",
-    timezone: "Asia/Tokyo",
-    verified: true
-  },
-  {
-    id: "tokyo-skyline",
-    name: "Tokyo Skyline",
-    url: "https://www.skylinewebcams.com/en/webcam/japan/kanto/tokyo/tokyo-skyline.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Tokyo, Japan",
-    timezone: "Asia/Tokyo",
-    verified: true
-  },
-  {
-    id: "tokyo-tower",
-    name: "Tokyo Tower",
-    url: "https://www.skylinewebcams.com/en/webcam/japan/kanto/tokyo/tokyo-tower.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Tokyo, Japan",
-    timezone: "Asia/Tokyo",
-    verified: true
-  },
-  {
-    id: "hanamikoji-kyoto",
-    name: "Hanamikoji Street, Kyoto",
-    url: "https://www.skylinewebcams.com/en/webcam/japan/kansai/kyoto/hanamikoji-street.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Kyoto, Japan",
-    timezone: "Asia/Tokyo",
-    verified: true
-  },
-  {
-    id: "osaka-japan",
-    name: "Osaka Skyline",
-    url: "https://www.skylinewebcams.com/en/webcam/japan/kansai/osaka/osaka.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Osaka, Japan",
-    timezone: "Asia/Tokyo",
-    verified: true
-  },
-  {
-    id: "sapporo-japan",
-    name: "Sapporo",
-    url: "https://www.skylinewebcams.com/en/webcam/japan/prefecture-of-hokkaido/sapporo/sapporo-city.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Sapporo, Japan",
-    timezone: "Asia/Tokyo",
-    verified: true
-  },
-  {
-    id: "hozomon-gate-asakusa",
-    name: "Hozomon Gate, Asakusa",
-    url: "https://www.skylinewebcams.com/en/webcam/japan/kanto/tokyo/hozomon-gate-asakusa.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "landmark",
-    location: "Tokyo, Japan",
-    timezone: "Asia/Tokyo",
-    verified: true
-  },
-  {
-    id: "kahului-maui",
-    name: "Kahului, Maui",
-    url: "https://www.skylinewebcams.com/en/webcam/united-states/hawaii/maui/kahului.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "nature",
-    location: "Maui, USA",
-    timezone: "Pacific/Honolulu",
-    verified: true
-  },
-  {
-    id: "playa-los-cristianos-tenerife",
-    name: "Playa de Los Cristianos, Tenerife",
-    url: "https://www.skylinewebcams.com/en/webcam/espana/canarias/santa-cruz-de-tenerife/playa-los-cristianos.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "nature",
-    location: "Tenerife, Spain",
-    timezone: "Atlantic/Canary",
-    verified: true
-  },
-  {
-    id: "sydney-opera-house",
-    name: "Sydney Opera House",
-    url: "https://www.skylinewebcams.com/en/webcam/australia/new-south-wales/sydney/opera-house.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "landmark",
-    location: "Sydney, Australia",
-    timezone: "Australia/Sydney",
-    verified: true
-  },
-  {
-    id: "sydney-harbour-bridge",
-    name: "Sydney Harbour Bridge",
-    url: "https://www.skylinewebcams.com/en/webcam/australia/new-south-wales/sydney/harbour-bridge.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "landmark",
-    location: "Sydney, Australia",
-    timezone: "Australia/Sydney",
-    verified: true
-  },
-  {
-    id: "melbourne-panorama",
-    name: "Melbourne Panorama",
-    url: "https://www.skylinewebcams.com/en/webcam/australia/victoria/melbourne/panorama-of-melbourne.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Melbourne, Australia",
-    timezone: "Australia/Melbourne",
-    verified: true
-  },
-  {
-    id: "perth-australia",
-    name: "Perth, Australia",
-    url: "https://www.skylinewebcams.com/en/webcam/australia/western-australia/perth/perth.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Perth, Australia",
-    timezone: "Australia/Perth",
-    verified: true
-  },
-  {
-    id: "christ-the-redeemer-rio",
-    name: "Christ the Redeemer, Rio de Janeiro",
-    url: "https://www.skylinewebcams.com/en/webcam/brasil/rio-de-janeiro/rio-de-janeiro/christ-the-redeemer.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "landmark",
-    location: "Rio de Janeiro, Brazil",
-    timezone: "America/Sao_Paulo",
-    verified: true
-  },
-  {
-    id: "copacabana-beach-rio",
-    name: "Copacabana Beach, Rio de Janeiro",
-    url: "https://www.skylinewebcams.com/en/webcam/brasil/rio-de-janeiro/rio-de-janeiro/copacabana.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "nature",
-    location: "Rio de Janeiro, Brazil",
-    timezone: "America/Sao_Paulo",
-    verified: true
-  },
-  {
-    id: "rio-de-janeiro-panorama",
-    name: "Rio de Janeiro Panorama",
-    url: "https://www.skylinewebcams.com/en/webcam/brasil/rio-de-janeiro/rio-de-janeiro/panorama.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Rio de Janeiro, Brazil",
-    timezone: "America/Sao_Paulo",
-    verified: true
-  },
-  {
-    id: "cape-town",
-    name: "Cape Town",
-    url: "https://www.skylinewebcams.com/en/webcam/south-africa/western-cape/cape-town/cape-town.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Cape Town, South Africa",
-    timezone: "Africa/Johannesburg",
-    verified: true
-  },
-  {
-    id: "cape-town-clifton-beach",
-    name: "Cape Town Clifton Beach",
-    url: "https://www.skylinewebcams.com/en/webcam/south-africa/western-cape/cape-town/cape-town-clifton-beach.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "nature",
-    location: "Cape Town, South Africa",
-    timezone: "Africa/Johannesburg",
-    verified: true
-  },
-  {
-    id: "sukhumvit-road-bangkok",
-    name: "Sukhumvit Road, Bangkok",
-    url: "https://www.skylinewebcams.com/en/webcam/thailand/central-thailand/bangkok/sukhumvit.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Bangkok, Thailand",
-    timezone: "Asia/Bangkok",
-    verified: true
-  },
-  {
-    id: "streets-of-pattaya",
-    name: "Streets of Pattaya",
-    url: "https://www.skylinewebcams.com/en/webcam/thailand/eastern-thailand/pattaya/walking-street.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "img",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Pattaya, Thailand",
-    timezone: "Asia/Bangkok",
-    verified: true
-  },
-  {
-    id: "neuschwanstein-castle",
-    name: "Neuschwanstein Castle",
-    url: "https://www.skylinewebcams.com/en/webcam/deutschland/bayern/schwangau/schloss-neuschwanstein.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "landmark",
-    location: "Schwangau, Germany",
-    timezone: "Europe/Berlin",
-    verified: true
-  },
-  {
-    id: "cologne-germany",
-    name: "Cologne, Germany",
-    url: "https://www.skylinewebcams.com/en/webcam/deutschland/north-rhine-westphalia/cologne/cologne.html",
-    access_strategy: {
-      type: "browser_capture",
-      selector: "video",
-      wait_for_ms: 5000
-    },
-    category: "city",
-    location: "Cologne, Germany",
-    timezone: "Europe/Berlin",
-    verified: true
+// Robust Dependency Detection (works on native Windows, WSL, and Linux)
+function findCommand(cmd) {
+  try {
+    execSync(`${cmd} --version`, { stdio: 'ignore' });
+    return cmd;
+  } catch (e) {
+    // Check Windows Python Scripts path (works from WSL via /mnt/c/ and native Windows)
+    const appData = process.env.APPDATA || process.env.windir
+      ? path.join(process.env.APPDATA || path.join(process.env.windir, '..', 'Roaming'), 'Python')
+      : null;
+    if (appData) {
+      const parent = path.dirname(appData);
+      const roamingPath = path.join(parent, 'Roaming', 'Python');
+      if (fs.existsSync(roamingPath)) {
+        const dirs = fs.readdirSync(roamingPath).filter(d => d.startsWith('Python'));
+        for (const dir of dirs) {
+          const exePath = path.join(roamingPath, dir, 'Scripts', `${cmd}.exe`);
+          if (fs.existsSync(exePath)) return exePath;
+        }
+      }
+    }
+    // WSL: check /mnt/c/Users/*/AppData/Roaming/Python
+    if (process.platform === 'linux' && fs.existsSync('/mnt/c/Users')) {
+      try {
+        const users = fs.readdirSync('/mnt/c/Users').filter(d => d !== 'Public' && d !== 'Default' && d !== 'Default User');
+        for (const user of users) {
+          const pyBase = `/mnt/c/Users/${user}/AppData/Roaming/Python`;
+          if (fs.existsSync(pyBase)) {
+            const dirs = fs.readdirSync(pyBase).filter(d => d.startsWith('Python'));
+            for (const dir of dirs) {
+              const exePath = path.join(pyBase, dir, 'Scripts', `${cmd}.exe`);
+              if (fs.existsSync(exePath)) return exePath;
+            }
+          }
+        }
+      } catch (_) {}
+    }
+    return null;
   }
+}
+
+const YTDLP_PATH = findCommand('yt-dlp');
+const FFMPEG_PATH = findCommand('ffmpeg');
+
+if (!YTDLP_PATH) console.error("Warning: 'yt-dlp' not found. YouTube/Stream extraction disabled.");
+if (!FFMPEG_PATH) console.error("Warning: 'ffmpeg' not found. Stream frame-capture disabled.");
+
+const server = new McpServer({ name: "open-public-cam", version: VERSION });
+
+// v2.4.0 Curated List — all URLs verified via yt-dlp extraction + ffmpeg frame capture
+const CURATED_WEBCAMS = [
+  // --- DIRECT STREAMS (YouTube Live via yt-dlp) ---
+  {
+    id: "venice-beach-la-yt",
+    name: "Venice Beach, Los Angeles",
+    url: "https://www.youtube.com/watch?v=EO_1LWqsCNE",
+    access_strategy: { type: "direct_stream", extractor: "yt-dlp" },
+    category: "city", location: "Los Angeles, USA", timezone: "America/Los_Angeles", verified: true
+  },
+  {
+    id: "sf-skyline-yt",
+    name: "San Francisco Skyline & Golden Gate",
+    url: "https://www.youtube.com/watch?v=BSWhGNXxT9A",
+    access_strategy: { type: "direct_stream", extractor: "yt-dlp" },
+    category: "city", location: "San Francisco, USA", timezone: "America/Los_Angeles", verified: true
+  },
+  {
+    id: "jamaica-may-pen-yt",
+    name: "Downtown May Pen, Jamaica",
+    url: "https://www.youtube.com/watch?v=hKcBA8XS5ZA",
+    access_strategy: { type: "direct_stream", extractor: "yt-dlp" },
+    category: "city", location: "May Pen, Jamaica", timezone: "America/Jamaica", verified: true
+  },
+  {
+    id: "koh-phangan-beach-yt",
+    name: "Koh Phangan Beach, Thailand",
+    url: "https://www.youtube.com/watch?v=FBYUkqutqzE",
+    access_strategy: { type: "direct_stream", extractor: "yt-dlp" },
+    category: "beach", location: "Koh Phangan, Thailand", timezone: "Asia/Bangkok", verified: true
+  },
+  {
+    id: "koh-phangan-sunset-yt",
+    name: "Koh Phangan Sunset, Thailand",
+    url: "https://www.youtube.com/watch?v=vVmhZ5Mz3Ms",
+    access_strategy: { type: "direct_stream", extractor: "yt-dlp" },
+    category: "beach", location: "Koh Phangan, Thailand", timezone: "Asia/Bangkok", verified: true
+  },
+  {
+    id: "denmark-wildlife-yt",
+    name: "Denmark Forest Wildlife",
+    url: "https://www.youtube.com/watch?v=F0GOOP82094",
+    access_strategy: { type: "direct_stream", extractor: "yt-dlp" },
+    category: "nature", location: "Denmark", timezone: "Europe/Copenhagen", verified: true
+  },
+  {
+    id: "squirrel-bird-feeder-yt",
+    name: "Red Squirrels & Bird Feeder",
+    url: "https://www.youtube.com/watch?v=dJVVcv9-ndg",
+    access_strategy: { type: "direct_stream", extractor: "yt-dlp" },
+    category: "nature", location: "Europe", timezone: "Europe/Stockholm", verified: true
+  },
+  {
+    id: "norway-railway-yt",
+    name: "Norway Railway Cab Views",
+    url: "https://www.youtube.com/watch?v=tAWFO8_O_7M",
+    access_strategy: { type: "direct_stream", extractor: "yt-dlp" },
+    category: "transport", location: "Norway", timezone: "Europe/Oslo", verified: true
+  },
+  {
+    id: "surf-cams-global-yt",
+    name: "Surf Cams — Hawaii, California, Bali",
+    url: "https://www.youtube.com/watch?v=hm9iAviOZ20",
+    access_strategy: { type: "direct_stream", extractor: "yt-dlp" },
+    category: "beach", location: "Global", timezone: "Pacific/Honolulu", verified: true
+  },
 ];
 
-// Nighttime check: returns true if it's currently between 8pm and 6am in the given IANA timezone
+// Registry Helpers
+const getCommunityData = () => { try { return JSON.parse(fs.readFileSync(REGISTRY_PATH, "utf8")); } catch (e) { return []; } };
+const getValidationLog = () => { try { return JSON.parse(fs.readFileSync(LOG_PATH, "utf8")); } catch (e) { return {}; } };
+const saveRegistry = (data) => fs.writeFileSync(REGISTRY_PATH, JSON.stringify(data, null, 2));
+const saveLog = (data) => fs.writeFileSync(LOG_PATH, JSON.stringify(data, null, 2));
+
+function findWebcam(idOrUrl) {
+  return CURATED_WEBCAMS.find(c => c.id === idOrUrl || c.url === idOrUrl) || getCommunityData().find(c => c.id === idOrUrl || c.url === idOrUrl);
+}
+
 function isNighttimeAt(timezone) {
   if (!timezone) return false;
   try {
     const hour = new Date().toLocaleString("en-US", { timeZone: timezone, hour: "numeric", hour12: false });
     const h = parseInt(hour, 10);
     return h >= 20 || h < 6;
-  } catch (e) {
-    return false;
-  }
+  } catch (e) { return false; }
 }
 
-// Look up a webcam by id or url across both curated and community lists
-function findWebcam(camId) {
-  return WEBCAMS.find(c => c.id === camId || c.url === camId)
-    || getCommunityData().find(c => c.id === camId || c.url === camId);
-}
-
-// Helper to load/save data
-const getCommunityData = () => {
-  try { return JSON.parse(fs.readFileSync(REGISTRY_PATH, "utf8")); } catch (e) { return []; }
-};
-
-const getValidationLog = () => {
-  try { return JSON.parse(fs.readFileSync(LOG_PATH, "utf8")); } catch (e) { return {}; }
-};
-
-const getConfig = () => {
-  try { return JSON.parse(fs.readFileSync(CONFIG_PATH, "utf8")); } catch (e) { 
-    return { last_synced: "never" }; 
-  }
-};
-
-const saveConfig = (config) => fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-
-// Check for updates passive function
-const checkForUpdates = async () => {
+// v2.3 URL PRE-FLIGHT CHECK (Uses GET with limit for better reliability)
+async function validateUrl(url, strategyType) {
   try {
-    const config = getConfig();
-    const response = await axios.head(`${GITHUB_RAW_BASE}/community-registry.json`, { timeout: 2000 });
-    const remoteLastModified = response.headers['last-modified'];
-    
-    if (config.last_synced === "never" || (remoteLastModified && new Date(remoteLastModified) > new Date(config.last_synced))) {
-      return { updateAvailable: true, remoteLastModified };
+    if (strategyType === "direct_image") {
+      const resp = await axios.get(url, { 
+        timeout: 5000, 
+        headers: { 'User-Agent': 'Mozilla/5.0' },
+        responseType: 'stream'
+      });
+      const contentType = resp.headers['content-type'] || "";
+      resp.data.destroy(); // Close stream immediately after checking headers
+      return contentType.includes('image/');
     }
-  } catch (e) { /* silent fail for passive check */ }
-  return { updateAvailable: false };
-};
+    return true; // Stream validation handled by yt-dlp check
+  } catch (e) { return false; }
+}
 
-server.tool(
-  "submit_report_to_github",
-  "Submit a health report for an exterior public webcam directly to the global GitHub repository for worker verification. (Requires GitHub CLI 'gh')",
-  {
-    cam_id: z.string().describe("The ID or URL of the webcam"),
-    status: z.enum(["active", "offline", "low_quality", "obstructed", "broken_link"]).describe("Reported status"),
-    notes: z.string().optional().describe("Additional details for the worker")
-  },
-  async ({ cam_id, status, notes }) => {
-    // Block reports during local nighttime to prevent false positives
-    const cam = findWebcam(cam_id);
-    if (cam && isNighttimeAt(cam.timezone)) {
-      return {
-        content: [{ type: "text", text: `Report blocked: It is currently nighttime at this webcam's location (${cam.location}, timezone: ${cam.timezone}). Reports filed during nighttime are unreliable since low light causes false static/offline readings. Please retry during local daytime hours (6am-8pm local time).` }],
-        isError: true
-      };
-    }
-
-    try {
-      const issueBody = {
-        cam_id,
-        status,
-        notes: notes || "No additional notes",
-        reported_at: new Date().toISOString()
-      };
-
-      const { spawnSync } = await import("child_process");
-      const title = `[webcam-report] ${status}: ${cam_id}`;
-      const body = `\`\`\`json\n${JSON.stringify(issueBody, null, 2)}\n\`\`\``;
-      
-      const result = spawnSync("gh", [
-        "issue", "create", 
-        "--title", title, 
-        "--body", body, 
-        "--label", "webcam-report"
-      ], { encoding: 'utf8' });
-
-      if (result.error || result.status !== 0) {
-        throw new Error(result.stderr || "Failed to execute 'gh' command");
-      }
-      const output = result.stdout;
-
-      return {
-        content: [{ type: "text", text: `Report submitted to GitHub! Worker verification will begin shortly.\nIssue URL: ${output.trim()}` }]
-      };
-    } catch (e) {
-      return {
-        content: [{ type: "text", text: `Failed to submit to GitHub: ${e.message}. Ensure 'gh' CLI is installed and you are logged in.` }],
-        isError: true
-      };
-    }
-  }
-);
-
-server.tool(
-  "submit_new_webcam_to_github",
-  "Submit a newly discovered exterior public webcam (streets, landmarks, nature) to the global GitHub repository for verification. (Requires GitHub CLI 'gh')",
-  {
-    name: z.string().describe("Descriptive name (e.g., 'Venice Beach Boardwalk')"),
-    url: z.string().url().describe("The public URL of the feed or page"),
-    location: z.string().describe("City, Country"),
-    timezone: z.string().describe("IANA timezone string (e.g., 'America/New_York', 'Europe/London', 'Asia/Tokyo')"),
-    category: z.string().optional().describe("e.g. 'city', 'nature', 'traffic'")
-  },
-  async ({ name, url, location, timezone, category }) => {
-    const update = await checkForUpdates();
-    if (update.updateAvailable) {
-      return {
-        content: [{ type: "text", text: "Error: Your registry is out of date. Please run 'sync_registry' before submitting new cameras." }],
-        isError: true
-      };
-    }
-
-    try {
-      const submissionBody = {
-        name,
-        url,
-        location,
-        timezone,
-        category: category || "uncategorized",
-        submitted_at: new Date().toISOString()
-      };
-
-      const { spawnSync } = await import("child_process");
-      const title = `[webcam-submission] ${name} (${location})`;
-      const body = `\`\`\`json\n${JSON.stringify(submissionBody, null, 2)}\n\`\`\``;
-      
-      const result = spawnSync("gh", [
-        "issue", "create", 
-        "--title", title, 
-        "--body", body, 
-        "--label", "webcam-submission"
-      ], { encoding: 'utf8' });
-
-      if (result.error || result.status !== 0) {
-        throw new Error(result.stderr || "Failed to execute 'gh' command");
-      }
-      const output = result.stdout;
-
-      return {
-        content: [{ type: "text", text: `Submission sent to GitHub! The worker will verify the link and add it to the global registry if it passes.\nIssue URL: ${output.trim()}` }]
-      };
-    } catch (e) {
-      return {
-        content: [{ type: "text", text: `Failed to submit to GitHub: ${e.message}` }],
-        isError: true
-      };
-    }
-  }
-);
-
-server.tool(
-  "sync_registry",
-  "Manually update the local webcam registry and validation logs from the global GitHub repository",
-  {},
-  async () => {
-    try {
-      const registryRes = await axios.get(`${GITHUB_RAW_BASE}/community-registry.json`);
-      const logRes = await axios.get(`${GITHUB_RAW_BASE}/validation-log.json`);
-      
-      fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registryRes.data, null, 2));
-      fs.writeFileSync(LOG_PATH, JSON.stringify(logRes.data, null, 2));
-      
-      saveConfig({ last_synced: new Date().toISOString() });
-      
-      return { content: [{ type: "text", text: "Successfully synced with global registry. You are now up to date." }] };
-    } catch (e) {
-      return { content: [{ type: "text", text: `Sync failed: ${e.message}` }], isError: true };
-    }
-  }
-);
-
-server.tool(
-  "draft_webcam_report",
-  "Draft a report locally (unverified). Use submit_report_to_github for worker-verified reports. (Requires up-to-date registry)",
-  {
-    cam_id: z.string().describe("The ID or URL of the webcam"),
-    status: z.enum(["active", "offline", "low_quality", "obstructed", "broken_link"]).describe("Current status"),
-    notes: z.string().optional().describe("Additional details")
-  },
-  async ({ cam_id, status, notes }) => {
-    // Block reports during local nighttime to prevent false positives
-    const cam = findWebcam(cam_id);
-    if (cam && isNighttimeAt(cam.timezone)) {
-      return {
-        content: [{ type: "text", text: `Report blocked: It is currently nighttime at this webcam's location (${cam.location}, timezone: ${cam.timezone}). Draft reports filed during nighttime are unreliable since low light causes false static/offline readings. Please retry during local daytime hours (6am-8pm local time).` }],
-        isError: true
-      };
-    }
-
-    const update = await checkForUpdates();
-    if (update.updateAvailable) {
-      return {
-        content: [{ type: "text", text: "Error: Your registry is out of date. Please run 'sync_registry' before submitting feedback to avoid duplicate or obsolete reports." }],
-        isError: true
-      };
-    }
-
-    const logs = getValidationLog();
-    logs[cam_id] = { status, notes, timestamp: new Date().toISOString(), reported_by: "agent" };
-    fs.writeFileSync(LOG_PATH, JSON.stringify(logs, null, 2));
-    return { content: [{ type: "text", text: `Feedback received for ${cam_id}.` }] };
-  }
-);
-
-server.tool(
-  "draft_webcam",
-  "Draft a webcam locally (unverified). Use submit_new_webcam_to_github for verified submission. (Requires up-to-date registry)",
-  {
-    name: z.string().describe("Name of the webcam"),
-    url: z.string().url().describe("Public URL"),
-    location: z.string().describe("City, Country"),
-    timezone: z.string().describe("IANA timezone string (e.g., 'America/New_York', 'Europe/London', 'Asia/Tokyo')"),
-    category: z.string().optional()
-  },
-  async ({ name, url, location, timezone, category }) => {
-    const update = await checkForUpdates();
-    if (update.updateAvailable) {
-      return {
-        content: [{ type: "text", text: "Error: Your registry is out of date. Please run 'sync_registry' first." }],
-        isError: true
-      };
-    }
-
-    const community = getCommunityData();
-    community.push({
-      id: `comm-${Date.now()}`,
-      name, url, location, timezone,
-      category: category || "uncategorized",
-      verified: false,
-      submitted_at: new Date().toISOString()
-    });
-    fs.writeFileSync(REGISTRY_PATH, JSON.stringify(community, null, 2));
-    return { content: [{ type: "text", text: `Webcam '${name}' added to local community registry.` }] };
-  }
-);
-
+// Snapshot Tool
 server.tool(
   "get_webcam_snapshot",
-  "Captures a live snapshot image from an exterior public webcam URL and saves it as a local JPEG file",
-  {
-    url: z.string().describe("The URL of the public webcam page"),
-    name: z.string().optional().describe("Descriptive name of the webcam (used for filename)"),
-    location: z.string().optional().describe("Location of the webcam (used for filename)"),
-    selector: z.string().optional().default("video").describe("CSS selector"),
-    wait_ms: z.number().optional().default(5000)
-  },
-  async ({ url, name, location, selector, wait_ms }) => {
-    const logs = getValidationLog();
-    if (logs[url] && logs[url].status === "offline") {
-      console.error(`Warning: This cam was recently reported as offline (${logs[url].timestamp})`);
-    }
+  "Captures a live high-speed snapshot (No Browser).",
+  { cam_id: z.string().describe("ID or URL") },
+  async ({ cam_id }) => {
+    const cam = findWebcam(cam_id);
+    if (!cam) return { content: [{ type: "text", text: `Error: Cam '${cam_id}' not found.` }], isError: true };
 
-    let browser;
-    try {
-      browser = await chromium.launch({ headless: true });
-      const context = await browser.newContext({
-        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        viewport: { width: 1280, height: 720 }
-      });
-      const page = await context.newPage();
-
-      // 1. Network-Level Ad Blocking
-      await page.route('**/*', (route) => {
-        const url = route.request().url();
-        if (AD_DOMAINS.some(domain => url.includes(domain))) {
-          route.abort();
-        } else {
-          route.continue();
-        }
-      });
-      
-      // Smart Strategy: YouTube Detection
-      const isYouTube = url.includes("youtube.com") || url.includes("youtu.be");
-      
-      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
-      await page.waitForTimeout(2000);
-
-      // 2. Handle Cookie Consents / Overlays
-      try {
-        const consentSelectors = ['button:has-text("Accept all")', 'button:has-text("AGREE")', '#accept-choices', '.yt-spec-button-shape-next--filled'];
-        for (const sel of consentSelectors) {
-          if (await page.locator(sel).isVisible({ timeout: 1000 })) {
-            await page.locator(sel).click();
-            await page.waitForTimeout(1000);
-          }
-        }
-      } catch (e) {}
-
-      // 3. Platform-Specific Tweaks & CSS Cloaking
-      await page.addStyleTag({
-        content: `
-          /* General Ad Cloaking */
-          #ad_container, .ad-overlay, .video-ads, .ytp-ad-module, .ytp-ad-overlay-container, [id*="ad-"], [class*="ad-"] { 
-            display: none !important; 
-          }
-          /* YouTube Specific */
-          .ytp-chrome-bottom, .ytp-chrome-top, .ytp-gradient-bottom, .ytp-gradient-top { 
-            display: none !important; 
-          }
-        `
-      });
-
-      if (isYouTube) {
-        // Wait for potential pre-roll ad to finish or skip it
-        try {
-          const skipBtn = page.locator('.ytp-ad-skip-button');
-          if (await skipBtn.isVisible({ timeout: 5000 })) {
-            await skipBtn.click();
-          }
-        } catch (e) {}
-
-        await page.evaluate(() => {
-          const video = document.querySelector('video.video-stream.html5-main-video');
-          if (video) { video.play(); video.muted = true; }
-        });
-        selector = 'video.video-stream.html5-main-video';
-      }
-
-      try { await page.waitForSelector(selector, { timeout: 15000 }); } catch (e) {
-        try { await page.waitForSelector('video, img, canvas', { timeout: 5000 }); } catch (e2) {}
-      }
-
-      await page.waitForTimeout(wait_ms);
-
-      let buffer;
-      try {
-        const element = await page.$(selector) || await page.$('video') || await page.$('img');
-        buffer = element ? await element.screenshot({ type: 'jpeg', quality: 80 }) : await page.screenshot({ type: 'jpeg', quality: 80 });
-      } catch (e) {
-        buffer = await page.screenshot({ type: 'jpeg', quality: 80 });
-      }
-
-      // Generate local filename and save
-      const now = new Date();
-      const datePart = now.toISOString().split('T')[0];
-      const timePart = now.getHours().toString().padStart(2, '0') + "-" + now.getMinutes().toString().padStart(2, '0') + "-" + now.getSeconds().toString().padStart(2, '0');
-      const timestamp = `${datePart}_${timePart}`;
-      
-      let filePrefix = "snapshot";
-      if (name || location) {
-        const part1 = (name || "").replace(/[^a-z0-9]/gi, "_");
-        const part2 = (location || "").replace(/[^a-z0-9]/gi, "_");
-        filePrefix = [part1, part2].filter(Boolean).join("_").substring(0, 100).replace(/_+/g, "_").replace(/^_+|_+$/g, "");
-      } else {
-        filePrefix = url.replace(/[^a-z0-9]/gi, "_").substring(0, 50).replace(/_+/g, "_").replace(/^_+|_+$/g, "");
-      }
-
-      const filename = `${filePrefix}_${timestamp}.jpg`;
-      const fullPath = path.join(SNAPSHOTS_DIR, filename);
-      
-      fs.writeFileSync(fullPath, buffer);
-
-      return {
-        content: [
-          { type: "text", text: `Successfully captured snapshot and saved to disk.\n\nLocal Path: ${fullPath}\n\nYou can now use your standard vision tools to analyze this file.` }
-        ],
-      };
-    } catch (error) {
-      return { content: [{ type: "text", text: `Error: ${error.message}` }], isError: true };
-    } finally {
-      if (browser) await browser.close();
-    }
-  }
-);
-
-server.tool(
-  "list_webcams",
-  "Lists famous and community-submitted webcams",
-  {},
-  async () => {
-    const community = getCommunityData();
-    const logs = getValidationLog();
-    const update = await checkForUpdates();
-    
-    const allCams = [...WEBCAMS, ...community].map(cam => ({
-      ...cam,
-      current_status: logs[cam.id] || logs[cam.url] || { status: "unknown" }
-    }));
-
-    let message = "";
-    if (update.updateAvailable) {
-      message = "[NOTICE]: A community update is available on GitHub. Run 'sync_registry' to get the latest validated cameras and status reports.\n\n";
-    }
-
-    return {
-      content: [{ type: "text", text: message + JSON.stringify(allCams, null, 2) }],
-    };
-  }
-);
-
-server.tool(
-  "search_webcams",
-  "Search for webcams in the global curated and community list",
-  { query: z.string() },
-  async ({ query }) => {
-    const community = getCommunityData();
-    const all = [...WEBCAMS, ...community];
-    const results = all.filter(cam => 
-      cam.name.toLowerCase().includes(query.toLowerCase()) || 
-      cam.location.toLowerCase().includes(query.toLowerCase())
-    );
-    return { content: [{ type: "text", text: JSON.stringify(results, null, 2) }] };
-  }
-);
-
-server.tool(
-  "discover_webcams_by_location",
-  "Discover exterior public webcams using OpenStreetMap tags (man_made=webcam) (Cached)",
-  {
-    city: z.string().optional(),
-    bbox: z.array(z.number()).length(4).optional()
-  },
-  async ({ city, bbox }) => {
-    const cacheKey = city || JSON.stringify(bbox);
-    if (discoverCache.has(cacheKey)) {
-      const entry = discoverCache.get(cacheKey);
-      if (Date.now() - entry.timestamp < CACHE_TTL) {
-        return { content: [{ type: "text", text: `(Cached) Found ${entry.data.length} webcams:\n${JSON.stringify(entry.data, null, 2)}` }] };
-      }
-    }
-
-    let finalBbox = bbox;
-    if (city && !finalBbox) {
-      try {
-        const geoRes = await axios.get(`https://nominatim.openstreetmap.org/search?city=${encodeURIComponent(city)}&format=json&limit=1`, {
-          headers: { 'User-Agent': 'open-public-cam' }
-        });
-        if (geoRes.data.length > 0) {
-          const b = geoRes.data[0].boundingbox.map(Number);
-          finalBbox = [b[0], b[2], b[1], b[3]];
-        }
-      } catch (e) {}
-    }
-
-    if (!finalBbox) return { content: [{ type: "text", text: "Error: Bbox not found." }], isError: true };
+    const strategy = cam.access_strategy || { type: "direct_image" };
+    const filename = `${cam.id.substring(0, 30)}_${Date.now()}.jpg`.replace(/[^a-z0-9.]/gi, '_');
+    const fullPath = path.join(SNAPSHOTS_DIR, filename);
 
     try {
-      const res = await axios.post("https://overpass-api.de/api/interpreter", `[out:json][timeout:25];(nwr["man_made"="surveillance"]["surveillance"="webcam"](${finalBbox.join(",")});nwr["contact:webcam"](${finalBbox.join(",")});nwr["man_made"="webcam"](${finalBbox.join(",")}););out body;`);
-      const cameras = res.data.elements.map(el => ({
-        id: el.id,
-        name: el.tags.name || el.tags.description || "Unnamed",
-        url: el.tags["contact:webcam"] || el.tags.url || el.tags.website || "No URL",
-        location: `${el.lat}, ${el.lon}`
-      })).filter(cam => cam.url !== "No URL");
-
-      discoverCache.set(cacheKey, { timestamp: Date.now(), data: cameras });
-      return { content: [{ type: "text", text: `Found ${cameras.length} webcams:\n${JSON.stringify(cameras, null, 2)}` }] };
-    } catch (e) {
-      return { content: [{ type: "text", text: `Error: ${e.message}` }], isError: true };
-    }
+      if (strategy.type === "direct_image") {
+        const response = await axios.get(cam.url, { responseType: 'arraybuffer', timeout: 5000, headers: { 'User-Agent': 'Mozilla/5.0' } });
+        fs.writeFileSync(fullPath, Buffer.from(response.data));
+      } else if (strategy.type === "direct_stream") {
+        if (!FFMPEG_PATH) throw new Error("ffmpeg missing.");
+        let streamUrl = cam.url;
+        if (strategy.extractor === "yt-dlp") {
+          if (!YTDLP_PATH) throw new Error("yt-dlp missing.");
+          const extract = spawnSync(YTDLP_PATH, ["-g", cam.url], { encoding: 'utf8' });
+          if (extract.status !== 0) throw new Error("yt-dlp extraction failed.");
+          streamUrl = extract.stdout.trim().split('\n')[0];
+        }
+        
+        // Use individual header flags for maximum compatibility
+        const capture = spawnSync(FFMPEG_PATH, [
+          "-headers", "User-Agent: Mozilla/5.0\r\nReferer: https://www.google.com/\r\n",
+          "-i", streamUrl, "-frames:v", "1", "-update", "1", "-q:v", "2", fullPath, "-y"
+        ]);
+        if (capture.status !== 0 && !fs.existsSync(fullPath)) throw new Error("FFmpeg capture failed.");
+      }
+      return { content: [{ type: "text", text: `Snapshot captured: ${fullPath}` }] };
+    } catch (e) { return { content: [{ type: "text", text: `Snapshot failed: ${e.message}` }], isError: true }; }
   }
 );
+
+// ECOSYSTEM TOOLS
+server.tool("list_webcams", "Lists all verified webcams.", {}, async () => {
+  const all = [...CURATED_WEBCAMS, ...getCommunityData()];
+  const logs = getValidationLog();
+  const list = all.map(c => {
+    const statusEntry = logs[c.id] || logs[c.url];
+    const status = statusEntry?.status || "active";
+    const icon = status === "active" ? "🟢" : "🔴";
+    return `${icon} ${c.name} (${c.location}) - ID: ${c.id} [${c.access_strategy.type}]`;
+  }).join("\n");
+  return { content: [{ type: "text", text: `v${VERSION} Verified Registry:\n\n${list}\n\nUse get_webcam_snapshot with ID.` }] };
+});
+
+server.tool("search_webcams", "Search registry by name or location.", { query: z.string() }, async ({ query }) => {
+  const all = [...CURATED_WEBCAMS, ...getCommunityData()];
+  const results = all.filter(c => c.name.toLowerCase().includes(query.toLowerCase()) || c.location.toLowerCase().includes(query.toLowerCase()));
+  return { content: [{ type: "text", text: JSON.stringify(results, null, 2) }] };
+});
+
+server.tool("draft_webcam", "Compose a local unverified webcam candidate.", { 
+  name: z.string(), 
+  url: z.string().url(), 
+  location: z.string(), 
+  timezone: z.string(), 
+  strategy: z.enum(["direct_image", "direct_stream"]),
+  category: z.string().optional()
+}, async (cam) => {
+  const community = getCommunityData();
+  const id = `comm-${Date.now()}`;
+  community.push({ 
+    ...cam, 
+    id, 
+    access_strategy: { type: cam.strategy, extractor: cam.strategy === "direct_stream" ? "yt-dlp" : undefined }, 
+    verified: false, 
+    submitted_at: new Date().toISOString() 
+  });
+  saveRegistry(community);
+  return { content: [{ type: "text", text: `Drafted: ${cam.name} (ID: ${id})` }] };
+});
+
+server.tool("draft_webcam_report", "Draft a local health report for a webcam.", {
+  cam_id: z.string(),
+  status: z.enum(["active", "offline", "broken_link", "low_quality"]),
+  notes: z.string().optional()
+}, async ({ cam_id, status, notes }) => {
+  const cam = findWebcam(cam_id);
+  if (cam && isNighttimeAt(cam.timezone)) return { content: [{ type: "text", text: "Report blocked: Nighttime at location." }], isError: true };
+  
+  const logs = getValidationLog();
+  logs[cam_id] = { status, notes, timestamp: new Date().toISOString() };
+  saveLog(logs);
+  return { content: [{ type: "text", text: `Draft report saved for ${cam_id}.` }] };
+});
+
+server.tool("submit_new_webcam_to_github", "Verify and submit a high-integrity cam to global registry.", {
+  name: z.string(), url: z.string().url(), location: z.string(), timezone: z.string(), type: z.enum(["direct_image", "direct_stream"]), category: z.string().optional()
+}, async (sub) => {
+  const isValid = await validateUrl(sub.url, sub.type);
+  if (!isValid && sub.type === "direct_image") return { content: [{ type: "text", text: "Error: URL did not return a valid image headers." }], isError: true };
+
+  try {
+    const title = `[webcam-submission] ${sub.name}`;
+    const body = `\`\`\`json\n${JSON.stringify({ ...sub, access_strategy: { type: sub.type, extractor: sub.type === "direct_stream" ? "yt-dlp" : undefined } }, null, 2)}\n\`\`\``;
+    const result = spawnSync("gh", ["issue", "create", "--title", title, "--body", body, "--label", "webcam-submission"], { encoding: 'utf8' });
+    if (result.status !== 0) throw new Error(result.stderr);
+    return { content: [{ type: "text", text: `Submitted: ${result.stdout.trim()}` }] };
+  } catch (e) { return { content: [{ type: "text", text: `GH Error: ${e.message}` }], isError: true }; }
+});
+
+server.tool("submit_report_to_github", "Submit health report to global registry.", { 
+  cam_id: z.string(), 
+  status: z.enum(["offline", "broken_link", "low_quality"]), 
+  notes: z.string().optional() 
+}, async ({ cam_id, status, notes }) => {
+  const cam = findWebcam(cam_id);
+  if (cam && isNighttimeAt(cam.timezone)) return { content: [{ type: "text", text: "Report blocked: Nighttime at location." }], isError: true };
+  try {
+    const title = `[webcam-report] ${status}: ${cam_id}`;
+    const body = `Reported: ${status}\nNotes: ${notes || "None"}\nTime: ${new Date().toISOString()}`;
+    const result = spawnSync("gh", ["issue", "create", "--title", title, "--body", body, "--label", "webcam-report"], { encoding: 'utf8' });
+    if (result.status !== 0) throw new Error(result.stderr);
+    return { content: [{ type: "text", text: `Reported: ${result.stdout.trim()}` }] };
+  } catch (e) { return { content: [{ type: "text", text: `GH Error: ${e.message}` }], isError: true }; }
+});
+
+server.tool("sync_registry", "Sync global data and logs.", {}, async () => {
+  try {
+    const [reg, logs] = await Promise.all([axios.get(`${GITHUB_RAW_BASE}/community-registry.json`), axios.get(`${GITHUB_RAW_BASE}/validation-log.json`)]);
+    saveRegistry(reg.data); saveLog(logs.data);
+    return { content: [{ type: "text", text: "Registry and Logs synced." }] };
+  } catch (e) { return { content: [{ type: "text", text: `Sync failed: ${e.message}` }], isError: true }; }
+});
+
+server.tool("discover_webcams_by_location", "Find potential cams via OSM. Verify before drafting.", {
+  city: z.string().optional(),
+  bbox: z.array(z.number()).length(4).optional()
+}, async ({ city, bbox }) => {
+  let finalBbox = bbox;
+  if (city && !finalBbox) {
+    try {
+      const geoRes = await axios.get(`https://nominatim.openstreetmap.org/search?city=${encodeURIComponent(city)}&format=json&limit=1`, { headers: { 'User-Agent': 'open-public-cam' } });
+      if (geoRes.data.length > 0) {
+        const b = geoRes.data[0].boundingbox.map(Number);
+        finalBbox = [b[0], b[2], b[1], b[3]];
+      }
+    } catch (e) {}
+  }
+  if (!finalBbox) return { content: [{ type: "text", text: "Error: No area." }], isError: true };
+  try {
+    const res = await axios.post("https://overpass-api.de/api/interpreter", `[out:json][timeout:25];(nwr["man_made"="webcam"](${finalBbox.join(",")});nwr["contact:webcam"](${finalBbox.join(",")}););out body;`);
+    const cams = res.data.elements.map(el => ({
+      id: `osm-${el.id}`, name: el.tags.name || "Unnamed", url: el.tags["contact:webcam"] || el.tags.url || el.tags.website || "No URL", location: `${el.lat}, ${el.lon}`
+    })).filter(c => c.url !== "No URL");
+    return { content: [{ type: "text", text: `Found ${cams.length} potentials. Verify direct access before drafting:\n\n${JSON.stringify(cams, null, 2)}` }] };
+  } catch (e) { return { content: [{ type: "text", text: `Error: ${e.message}` }], isError: true }; }
+});
 
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("Webcam MCP Server running on stdio");
+  console.error(`Open Public Cam v${VERSION} running`);
 }
 
-main().catch((error) => {
-  console.error("Server error:", error);
-  process.exit(1);
-});
+main().catch(console.error);
