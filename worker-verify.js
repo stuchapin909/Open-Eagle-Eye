@@ -45,7 +45,7 @@ async function verifyCam(url, isSubmission = false) {
     const spamKeywords = ['crypto', 'casino', 'pharmacy', 'viagra', 'ads', 'marketing', 'earn money', 'security', 'cctv', 'private', 'login', 'admin', 'password', 'protected'];
     if (spamKeywords.some(k => title.toLowerCase().includes(k))) {
       const reason = "spam_or_privacy_keywords";
-      fs.writeFileSync("worker-results.txt", `REASON: ${reason}\nTITLE: ${title}`);
+      console.log(`WORKER_RESULT: REASON=${reason} TITLE=${title}`);
       await browser.close();
       return { active: false, reason };
     }
@@ -100,17 +100,17 @@ async function verifyCam(url, isSubmission = false) {
 
     if (diffRatio < 0.005 && sizeRatio < 0.01) {
       const reason = "static_image";
-      fs.writeFileSync("worker-results.txt", `REASON: ${reason}\nDIFF_RATIO: ${(diffRatio * 100).toFixed(4)}%\nSIZE_RATIO: ${(sizeRatio * 100).toFixed(4)}%`);
+      console.log(`WORKER_RESULT: REASON=${reason} DIFF_RATIO=${(diffRatio * 100).toFixed(4)}% SIZE_RATIO=${(sizeRatio * 100).toFixed(4)}%`);
       await browser.close();
       return { active: false, reason };
     }
 
     const exists = await page.$(selector) || await page.$('video, img, canvas');
-    fs.writeFileSync("worker-results.txt", `REASON: verified_active\nDIFF_RATIO: ${(diffRatio * 100).toFixed(4)}%`);
+    console.log(`WORKER_RESULT: REASON=verified_active DIFF_RATIO=${(diffRatio * 100).toFixed(4)}%`);
     await browser.close();
     return { active: !!exists };
   } catch (e) {
-    fs.writeFileSync("worker-results.txt", `REASON: error\nERROR: ${e.message}`);
+    console.log(`WORKER_RESULT: REASON=error ERROR=${e.message}`);
     if (browser) await browser.close();
     return { active: false, reason: "timeout_or_error" };
   }
@@ -150,8 +150,7 @@ if (args[0] === "--batch") {
     const isDupLoc = registry.some(c => c.location === issueData.location && c.name === issueData.name);
     
     if (isDupUrl || isDupLoc) {
-      fs.writeFileSync("worker-results.txt", `REASON: duplicate_entry`);
-      console.log("REJECTED: Duplicate entry detected");
+      console.log("WORKER_RESULT: REASON=duplicate_entry");
       process.exit(1);
     }
   }

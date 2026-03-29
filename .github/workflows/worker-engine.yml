@@ -8,7 +8,6 @@ on:
 
 jobs:
   worker:
-    # Trigger if it's a scheduled run or an issue with specific labels
     if: |
       github.event_name == 'schedule' ||
       contains(github.event.issue.labels.*.name, 'webcam-report') ||
@@ -54,14 +53,10 @@ jobs:
         if: github.event_name == 'issues'
         id: verify
         run: |
-          node worker-verify.js '${{ steps.extract_json.outputs.DATA }}'
-          if [ -f worker-results.txt ]; then
-            echo "RESULTS<<EOF" >> $GITHUB_OUTPUT
-            cat worker-results.txt >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
-          else
-            echo "RESULTS=No detailed results found." >> $GITHUB_OUTPUT
-          fi
+          node worker-verify.js '${{ steps.extract_json.outputs.DATA }}' | tee worker-stdout.log
+          RESULTS=$(grep "WORKER_RESULT:" worker-stdout.log | cut -d':' -f2-)
+          if [ -z "$RESULTS" ]; then RESULTS="No detailed results captured."; fi
+          echo "RESULTS=$RESULTS" >> $GITHUB_OUTPUT
         continue-on-error: true
 
       - name: Commit Verified Changes
@@ -84,7 +79,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "✅ **Worker Verified**: The submission or report has been confirmed and merged into the global registry.\n\n**Technical Findings:**\n```\n" + results + "\n```"
+              body: "✅ **Worker Verified**: The submission or report has been confirmed and merged into the global registry.\n\n**Technical Findings:**\n```\n" + results.trim() + "\n```"
             });
             github.rest.issues.update({
               issue_number: context.issue.number,
@@ -105,7 +100,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "❌ **Worker Check Failed**: The webcam appears to be unreachable or invalid. Submission/Report rejected.\n\n**Technical Findings:**\n```\n" + results + "\n```"
+              body: "❌ **Worker Check Failed**: The webcam appears to be unreachable or invalid. Submission/Report rejected.\n\n**Technical Findings:**\n```\n" + results.trim() + "\n```"
             });
             github.rest.issues.update({
               issue_number: context.issue.number,
