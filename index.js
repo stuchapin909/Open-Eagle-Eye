@@ -5275,7 +5275,7 @@ function buildRequestConfig(cam) {
 // SNAPSHOT TOOL
 server.tool(
   "get_webcam_snapshot",
-  "Fetch a live snapshot from a registered public webcam. Returns the image as base64-encoded JPEG/PNG data that the agent can display or analyze. Use list_webcams or search_webcams first to find camera IDs.",
+  "Fetch a live snapshot from a registered public webcam. Saves the image as a JPEG/PNG file and returns the local path. The agent can then read or analyze the file. Use list_webcams or search_webcams first to find camera IDs. Note: the MCP server runs as a local subprocess, so file paths are accessible to the agent.",
   { cam_id: z.string().describe("Camera ID from list_webcams/search_webcams, or a direct image URL") },
   async ({ cam_id }) => {
     const cam = findWebcam(cam_id);
@@ -5286,21 +5286,24 @@ server.tool(
       return { content: [{ type: "text", text: JSON.stringify({ error: "API key required", details: config.error, camera: cam.name }) }], isError: true };
     }
 
+    const filename = `${cam.id.substring(0, 30)}_${Date.now()}.jpg`.replace(/[^a-z0-9.]/gi, '_');
+    const fullPath = path.join(SNAPSHOTS_DIR, filename);
+
     try {
       const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024 });
       const ct = response.headers['content-type'] || "";
       if (!ct.includes('image/')) throw new Error(`Not an image (content-type: ${ct})`);
       const buf = Buffer.from(response.data);
       if (buf.length > 5 * 1024 * 1024) throw new Error(`Response too large (${(buf.length / 1024 / 1024).toFixed(1)}MB, max 5MB)`);
-      const mimeType = ct.includes('png') ? 'image/png' : 'image/jpeg';
-      return {
-        content: [{
-          type: "image",
-          data: buf.toString('base64'),
-          mimeType
-        }],
-        _meta: { camera: { id: cam.id, name: cam.name, location: cam.location, category: cam.category } }
-      };
+      fs.writeFileSync(fullPath, buf);
+      if (!fs.existsSync(fullPath)) throw new Error("No output file created.");
+      return { content: [{ type: "text", text: JSON.stringify({
+        success: true,
+        file_path: fullPath,
+        size_bytes: buf.length,
+        content_type: ct.includes('png') ? 'image/png' : 'image/jpeg',
+        camera: { id: cam.id, name: cam.name, location: cam.location, category: cam.category }
+      }) }] };
     } catch (e) { return { content: [{ type: "text", text: JSON.stringify({ error: "Snapshot failed", message: e.message, camera: cam.name, id: cam.id }) }], isError: true }; }
   }
 );

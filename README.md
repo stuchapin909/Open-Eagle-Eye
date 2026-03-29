@@ -42,13 +42,16 @@ A valid webcam URL is any endpoint that returns a JPEG or PNG on a plain HTTP GE
 
 ### Output format
 
-Every tool returns structured JSON (or base64 images for snapshots). Agents can reliably parse responses without regexing text blobs.
+Every tool returns structured JSON. Agents can reliably parse responses without regexing text blobs. Snapshots save to disk and return the file path — the MCP server runs as a local subprocess, so the agent has filesystem access to read the file if it needs to analyze the image.
 
-**Snapshot response** — returns `type: "image"` with base64 data and metadata:
+**Snapshot response** — JSON with file path and metadata:
 ```json
 {
-  "content": [{ "type": "image", "data": "<base64>", "mimeType": "image/jpeg" }],
-  "_meta": { "camera": { "id": "...", "name": "...", "location": "..." } }
+  "success": true,
+  "file_path": "/path/to/snapshots/nyc_cam_1234.jpg",
+  "size_bytes": 14579,
+  "content_type": "image/jpeg",
+  "camera": { "id": "nyc-bb-21-...", "name": "BB-21 North Rdwy", "location": "Manhattan, New York, USA" }
 }
 ```
 
