@@ -1,58 +1,63 @@
-# open-public-cam
+# Eagle Eye
 
-An open-source MCP server for capturing snapshots from publicly accessible webcams. Direct-image only — one HTTP GET, sub-second captures. No API keys, no browser automation, no ffmpeg.
+Instant webcam snapshots from public cameras worldwide. One HTTP GET, sub-second captures, no API keys, no browser automation.
+
+## Quick start
+
+```bash
+npx eagleeye
+```
+
+Or install globally:
+
+```bash
+npm install -g eagleeye
+eagleeye
+```
+
+Eagle Eye runs as an MCP server. Add it to your MCP client config:
+
+```json
+{
+  "mcpServers": {
+    "eagle-eye": {
+      "command": "npx",
+      "args": ["-y", "eagleeye"]
+    }
+  }
+}
+```
 
 ## How it works
 
-The server captures webcams by fetching URLs that return images directly (JPEG/PNG). No JavaScript rendering, no stream decoding, no heavy dependencies.
-
-A valid webcam URL is any endpoint that returns an image with `Content-Type: image/jpeg` or `image/png` on a plain HTTP GET.
-
-## Installation
-
-```bash
-git clone https://github.com/stuchapin909/open-public-cam
-cd open-public-cam
-npm install
-```
-
-No external dependencies beyond Node.js and npm.
+A valid webcam URL is any endpoint that returns a JPEG or PNG image on a plain HTTP GET. That's it. No JavaScript rendering, no stream decoding, no ffmpeg. Most city traffic cameras, weather stations, and park cams expose exactly this.
 
 ## MCP Tools
 
-### `get_webcam_snapshot`
-Capture a live JPEG snapshot from a registered webcam. Returns a local file path.
-
-### `list_webcams`
-List all webcams in the registry with status indicators.
-
-### `search_webcams`
-Search the registry by name or location (case-insensitive).
-
-### `draft_webcam`
-Add a webcam entry to the local community registry. Enforces schema (name, url, location, timezone, category). No URL validation — use `get_webcam_snapshot` to verify before pushing.
-
-### `draft_webcam_report`
-Save a local health report for a webcam. Blocks reports during nighttime at the webcam's location.
-
-### `sync_registry`
-Pull latest community registry and validation data from GitHub.
-
-## Contributing Webcams
-
-1. Use `draft_webcam` to add entries locally — the tool enforces the required schema
-2. Verify with `get_webcam_snapshot` that each URL returns a live image
-3. Push or open a PR — a GitHub Action automatically validates all new entries
-4. The Action checks: schema compliance, URL returns an image, and optionally uses vision AI to confirm it's a real webcam
-
-Changes to other files (code, docs, etc.) follow normal open-source PR review.
+| Tool | Description |
+|---|---|
+| `get_webcam_snapshot` | Capture a live snapshot from any registered webcam |
+| `list_webcams` | List all webcams with status indicators |
+| `search_webcams` | Search by name or location |
+| `draft_webcam` | Add a webcam entry to the local registry |
+| `draft_webcam_report` | Report a broken or offline webcam |
+| `sync_registry` | Pull latest community data from GitHub |
 
 ## Registry
 
 Webcams live in two places:
 
-- **Curated list** (in `index.js`) — verified, ships with the server
-- **Community registry** (`community-registry.json`) — user-submitted, validated by GitHub Action
+- **Curated list** (built in) -- verified cameras that ship with the server
+- **Community registry** (`community-registry.json`) -- user-submitted, auto-validated by GitHub Actions
+
+Every community submission runs through automated checks: schema validation, URL liveness, content-type verification, and vision AI to confirm it's actually a webcam and not a logo or error page.
+
+### Adding a webcam
+
+1. Find a direct-image URL (see [AGENT-GUIDE.md](AGENT-GUIDE.md) for tips)
+2. Use `draft_webcam` to add it locally
+3. Verify with `get_webcam_snapshot`
+4. Push or open a PR -- the GitHub Action validates automatically
 
 ### Webcam schema
 
@@ -70,16 +75,11 @@ Webcams live in two places:
 
 Categories: `city`, `park`, `highway`, `airport`, `port`, `weather`, `nature`, `landmark`, `other`
 
-## For AI Agents
+## Contributing
 
-See [AGENT-GUIDE.md](AGENT-GUIDE.md) for instructions on discovering and adding new webcam sources. Covers what makes a valid direct-image URL, common URL patterns, and how to verify sources before adding them.
+Pull requests welcome. See [AGENT-GUIDE.md](AGENT-GUIDE.md) for how to discover and verify new webcam sources.
 
-## Ethical guidelines
-
-- Public spaces only: streets, landmarks, beaches, nature, transit
-- No private property, interiors, or security cameras
-- No password-protected or hidden feeds
-- All sources must be publicly accessible without authentication
+Changes to `community-registry.json` are validated automatically -- bad URLs, wrong content types, and non-webcam images get rejected.
 
 ## License
 

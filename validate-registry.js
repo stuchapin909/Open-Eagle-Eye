@@ -22,12 +22,12 @@ const EVENT_NAME = process.env.EVENT_NAME || "push";
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || "";
 const PR_NUMBER = process.env.PR_NUMBER || "";
 const REPO_OWNER = process.env.REPO_OWNER || "stuchapin909";
-const REPO_NAME = process.env.REPO_NAME || "open-public-cam";
+const REPO_NAME = process.env.REPO_NAME || "eagle-eye";
 
 const VALID_CATEGORIES = ["city", "park", "highway", "airport", "port", "weather", "nature", "landmark", "other"];
 
 const FETCH_HEADERS = {
-  'User-Agent': 'open-public-cam-validator',
+  'User-Agent': 'eagle-eye-validator',
   'Accept': 'image/*,*/*;q=0.8',
   'Cache-Control': 'no-cache',
 };

@@ -17,12 +17,12 @@ const VERSION = "4.0.0";
 
 // GitHub Constants
 const GITHUB_OWNER = "stuchapin909";
-const GITHUB_REPO = "open-public-cam";
+const GITHUB_REPO = "eagle-eye";
 const GITHUB_RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/master`;
 
 if (!fs.existsSync(SNAPSHOTS_DIR)) fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
 
-const server = new McpServer({ name: "open-public-cam", version: VERSION });
+const server = new McpServer({ name: "eagle-eye", version: VERSION });
 
 // v4.0.0 Curated List — verified direct-image webcams
 const CURATED_WEBCAMS = [
@@ -177,7 +177,7 @@ server.tool("sync_registry", "Sync community data from GitHub.", {}, async () =>
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error(`Open Public Cam v${VERSION}`);
+  console.error(`Eagle Eye v${VERSION}`);
 }
 
 main().catch(console.error);

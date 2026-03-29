@@ -1,10 +1,10 @@
 {
-  "name": "open-public-cam",
-  "version": "3.0.0",
-  "description": "Open source MCP server for publicly accessible webcams",
+  "name": "eagleeye",
+  "version": "4.0.0",
+  "description": "Instant webcam snapshots from public cameras worldwide via MCP",
   "type": "module",
   "bin": {
-    "open-public-cam": "./index.js"
+    "eagleeye": "./index.js"
   },
   "scripts": {
     "start": "node index.js"
@@ -12,7 +12,10 @@
   "keywords": [
     "mcp",
     "webcam",
-    "public"
+    "camera",
+    "surveillance",
+    "traffic",
+    "public-cameras"
   ],
   "author": "stuchapin909",
   "license": "MIT",

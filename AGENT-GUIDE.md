@@ -1,4 +1,4 @@
-# Agent Guide — Open Public Cam MCP Server
+# Agent Guide — Eagle Eye MCP Server
 
 ## What This Server Does
 
