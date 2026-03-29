@@ -22,9 +22,6 @@
   "files": [
     "index.js",
     "community-registry.json",
-    "validation-log.json",
-    "validate-registry.js",
-    "AGENT-GUIDE.md",
     "README.md",
     "CONTRIBUTING.md",
     "LICENSE"
