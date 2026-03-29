@@ -34,7 +34,7 @@ const GITHUB_RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GIT
 
 const server = new McpServer({
   name: "open-public-cam",
-  version: "1.5.0",
+  version: "1.6.0",
 });
 
 // Cache for Discovery (to be a good API citizen)
@@ -306,6 +306,188 @@ const WEBCAMS = [
     category: "nature",
     location: "Tenerife, Spain",
     timezone: "Atlantic/Canary",
+    verified: true
+  },
+  {
+    id: "sydney-opera-house",
+    name: "Sydney Opera House",
+    url: "https://www.skylinewebcams.com/en/webcam/australia/new-south-wales/sydney/opera-house.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "landmark",
+    location: "Sydney, Australia",
+    timezone: "Australia/Sydney",
+    verified: true
+  },
+  {
+    id: "sydney-harbour-bridge",
+    name: "Sydney Harbour Bridge",
+    url: "https://www.skylinewebcams.com/en/webcam/australia/new-south-wales/sydney/harbour-bridge.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "landmark",
+    location: "Sydney, Australia",
+    timezone: "Australia/Sydney",
+    verified: true
+  },
+  {
+    id: "melbourne-panorama",
+    name: "Melbourne Panorama",
+    url: "https://www.skylinewebcams.com/en/webcam/australia/victoria/melbourne/panorama-of-melbourne.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "city",
+    location: "Melbourne, Australia",
+    timezone: "Australia/Melbourne",
+    verified: true
+  },
+  {
+    id: "perth-australia",
+    name: "Perth, Australia",
+    url: "https://www.skylinewebcams.com/en/webcam/australia/western-australia/perth/perth.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "city",
+    location: "Perth, Australia",
+    timezone: "Australia/Perth",
+    verified: true
+  },
+  {
+    id: "christ-the-redeemer-rio",
+    name: "Christ the Redeemer, Rio de Janeiro",
+    url: "https://www.skylinewebcams.com/en/webcam/brasil/rio-de-janeiro/rio-de-janeiro/christ-the-redeemer.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "landmark",
+    location: "Rio de Janeiro, Brazil",
+    timezone: "America/Sao_Paulo",
+    verified: true
+  },
+  {
+    id: "copacabana-beach-rio",
+    name: "Copacabana Beach, Rio de Janeiro",
+    url: "https://www.skylinewebcams.com/en/webcam/brasil/rio-de-janeiro/rio-de-janeiro/copacabana.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "nature",
+    location: "Rio de Janeiro, Brazil",
+    timezone: "America/Sao_Paulo",
+    verified: true
+  },
+  {
+    id: "rio-de-janeiro-panorama",
+    name: "Rio de Janeiro Panorama",
+    url: "https://www.skylinewebcams.com/en/webcam/brasil/rio-de-janeiro/rio-de-janeiro/panorama.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "city",
+    location: "Rio de Janeiro, Brazil",
+    timezone: "America/Sao_Paulo",
+    verified: true
+  },
+  {
+    id: "cape-town",
+    name: "Cape Town",
+    url: "https://www.skylinewebcams.com/en/webcam/south-africa/western-cape/cape-town/cape-town.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "city",
+    location: "Cape Town, South Africa",
+    timezone: "Africa/Johannesburg",
+    verified: true
+  },
+  {
+    id: "cape-town-clifton-beach",
+    name: "Cape Town Clifton Beach",
+    url: "https://www.skylinewebcams.com/en/webcam/south-africa/western-cape/cape-town/cape-town-clifton-beach.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "nature",
+    location: "Cape Town, South Africa",
+    timezone: "Africa/Johannesburg",
+    verified: true
+  },
+  {
+    id: "sukhumvit-road-bangkok",
+    name: "Sukhumvit Road, Bangkok",
+    url: "https://www.skylinewebcams.com/en/webcam/thailand/central-thailand/bangkok/sukhumvit.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "city",
+    location: "Bangkok, Thailand",
+    timezone: "Asia/Bangkok",
+    verified: true
+  },
+  {
+    id: "streets-of-pattaya",
+    name: "Streets of Pattaya",
+    url: "https://www.skylinewebcams.com/en/webcam/thailand/eastern-thailand/pattaya/walking-street.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "img",
+      wait_for_ms: 5000
+    },
+    category: "city",
+    location: "Pattaya, Thailand",
+    timezone: "Asia/Bangkok",
+    verified: true
+  },
+  {
+    id: "neuschwanstein-castle",
+    name: "Neuschwanstein Castle",
+    url: "https://www.skylinewebcams.com/en/webcam/deutschland/bayern/schwangau/schloss-neuschwanstein.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "video",
+      wait_for_ms: 5000
+    },
+    category: "landmark",
+    location: "Schwangau, Germany",
+    timezone: "Europe/Berlin",
+    verified: true
+  },
+  {
+    id: "cologne-germany",
+    name: "Cologne, Germany",
+    url: "https://www.skylinewebcams.com/en/webcam/deutschland/north-rhine-westphalia/cologne/cologne.html",
+    access_strategy: {
+      type: "browser_capture",
+      selector: "video",
+      wait_for_ms: 5000
+    },
+    category: "city",
+    location: "Cologne, Germany",
+    timezone: "Europe/Berlin",
     verified: true
   }
 ];
