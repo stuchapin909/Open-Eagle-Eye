@@ -6,6 +6,11 @@ on:
   schedule:
     - cron: '0 3 * * *' # Nightly at 3 AM UTC
 
+# SERIAL QUEUE: Prevent race conditions by ensuring only one worker runs at a time
+concurrency:
+  group: webcam-registry-update
+  cancel-in-progress: false
+
 jobs:
   worker:
     if: |
@@ -23,15 +28,26 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Get all history for cleaner rebases
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '24'
+          cache: 'npm' # Automates node_modules caching
+
+      - name: Cache Playwright Browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
 
       - name: Install dependencies
         run: |
-          npm install
+          npm ci
           npx playwright install chromium --with-deps
 
       - name: Run Nightly Batch Check
@@ -43,85 +59,84 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add validation-log.json
             git commit -m "Worker: Nightly Batch Validation Complete"
-            git pull --rebase
-            git push
+            git push origin master
           else
             echo "No changes to commit"
           fi
 
-      - name: Extract JSON from Issue
+      - name: Extract Deterministic JSON from Issue
         if: github.event_name == 'issues'
         id: extract_json
-        run: |
-          JSON_DATA=$(echo "${{ github.event.issue.body }}" | sed -n '/```json/,/```/p' | sed '1d;$d')
-          echo "DATA=$JSON_DATA" >> $GITHUB_OUTPUT
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body;
+            const regex = /```json\s+([\s\S]*?)\s+```/;
+            const match = body.match(regex);
+            if (match) {
+              core.setOutput('DATA', match[1].trim());
+            } else {
+              core.setFailed("Deterministic Error: No JSON block found in issue body.");
+            }
 
-      - name: Verify Issue (Submission or Report)
+      - name: Execute Deterministic Verification
         if: github.event_name == 'issues'
         id: verify
+        env:
+          INPUT_DATA: ${{ steps.extract_json.outputs.DATA }}
         run: |
           set +e
-          node worker-verify.js '${{ steps.extract_json.outputs.DATA }}'
+          # Using environment variable to prevent command injection and parsing issues
+          node worker-verify.js "$INPUT_DATA" > worker-stdout.log 2>&1
           EXIT_CODE=$?
           set -e
           
-          if [ -f worker-results.txt ]; then
-            echo "RESULTS<<EOF" >> $GITHUB_OUTPUT
-            cat worker-results.txt >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
-          else
-            echo "RESULTS=No detailed results captured. Exit Code: $EXIT_CODE" >> $GITHUB_OUTPUT
-          fi
-          echo "EXIT_CODE=$EXIT_CODE" >> $GITHUB_OUTPUT
-        continue-on-error: true
+          # Capture technical findings using heredoc for multi-line safety
+          {
+            echo "RESULTS<<EOF"
+            if [ -f worker-results.txt ]; then
+              cat worker-results.txt
+            else
+              echo "No detailed findings captured. Exit Code: $EXIT_CODE"
+            fi
+            echo "EOF"
+            echo "EXIT_CODE=$EXIT_CODE"
+          } >> "$GITHUB_OUTPUT"
+          
+          cat worker-stdout.log
 
       - name: Commit Verified Changes
         if: github.event_name == 'issues' && steps.verify.outputs.EXIT_CODE == '0'
         run: |
           git config --global user.name "Webcam-Worker-Bot"
           git config --global user.email "bot@open-public-cam.local"
-          if [ -n "$(git status --porcelain)" ]; then
-            git add community-registry.json validation-log.json
-            git commit -m "Worker: Verified and updated registry for ${{ github.event.issue.title }}"
-            git pull --rebase
-            git push
+          git add community-registry.json validation-log.json
+          if [ -n "$(git status --porcelain community-registry.json validation-log.json)" ]; then
+            git commit -m "Worker: Verified and updated registry for Issue #${{ github.event.issue.number }}"
+            git push origin master
           else
-            echo "No changes detected in registry."
+            echo "No changes detected in registry files."
           fi
 
-      - name: Comment and Close (Success)
-        if: github.event_name == 'issues' && steps.verify.outputs.EXIT_CODE == '0'
+      - name: Finalize Issue Comment (Always)
+        if: github.event_name == 'issues' && always()
         uses: actions/github-script@v7
         with:
           script: |
+            const exitCode = "${{ steps.verify.outputs.EXIT_CODE }}";
             const results = process.env.WORKER_RESULTS || "No details available.";
+            const isSuccess = exitCode === "0";
+            
+            let statusEmoji = isSuccess ? "✅" : "❌";
+            let statusText = isSuccess ? "Worker Verified" : "Worker Check Failed";
+            
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "✅ **Worker Verified**: The submission or report has been confirmed and merged into the global registry.\n\n**Technical Findings:**\n```\n" + results.trim() + "\n```"
+              body: `${statusEmoji} **${statusText}**: The deterministic verification process is complete.\n\n**Technical Findings:**\n\`\`\`\n${results.trim()}\n\`\`\``
             });
-            github.rest.issues.update({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'closed'
-            });
-        env:
-          WORKER_RESULTS: ${{ steps.verify.outputs.RESULTS }}
-
-      - name: Comment and Close (Failure)
-        if: github.event_name == 'issues' && steps.verify.outputs.EXIT_CODE != '0'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const results = process.env.WORKER_RESULTS || "No details available.";
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "❌ **Worker Check Failed**: The webcam appears to be unreachable or invalid. Submission/Report rejected.\n\n**Technical Findings:**\n```\n" + results.trim() + "\n```"
-            });
+            
             github.rest.issues.update({
               issue_number: context.issue.number,
               owner: context.repo.owner,

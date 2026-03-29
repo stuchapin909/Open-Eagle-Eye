@@ -4,10 +4,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const LOG_FILE = "worker-results.txt";
+const RESULTS_FILE = "worker-results.txt";
 
-function logResult(msg) {
-  fs.appendFileSync(LOG_FILE, msg + "\n");
+// Deterministic logging for reliable CI capture
+function logFinding(msg) {
+  fs.appendFileSync(RESULTS_FILE, msg + "\n");
   console.log(msg);
 }
 
@@ -51,7 +52,8 @@ async function verifyCam(url, isSubmission = false) {
     const spamKeywords = ['crypto', 'casino', 'pharmacy', 'viagra', 'ads', 'marketing', 'earn money', 'security', 'cctv', 'private', 'login', 'admin', 'password', 'protected'];
     if (spamKeywords.some(k => title.toLowerCase().includes(k))) {
       const reason = "spam_or_privacy_keywords";
-      logResult(`WORKER_RESULT: REASON=${reason} TITLE=${title}`);
+      logFinding(`REASON: ${reason}`);
+      logFinding(`PAGE_TITLE: ${title}`);
       await browser.close();
       return { active: false, reason };
     }
@@ -105,26 +107,30 @@ async function verifyCam(url, isSubmission = false) {
     const sizeRatio = Math.abs(shot1.length - shot2.length) / Math.max(shot1.length, shot2.length);
 
     if (diffRatio < 0.005 && sizeRatio < 0.01) {
-      const reason = "static_image";
-      logResult(`WORKER_RESULT: REASON=${reason} DIFF_RATIO=${(diffRatio * 100).toFixed(4)}% SIZE_RATIO=${(sizeRatio * 100).toFixed(4)}%`);
+      const reason = "static_image_or_placeholder";
+      logFinding(`REASON: ${reason}`);
+      logFinding(`PIXEL_DIFF_RATIO: ${(diffRatio * 100).toFixed(4)}%`);
+      logFinding(`FILE_SIZE_RATIO: ${(sizeRatio * 100).toFixed(4)}%`);
       await browser.close();
       return { active: false, reason };
     }
 
     const exists = await page.$(selector) || await page.$('video, img, canvas');
-    logResult(`WORKER_RESULT: REASON=verified_active DIFF_RATIO=${(diffRatio * 100).toFixed(4)}%`);
+    logFinding(`REASON: verified_active`);
+    logFinding(`PIXEL_DIFF_RATIO: ${(diffRatio * 100).toFixed(4)}%`);
     await browser.close();
     return { active: !!exists };
   } catch (e) {
-    logResult(`WORKER_RESULT: REASON=error ERROR=${e.message}`);
+    logFinding(`REASON: execution_error`);
+    logFinding(`ERROR_MSG: ${e.message}`);
     if (browser) await browser.close();
-    return { active: false, reason: "timeout_or_error" };
+    return { active: false, reason: "execution_error" };
   }
 }
 
 async function main() {
   const args = process.argv.slice(2);
-  if (fs.existsSync(LOG_FILE)) fs.unlinkSync(LOG_FILE);
+  if (fs.existsSync(RESULTS_FILE)) fs.unlinkSync(RESULTS_FILE);
 
   if (args[0] === "--batch") {
     console.log("Starting Nightly Batch Validation...");
@@ -133,7 +139,6 @@ async function main() {
     const toCheck = registry.sort(() => 0.5 - Math.random()).slice(0, 20);
     
     for (const cam of toCheck) {
-      console.log(`Checking ${cam.name}...`);
       const result = await verifyCam(cam.url);
       if (!result.active) {
         log[cam.id] = { status: "offline", reason: result.reason, timestamp: new Date().toISOString(), reported_by: "nightly_worker" };
@@ -150,7 +155,7 @@ async function main() {
     if (isSubmission) {
       const normalizedNew = normalizeUrl(issueData.url);
       if (registry.some(c => normalizeUrl(c.url) === normalizedNew)) {
-        logResult("WORKER_RESULT: REASON=duplicate_entry");
+        logFinding("REASON: rejected_duplicate");
         process.exit(1);
       }
     }
@@ -158,21 +163,21 @@ async function main() {
     const result = await verifyCam(issueData.url || issueData.cam_id, isSubmission);
     if (isSubmission) {
       if (result.active) {
-        logResult("WORKER_LOG: Verified active submission.");
+        logFinding("VERIFICATION: SUCCESS_ACTIVE");
         registry.push({ id: `comm-${Date.now()}`, ...issueData, verified: true });
         fs.writeFileSync(path.join(__dirname, "community-registry.json"), JSON.stringify(registry, null, 2));
       } else {
-        logResult(`WORKER_LOG: Submission failed verification: ${result.reason}`);
+        logFinding("VERIFICATION: FAILED_INACTIVE");
         process.exit(1);
       }
     } else {
       if (!result.active) {
-        logResult("WORKER_LOG: Verified broken report.");
+        logFinding("VERIFICATION: SUCCESS_REPORT_CONFIRMED");
         const log = JSON.parse(fs.readFileSync(path.join(__dirname, "validation-log.json"), "utf8"));
         log[issueData.cam_id] = { status: issueData.status, reason: result.reason, timestamp: new Date().toISOString(), reported_by: "worker_verified" };
         fs.writeFileSync(path.join(__dirname, "validation-log.json"), JSON.stringify(log, null, 2));
       } else {
-        logResult("WORKER_LOG: Report failed verification (cam is active).");
+        logFinding("VERIFICATION: FAILED_REPORT_REFUTED");
         process.exit(1);
       }
     }
@@ -180,6 +185,7 @@ async function main() {
 }
 
 main().catch(err => {
-  logResult(`WORKER_RESULT: REASON=unhandled_error ERROR=${err.message}`);
+  logFinding(`REASON: unhandled_process_error`);
+  logFinding(`ERROR: ${err.message}`);
   process.exit(1);
 });
