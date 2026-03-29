@@ -1,6 +1,6 @@
 scripts/
 snapshots/
-validation-log.json
+.registry-state.json
 validate-registry.js
 stderr.log
 node_modules.bad/

@@ -18,8 +18,8 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REGISTRY_PATH = path.join(__dirname, "community-registry.json");
-const LOG_PATH = path.join(__dirname, "validation-log.json");
-const INDEX_PATH = path.join(__dirname, "index.js");
+const LOG_PATH = path.join(__dirname, ".registry-state.json");
+const CAMERAS_PATH = path.join(__dirname, "cameras.json");
 
 const EVENT_NAME = process.env.EVENT_NAME || "push";
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || "";
@@ -40,26 +40,19 @@ const FETCH_HEADERS = {
   'Cache-Control': 'no-cache',
 };
 
-// --- Extract curated cameras from index.js ---
+// --- Extract curated cameras from cameras.json ---
 function extractCuratedCameras() {
-  const src = fs.readFileSync(INDEX_PATH, "utf8");
-  const cameras = [];
-  // Match entries in the CURATED_WEBCAMS array
-  const entryRegex = /\{\s*id:\s*"([^"]+)"\s*,\s*name:\s*"([^"]+)"\s*,\s*url:\s*"([^"]+)"\s*,\s*category:\s*"([^"]+)"\s*,\s*location:\s*"([^"]+)"\s*,\s*timezone:\s*"([^"]+)"/g;
-  let match;
-  while ((match = entryRegex.exec(src)) !== null) {
-    cameras.push({
-      id: match[1],
-      name: match[2],
-      url: match[3],
-      category: match[4],
-      location: match[5],
-      timezone: match[6],
-      source: "curated",
-      verified: true,
-    });
-  }
-  return cameras;
+  const cameras = JSON.parse(fs.readFileSync(CAMERAS_PATH, "utf8"));
+  return cameras.map(c => ({
+    id: c.id,
+    name: c.name,
+    url: c.url,
+    category: c.category,
+    location: c.location,
+    timezone: c.timezone,
+    source: "curated",
+    verified: true,
+  }));
 }
 
 // --- Schema validation ---

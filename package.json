@@ -21,6 +21,7 @@
   "license": "MIT",
   "files": [
     "index.js",
+    "cameras.json",
     "community-registry.json",
     "README.md",
     "CONTRIBUTING.md",

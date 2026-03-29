@@ -2,7 +2,13 @@
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 
-MCP server that gives AI agents instant access to public webcam feeds worldwide. One HTTP GET, sub-second captures, no browser automation, no stream decoding. Built for agents — returns structured JSON and base64 images.
+MCP server that gives AI agents instant access to public webcam feeds worldwide. One HTTP GET, sub-second captures, no browser automation, no stream decoding.
+
+## Why
+
+Most webcam APIs require authentication, serve video streams, or hide images behind JavaScript rendering. Open Eagle Eye only indexes cameras that return a JPEG or PNG on a plain HTTP GET — the simplest possible integration. Agents don't need to render pages or decode video. They just fetch an image.
+
+The registry is self-healing. A GitHub Action runs nightly, checks every camera, retries failures before removing them, and uses vision AI to catch cameras that return error pages instead of live feeds. Dead cameras get flagged automatically. The registry stays current without manual maintenance.
 
 ## Quick start
 
@@ -26,25 +32,25 @@ openeagleeye
 
 ## How it works
 
-A valid webcam URL is any endpoint that returns a JPEG or PNG on a plain HTTP GET. No JavaScript rendering, no RTSP, no ffmpeg. Most city traffic cameras, weather stations, and park cams expose exactly this. The server fetches the image and returns it as base64 data the agent can display or analyze.
+A valid webcam URL is any endpoint that returns a JPEG or PNG on a plain HTTP GET. Most city traffic cameras, weather stations, and park cams expose exactly this. The server fetches the image, saves it to disk, and returns a JSON response with the file path.
 
 ## MCP Tools
 
 | Tool | Description |
 |---|---|
 | `get_webcam_snapshot` | Fetch a live snapshot — saves to disk, returns JSON with file path |
-| `list_webcams` | List all cameras with filters (location, category) — returns JSON |
-| `search_webcams` | Search by name, location, or category — returns JSON |
-| `draft_webcam` | Add a new camera to the local registry |
+| `list_webcams` | List all cameras with filters (location, category) |
+| `search_webcams` | Search by name, location, or category |
+| `draft_webcam` | Add a new camera to the local community registry |
 | `draft_webcam_report` | Report a broken or offline camera |
 | `get_config_info` | Check API key configuration status |
-| `sync_registry` | Pull latest community cameras from GitHub |
+| `sync_registry` | Pull latest cameras from GitHub |
 
 ### Output format
 
-Every tool returns structured JSON. Agents can reliably parse responses without regexing text blobs. Snapshots save to disk and return the file path — the MCP server runs as a local subprocess, so the agent has filesystem access to read the file if it needs to analyze the image.
+Every tool returns structured JSON. Snapshots save to disk and return the file path — the MCP server runs as a local subprocess, so the agent has filesystem access to read the file.
 
-**Snapshot response** — JSON with file path and metadata:
+**Snapshot response:**
 ```json
 {
   "success": true,
@@ -55,30 +61,33 @@ Every tool returns structured JSON. Agents can reliably parse responses without 
 }
 ```
 
-**List/Search response** — JSON with camera array:
-```json
-{
-  "version": "6.0.0",
-  "total": 524,
-  "shown": 524,
-  "locations": { "London, UK": 424, "Manhattan, New York, USA": 38 },
-  "cameras": [
-    { "id": "nyc-bb-21-...", "name": "BB-21 North Rdwy", "location": "Manhattan, New York, USA", "category": "city", "verified": true, "status": "active", "auth_required": false }
-  ]
-}
-```
-
 ## Registry
 
 **524 cameras** across two cities:
 - 424 London TfL JamCams (all boroughs)
 - 100 NYC TMC traffic cams (all 5 boroughs)
 
-All verified, all work with zero API keys.
+All verified, all work with zero API keys at fetch time.
 
 Cameras live in two places:
-- **Curated list** (built in) — verified cameras shipped with the server
+- **Curated list** (`cameras.json`) — verified cameras shipped with the server
 - **Community registry** (`community-registry.json`) — user-submitted cameras
+
+### Self-healing
+
+A GitHub Action runs nightly at 3 AM UTC:
+- Checks cameras not validated in the last 7 days, plus any flagged as suspect
+- First failure marks as suspect, second consecutive failure removes (community) or opens a GitHub issue (curated)
+- Vision AI (GPT-4o-mini via GitHub Models) catches cameras returning error pages or placeholders
+- Suspect cameras that recover are cleared automatically
+
+## Use cases
+
+- **Live traffic monitoring** — agents can check current conditions at specific intersections
+- **Weather observation** — outdoor cameras show real-time weather and visibility
+- **Location verification** — confirm what's happening at a place right now
+- **Timezone-aware research** — check daytime/nighttime conditions across cities
+- **Building automation** — feed live camera data into agent workflows
 
 ## API Keys (optional)
 
@@ -101,7 +110,7 @@ Use `get_config_info` to check which cameras need keys and whether yours are set
 1. Find a direct-image URL (must return `image/jpeg` or `image/png` on plain GET)
 2. Use `draft_webcam` with the URL, location, and timezone
 3. Test with `get_webcam_snapshot`
-4. Open a PR to contribute
+4. Open a PR to contribute — the validator will check it automatically
 
 Good sources: city DOTs, weather stations, ski resorts, national parks, ports, airports.
 
