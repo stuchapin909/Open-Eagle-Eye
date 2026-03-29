@@ -43,8 +43,44 @@ if (!FFMPEG_PATH) console.error("Warning: 'ffmpeg' not found. direct_stream capt
 
 const server = new McpServer({ name: "open-public-cam", version: VERSION });
 
-// v3.0.0 Curated List — direct_image and direct_stream only
-const CURATED_WEBCAMS = [];
+// v3.0.0 Curated List — verified direct_image webcams
+const CURATED_WEBCAMS = [
+  {
+    id: "nyc-fdr-brooklyn-bridge",
+    name: "FDR Drive @ Brooklyn Bridge",
+    url: "https://nyctmc.org/api/cameras/ecba28cb-ac70-4d25-abcb-6506111ea120/image",
+    access_strategy: { type: "direct_image" },
+    category: "city", location: "Manhattan, New York, USA", timezone: "America/New_York", verified: true
+  },
+  {
+    id: "nyc-broadway-45th",
+    name: "Broadway @ 45th St (Times Square area)",
+    url: "https://nyctmc.org/api/cameras/053e8995-f8cb-4d02-a659-70ac7c7da5db/image",
+    access_strategy: { type: "direct_image" },
+    category: "city", location: "Manhattan, New York, USA", timezone: "America/New_York", verified: true
+  },
+  {
+    id: "nyc-central-park-west-65th",
+    name: "Central Park West @ 65th St",
+    url: "https://nyctmc.org/api/cameras/4f8c2e84-c15a-4474-91fb-7e14554d4c4e/image",
+    access_strategy: { type: "direct_image" },
+    category: "park", location: "Manhattan, New York, USA", timezone: "America/New_York", verified: true
+  },
+  {
+    id: "nyc-ave-americas-cps",
+    name: "Ave of Americas @ Central Park South",
+    url: "https://nyctmc.org/api/cameras/332f161d-47cb-4c8a-b6b6-5ad48a55c978/image",
+    access_strategy: { type: "direct_image" },
+    category: "city", location: "Manhattan, New York, USA", timezone: "America/New_York", verified: true
+  },
+  {
+    id: "nyc-park-ave-79th",
+    name: "Park Ave @ 79th St",
+    url: "https://nyctmc.org/api/cameras/41397b64-d035-4b41-a03e-170fe4103d89/image",
+    access_strategy: { type: "direct_image" },
+    category: "city", location: "Manhattan, New York, USA", timezone: "America/New_York", verified: true
+  },
+];
 
 // Helpers
 const getCommunityData = () => { try { return JSON.parse(fs.readFileSync(REGISTRY_PATH, "utf8")); } catch (e) { return []; } };
