@@ -1,6 +1,5 @@
-# Eagle Eye
+# Open Eagle Eye
 
-[![Registry Validator](https://github.com/stuchapin909/Eagle-Eye/actions/workflows/validate-registry.yml/badge.svg)](https://github.com/stuchapin909/Eagle-Eye/actions/workflows/validate-registry.yml)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 
 Instant webcam snapshots from public cameras worldwide. One HTTP GET, sub-second captures, no browser automation. Most cameras work with zero config; some optionally require free API keys.
@@ -8,24 +7,24 @@ Instant webcam snapshots from public cameras worldwide. One HTTP GET, sub-second
 ## Quick start
 
 ```bash
-npx eagleeye
+npx openeagleeye
 ```
 
 Or install globally:
 
 ```bash
-npm install -g eagleeye
-eagleeye
+npm install -g openeagleeye
+openeagleeye
 ```
 
-Eagle Eye runs as an MCP server. Add it to your MCP client config:
+Open Eagle Eye runs as an MCP server. Add it to your MCP client config:
 
 ```json
 {
   "mcpServers": {
-    "eagle-eye": {
+    "open-eagle-eye": {
       "command": "npx",
-      "args": ["-y", "eagleeye"]
+      "args": ["-y", "openeagleeye"]
     }
   }
 }
@@ -51,7 +50,7 @@ A valid webcam URL is any endpoint that returns a JPEG or PNG image on a plain H
 
 Most cameras work out of the box with zero configuration. Some cameras require a free API key from their provider. If so, the tool will tell you where to sign up and how to configure it.
 
-Create `~/.eagleeye/config.json`:
+Create `~/.openeagleeye/config.json`:
 
 ```json
 {
@@ -68,16 +67,14 @@ Use `get_config_info` to check which cameras need keys and whether yours are con
 Webcams live in two places:
 
 - **Curated list** (built in) -- verified cameras that ship with the server
-- **Community registry** (`community-registry.json`) -- user-submitted, auto-validated by GitHub Actions
-
-Every community submission runs through automated checks: schema validation, URL liveness, content-type verification, and vision AI to confirm it's actually a webcam and not a logo or error page.
+- **Community registry** (`community-registry.json`) -- user-submitted
 
 ### Adding a webcam
 
-1. Find a direct-image URL (see [AGENT-GUIDE.md](AGENT-GUIDE.md) for tips)
+1. Find a direct-image URL
 2. Use `draft_webcam` to add it locally
 3. Verify with `get_webcam_snapshot`
-4. Push or open a PR -- the GitHub Action validates automatically
+4. Open a PR to contribute
 
 ### Webcam schema
 
@@ -97,9 +94,7 @@ Categories: `city`, `park`, `highway`, `airport`, `port`, `weather`, `nature`, `
 
 ## Contributing
 
-Pull requests welcome. See [AGENT-GUIDE.md](AGENT-GUIDE.md) for how to discover and verify new webcam sources.
-
-Changes to `community-registry.json` are validated automatically -- bad URLs, wrong content types, and non-webcam images get rejected.
+Pull requests welcome. Changes to `community-registry.json` are validated automatically.
 
 ## License
 

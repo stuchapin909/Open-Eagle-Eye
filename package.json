@@ -1,10 +1,10 @@
 {
-  "name": "eagleeye",
-  "version": "5.1.3",
+  "name": "openeagleeye",
+  "version": "6.0.0",
   "description": "Instant webcam snapshots from public cameras worldwide via MCP",
   "type": "module",
   "bin": {
-    "eagleeye": "./index.js"
+    "openeagleeye": "./index.js"
   },
   "scripts": {
     "start": "node index.js"

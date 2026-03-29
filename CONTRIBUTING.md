@@ -1,4 +1,4 @@
-# Contributing to Eagle Eye
+# Contributing to Open Eagle Eye
 
 Thanks for your interest. Here's how to help.
 

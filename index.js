@@ -12,7 +12,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REGISTRY_PATH = path.join(__dirname, "community-registry.json");
 const LOG_PATH = path.join(__dirname, "validation-log.json");
 const SNAPSHOTS_DIR = path.join(__dirname, "snapshots");
-const USER_CONFIG_DIR = path.join(os.homedir(), ".eagleeye");
+const USER_CONFIG_DIR = path.join(os.homedir(), ".openeagleeye");
 const USER_CONFIG_PATH = path.join(USER_CONFIG_DIR, "config.json");
 
 // Version 5.0.0 — Auth metadata, TfL cameras, user config for API keys
@@ -36,7 +36,7 @@ const server = new McpServer({ name: "eagle-eye", version: VERSION });
 //     key_required: false,                     // Whether the image URL needs a key at fetch time
 //     key_type: "query_params" | "header",     // How to inject the key (if key_required=true)
 //     key_names: ["app_key"],                  // Query param or header names
-//     config_key: "TFL_API_KEY",              // Key name in ~/.eagleeye/config.json
+//     config_key: "TFL_API_KEY",              // Key name in ~/.openeagleeye/config.json
 //     note: "Free registration required..."    // Free-form description
 //   }
 const CURATED_WEBCAMS = [
@@ -5348,7 +5348,7 @@ server.tool("draft_webcam", "Add a local unverified webcam entry.", {
   auth_key_required: z.boolean().optional().describe("Whether the image URL requires an API key"),
   auth_key_type: z.enum(["query_params", "header"]).optional().describe("How to inject the key"),
   auth_key_names: z.array(z.string()).optional().describe("Query param or header names for the key"),
-  auth_config_key: z.string().optional().describe("Key name to use in ~/.eagleeye/config.json"),
+  auth_config_key: z.string().optional().describe("Key name to use in ~/.openeagleeye/config.json"),
   auth_note: z.string().optional().describe("Notes about authentication"),
 }, async (params) => {
   const { auth_provider, auth_signup_url, auth_key_required, auth_key_type, auth_key_names, auth_config_key, auth_note, ...camFields } = params;
