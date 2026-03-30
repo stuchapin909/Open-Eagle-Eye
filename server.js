@@ -367,59 +367,221 @@ server.tool(
   }
 );
 
+// --- Haversine distance (km) ---
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const toRad = d => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// --- Camera metadata mapper (shared across tools) ---
+function mapCameraMeta(c, logs) {
+  return {
+    id: c.id,
+    name: c.name,
+    city: c.city || null,
+    country: c.country || null,
+    location: c.location || "Unknown",
+    category: c.category || "other",
+    timezone: c.timezone || null,
+    coordinates: c.coordinates || null,
+    verified: c.verified || false,
+    status: (logs && logs[c.id]?.status) || "active",
+    source: c.source || "upstream",
+    auth_required: c.auth?.key_required || false,
+  };
+}
+
 // --- REGISTRY ---
-server.tool("list_cameras",  "Browse the camera registry. Returns cameras with id, name, city, location, category, coordinates, and source (upstream or local). Use the city filter to narrow results — the full registry is large.",{ city: z.string().optional().describe("Filter by city name (e.g. 'London', 'New York', 'Sydney')"),
+server.tool("list_cameras", "Browse the camera registry. Returns cameras with id, name, city, country, location, category, coordinates, and source (upstream or local). Supports filtering by city, country, location, and category. Use limit/offset for pagination — the full registry is large.", {
+  city: z.string().optional().describe("Filter by city name (e.g. 'London', 'New York', 'Sydney')"),
+  country: z.string().optional().describe("Filter by country code or name (e.g. 'US', 'UK', 'Australia', 'JP')"),
   location: z.string().optional().describe("Filter by location string (e.g. 'Manhattan', 'Borough')"),
-  category: z.string().optional().describe("Filter by category: city, park, highway, airport, port, weather, nature, landmark, other") }, async ({ city, location, category }) => {
+  category: z.string().optional().describe("Filter by category: city, park, highway, airport, port, weather, nature, landmark, other"),
+  limit: z.number().int().min(1).max(100).optional().describe("Max cameras to return (default 20, max 100)"),
+  offset: z.number().int().min(0).optional().describe("Skip this many cameras (for pagination, default 0)")
+}, async ({ city, country, location, category, limit, offset }) => {
   if (allCameras.length === 0) return { content: [{ type: "text", text: JSON.stringify({ version: VERSION, total: 0, cameras: [], message: "Registry is empty." }) }] };
 
   const logs = getValidationLog();
   let filtered = allCameras;
   if (city) filtered = filtered.filter(c => (c.city || "").toLowerCase() === city.toLowerCase());
+  if (country) filtered = filtered.filter(c => {
+    const cc = (c.country || "").toLowerCase();
+    return cc === country.toLowerCase() || cc.includes(country.toLowerCase());
+  });
   if (location) filtered = filtered.filter(c => (c.location || "").toLowerCase().includes(location.toLowerCase()));
   if (category) filtered = filtered.filter(c => (c.category || "") === category);
 
-  const result = filtered.map(c => ({
-    id: c.id,
-    name: c.name,
-    city: c.city || null,
-    location: c.location || "Unknown",
-    category: c.category || "other",
-    timezone: c.timezone || null,
-    coordinates: c.coordinates || null,
-    verified: c.verified || false,
-    status: logs[c.id]?.status || "active",
-    source: c.source || "upstream",
-    auth_required: c.auth?.key_required || false,
-  }));
+  const totalFiltered = filtered.length;
+  const effectiveLimit = Math.min(limit || 20, 100);
+  const effectiveOffset = offset || 0;
+  const paged = filtered.slice(effectiveOffset, effectiveOffset + effectiveLimit);
+  const result = paged.map(c => mapCameraMeta(c, logs));
 
   const cities = {};
   for (const c of allCameras) { const city = c.city || "Unknown"; cities[city] = (cities[city] || 0) + 1; }
 
-  return { content: [{ type: "text", text: JSON.stringify({ version: VERSION, total: allCameras.length, shown: result.length, cities, cameras: result }, null, 2) }] };
+  return { content: [{ type: "text", text: JSON.stringify({ version: VERSION, total: allCameras.length, filtered: totalFiltered, offset: effectiveOffset, limit: effectiveLimit, cities, cameras: result }, null, 2) }] };
 });
 
-server.tool("search_cameras", "Search cameras by text. Matches against name, location, and category. Use when looking for cameras in a specific place or of a specific type.", { query: z.string().describe("Search term — matches camera name, location, and category") }, async ({ query }) => {
+server.tool("search_cameras", "Search cameras by text. Matches against name, city, country, location, and category. Use when looking for cameras in a specific place or of a specific type.", {
+  query: z.string().describe("Search term — matches camera name, city, country, location, and category"),
+  limit: z.number().int().min(1).max(100).optional().describe("Max results to return (default 20, max 100)")
+}, async ({ query, limit }) => {
   const q = query.toLowerCase();
   const results = allCameras.filter(c =>
     c.name.toLowerCase().includes(q) ||
+    (c.city || "").toLowerCase().includes(q) ||
+    (c.country || "").toLowerCase().includes(q) ||
     (c.location || "").toLowerCase().includes(q) ||
     (c.category || "").toLowerCase().includes(q)
   );
   if (results.length === 0) return { content: [{ type: "text", text: JSON.stringify({ query, total: 0, cameras: [] }) }] };
-  const mapped = results.map(c => ({
-    id: c.id,
-    name: c.name,
-    city: c.city || null,
-    location: c.location || "Unknown",
-    category: c.category || "other",
-    timezone: c.timezone || null,
-    coordinates: c.coordinates || null,
-    verified: c.verified || false,
-    source: c.source || "upstream",
-    auth_required: c.auth?.key_required || false,
+  const logs = getValidationLog();
+  const mapped = results.slice(0, limit || 20).map(c => mapCameraMeta(c, logs));
+  return { content: [{ type: "text", text: JSON.stringify({ query, total: results.length, returned: mapped.length, cameras: mapped }, null, 2) }] };
+});
+
+// --- GET CAMERA INFO ---
+server.tool("get_camera_info", "Look up camera metadata by ID. Returns full details for a single camera without fetching a snapshot. Use this to check if an ID is valid or to get current metadata for a known camera.", {
+  cam_id: z.string().describe("Camera ID to look up")
+}, async ({ cam_id }) => {
+  const cam = findWebcam(cam_id);
+  if (!cam) return { content: [{ type: "text", text: JSON.stringify({ error: "Camera not found", cam_id }) }], isError: true };
+  const logs = getValidationLog();
+  return { content: [{ type: "text", text: JSON.stringify({ ...mapCameraMeta(cam, logs), url: cam.url }, null, 2) }] };
+});
+
+// --- NEARBY CAMERAS (geographic search) ---
+server.tool("nearby_cameras", "Find cameras within a geographic radius. Returns cameras sorted by distance from the given point. Use for spatial queries like 'webcams near Times Square' or 'cameras within 10km of the Opera House'.", {
+  lat: z.number().min(-90).max(90).describe("Latitude of the center point"),
+  lng: z.number().min(-180).max(180).describe("Longitude of the center point"),
+  radius_km: z.number().min(1).max(500).optional().describe("Search radius in kilometers (default 25, max 500)"),
+  limit: z.number().int().min(1).max(50).optional().describe("Max results (default 10, max 50)"),
+  category: z.string().optional().describe("Filter by category: city, park, highway, airport, port, weather, nature, landmark, other")
+}, async ({ lat, lng, radius_km, limit, category }) => {
+  const radius = Math.min(radius_km || 25, 500);
+  const maxResults = Math.min(limit || 10, 50);
+  const logs = getValidationLog();
+
+  let candidates = allCameras.filter(c => c.coordinates?.lat != null && c.coordinates?.lng != null);
+  if (category) candidates = candidates.filter(c => (c.category || "") === category);
+
+  const withDist = candidates.map(c => ({
+    cam: c,
+    distance: haversineKm(lat, lng, c.coordinates.lat, c.coordinates.lng)
+  })).filter(d => d.distance <= radius).sort((a, b) => a.distance - b.distance).slice(0, maxResults);
+
+  const results = withDist.map(d => ({
+    ...mapCameraMeta(d.cam, logs),
+    distance_km: Math.round(d.distance * 10) / 10
   }));
-  return { content: [{ type: "text", text: JSON.stringify({ query, total: mapped.length, cameras: mapped }, null, 2) }] };
+
+  return { content: [{ type: "text", text: JSON.stringify({
+    query: { lat, lng, radius_km: radius },
+    total: results.length,
+    cameras: results
+  }, null, 2) }] };
+});
+
+// --- EXPLORE CAMERAS (random discovery) ---
+server.tool("explore_cameras", "Get random cameras from the registry for discovery. Returns a surprise selection. Filter by city, country, or category to narrow the pool, or leave empty for a truly random pick.", {
+  city: z.string().optional().describe("Filter pool to this city (e.g. 'Tokyo', 'Paris')"),
+  country: z.string().optional().describe("Filter pool to this country (e.g. 'JP', 'France')"),
+  category: z.string().optional().describe("Filter by category: city, park, highway, airport, port, weather, nature, landmark, other"),
+  count: z.number().int().min(1).max(10).optional().describe("How many random cameras to return (default 3, max 10)")
+}, async ({ city, country, category, count }) => {
+  const num = Math.min(count || 3, 10);
+  const logs = getValidationLog();
+
+  let pool = allCameras;
+  if (city) pool = pool.filter(c => (c.city || "").toLowerCase() === city.toLowerCase());
+  if (country) pool = pool.filter(c => {
+    const cc = (c.country || "").toLowerCase();
+    return cc === country.toLowerCase() || cc.includes(country.toLowerCase());
+  });
+  if (category) pool = pool.filter(c => (c.category || "") === category);
+
+  if (pool.length === 0) return { content: [{ type: "text", text: JSON.stringify({ error: "No cameras match the filters", filters: { city, country, category }, pool_size: 0 }) }], isError: true };
+
+  // Fisher-Yates partial shuffle for true random without bias
+  const shuffled = [...pool];
+  for (let i = shuffled.length - 1; i > 0 && i > shuffled.length - num - 1; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  const picked = shuffled.slice(shuffled.length - num);
+
+  const results = picked.map(c => mapCameraMeta(c, logs));
+  return { content: [{ type: "text", text: JSON.stringify({
+    pool_size: pool.length,
+    cameras: results
+  }, null, 2) }] };
+});
+
+// --- BATCH SNAPSHOTS ---
+server.tool("get_snapshots", "Fetch live images from multiple cameras in one call. Returns all snapshot file paths. Use to compare several cameras at once or to monitor a set of favorites. Max 5 cameras per call.", {
+  cam_ids: z.array(z.string()).min(1).max(5).describe("Array of camera IDs (from list_cameras/search_cameras). Max 5.")
+}, async ({ cam_ids }) => {
+  const results = [];
+  for (const cam_id of cam_ids) {
+    const cam = findWebcam(cam_id);
+    if (!cam) {
+      results.push({ cam_id, error: "Camera not found" });
+      continue;
+    }
+
+    const config = buildRequestConfig(cam);
+    if (config.error) {
+      results.push({ cam_id, error: "API key required", details: config.error, camera: cam.name });
+      continue;
+    }
+
+    try {
+      const safety = await isSafeUrl(config.url);
+      if (!safety.safe) {
+        results.push({ cam_id, error: "Blocked", reason: safety.reason, camera: cam.name });
+        continue;
+      }
+    } catch {
+      results.push({ cam_id, error: "URL safety check failed", camera: cam.name });
+      continue;
+    }
+
+    const filename = `${crypto.randomBytes(8).toString('hex')}.jpg`;
+    const fullPath = path.join(SNAPSHOTS_DIR, filename);
+
+    try {
+      const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024, maxRedirects: 1 });
+      let ct = response.headers['content-type'] || "";
+      let isAllowed = ALLOWED_CONTENT_TYPES.some(t => ct.includes(t));
+      const buf = Buffer.from(response.data);
+      if (!isAllowed) {
+        const detected = detectImageType(buf);
+        if (detected) { isAllowed = true; ct = detected; }
+      }
+      if (!isAllowed) throw new Error(`Rejected content-type: ${ct}`);
+      if (buf.length > 5 * 1024 * 1024) throw new Error(`Response too large`);
+      fs.writeFileSync(fullPath, buf);
+      results.push({
+        cam_id,
+        success: true,
+        file_path: fullPath,
+        size_bytes: buf.length,
+        content_type: ct.includes('png') ? 'image/png' : 'image/jpeg',
+        camera: { id: cam.id, name: cam.name, location: cam.location, category: cam.category }
+      });
+    } catch (e) {
+      results.push({ cam_id, error: "Snapshot failed", message: e.message, camera: cam.name });
+    }
+  }
+
+  const successes = results.filter(r => r.success).length;
+  return { content: [{ type: "text", text: JSON.stringify({ requested: cam_ids.length, succeeded: successes, failed: cam_ids.length - successes, snapshots: results }, null, 2) }] };
 });
 
 // --- LOCAL CAMERAS ---
