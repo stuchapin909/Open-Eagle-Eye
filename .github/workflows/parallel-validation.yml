@@ -56,8 +56,8 @@ jobs:
     if: github.actor != 'github-actions[bot]'
     needs: validate-shard
     runs-on: ubuntu-latest
-      permissions:
-        contents: write
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout

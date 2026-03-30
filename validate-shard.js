@@ -12,10 +12,10 @@
  */
 
 import axios from "axios";
-import dns from "dns/promises";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { isSafeUrl, detectImageType } from "./src/security.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CAMERAS_PATH = path.join(__dirname, "cameras.json");
@@ -36,65 +36,7 @@ const FETCH_HEADERS = {
   'Cache-Control': 'no-cache',
 };
 
-// --- SSRF protection (same as validate-registry.js) ---
-const BLOCKED_HOSTNAMES = [
-  'metadata.google.internal', 'metadata.goog', '169.254.169.254',
-  'metadata.amazonaws.com', '100.100.100.200', 'fd00:ec2::254',
-];
-
-function isPrivateIP(ip) {
-  if (!ip) return true;
-  const clean = ip.replace(/^\[|\]$/g, '');
-  const v4 = clean.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
-  if (v4) {
-    const [, a, b] = v4.map(Number);
-    if (a === 10) return true;
-    if (a === 172 && b >= 16 && b <= 31) return true;
-    if (a === 192 && b === 168) return true;
-    if (a === 127) return true;
-    if (a === 0) return true;
-    if (a === 169 && b === 254) return true;
-    if (a === 100 && b >= 64 && b <= 127) return true;
-    if (a === 198 && b === 18) return true;
-    if (a === 192 && b === 0 && v4[3] >= 0 && v4[3] <= 2) return true;
-  }
-  if (clean === '::1' || clean === '::') return true;
-  if (clean.startsWith('fc') || clean.startsWith('fd') || clean.startsWith('fe80')) return true;
-  if (clean.startsWith('::ffff:127.') || clean.startsWith('::ffff:10.') || clean.startsWith('::ffff:192.168.')) return true;
-  return false;
-}
-
-async function isSafeUrl(urlStr) {
-  let url;
-  try { url = new URL(urlStr); } catch { return { safe: false, reason: "Invalid URL" }; }
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') return { safe: false, reason: `Blocked protocol: ${url.protocol}` };
-  const hostname = url.hostname.toLowerCase();
-  if (BLOCKED_HOSTNAMES.some(h => hostname === h || hostname.endsWith('.' + h))) return { safe: false, reason: "Blocked: cloud metadata endpoint" };
-  if (hostname === 'localhost' || hostname === 'localhost.localdomain') return { safe: false, reason: "Blocked: localhost" };
-  try {
-    const rawHost = hostname.replace(/^\[|\]$/g, '');
-    if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(rawHost) || rawHost.includes(':')) {
-      return { safe: isPrivateIP(rawHost) ? { safe: false, reason: `Blocked: private/reserved IP ${hostname}` } : { safe: true } };
-    }
-    const addresses = await dns.resolve4(hostname).catch(() => []);
-    const addresses6 = await dns.resolve6(hostname).catch(() => []);
-    const allAddresses = [...addresses, ...addresses6];
-    if (allAddresses.length === 0) return { safe: false, reason: `Cannot resolve hostname: ${hostname}` };
-    for (const ip of allAddresses) {
-      if (isPrivateIP(ip)) return { safe: false, reason: `Blocked: ${hostname} resolves to private IP ${ip}` };
-    }
-    return { safe: true };
-  } catch (e) {
-    return { safe: false, reason: `DNS resolution error: ${e.message.substring(0, 80)}` };
-  }
-}
-
-function detectImageType(buffer) {
-  if (buffer.length < 4) return null;
-  if (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) return "image/jpeg";
-  if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) return "image/png";
-  return null;
-}
+// isSafeUrl, detectImageType imported from ./src/security.js
 
 // --- Quick HTTP check (no vision AI for speed) ---
 async function quickCheck(cam) {

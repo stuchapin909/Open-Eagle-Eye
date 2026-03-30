@@ -7,7 +7,8 @@
     "openeagleeye": "./index.js"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "node --test src/security.test.js"
   },
   "keywords": [
     "mcp",
