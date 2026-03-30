@@ -86,6 +86,7 @@ Current sources in the registry:
 | New York | NYC TMC API | 100 | None |
 | São Paulo | CET urban traffic cameras | 195 | None |
 | Finland | Fintraffic Digitraffic weather cameras (nationwide) | 2,223 | None |
+| Utah | UDOT udottraffic.utah.gov API (ADX) | 2,026 | None |
 
 ## Code contributions
 
