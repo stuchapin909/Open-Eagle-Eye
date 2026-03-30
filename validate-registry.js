@@ -284,31 +284,14 @@ async function main() {
 
   } else {
     // Push/PR mode: Only validate modified/new cameras against upstream baseline
+    // Push/PR mode: Identify newly added cameras by checking against the local registry state
     let diffCameras = [];
     try {
-      console.log(`Fetching upstream baseline to identify changed cameras...`);
-      const resp = await axios.get(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/cameras.json`, {
-        headers: {
-          "User-Agent": "registry-bot",
-          "Accept": "application/vnd.github.raw+json",
-          ...(GITHUB_TOKEN ? { Authorization: `Bearer ${GITHUB_TOKEN}` } : {})
-        },
-        timeout: 45000,
-        maxContentLength: 50 * 1024 * 1024
-      });
-      const upstreamCameras = typeof resp.data === 'string' ? JSON.parse(resp.data) : resp.data;
-      const upstreamMap = new Map();
-      if (Array.isArray(upstreamCameras)) {
-        for (const c of upstreamCameras) upstreamMap.set(c.id, c);
-      }
-      diffCameras = allCameras.filter(c => {
-        const up = upstreamMap.get(c.id);
-        if (!up) return true; // new
-        return up.url !== c.url || up.timezone !== c.timezone || up.city !== c.city;
-      });
-      console.log(`Found ${diffCameras.length} changed or new camera(s) to validate.`);
+      const log = loadLog();
+      diffCameras = allCameras.filter(c => !log[c.id]);
+      console.log(`Found ${diffCameras.length} brand new camera(s) to validate.`);
     } catch (e) {
-      console.log(`Failed to fetch upstream baseline: ${e.message}`);
+      console.log(`Failed to diff against registry state: ${e.message}`);
       diffCameras = allCameras; // fallback
     }
 
