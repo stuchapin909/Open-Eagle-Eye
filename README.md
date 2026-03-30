@@ -74,7 +74,7 @@ Every tool returns structured JSON. Snapshots save to disk and return the file p
 ## Registry
 
 **22,999 cameras** across eleven countries:
-- US: 17,193 (NYC, Washington State, California Caltrans, Colorado CDOT, Virginia VDOT, Florida FDOT, North Carolina NCDOT, Pennsylvania PennDOT, Arizona ADOT, Oregon ODOT, Nevada NDOT)
+- US: 17,181 (NYC, Washington State, California Caltrans, Colorado CDOT, Virginia VDOT, Florida FDOT, North Carolina NCDOT, Pennsylvania PennDOT, Arizona ADOT, Oregon ODOT, Nevada NDOT)
 - FI: 2,223 (Digitraffic weather cameras, nationwide Finnish road network)
 - CA: 1,292 (Ontario, Alberta)
 - HK: 995 (Hong Kong Transport Department, all 18 districts)

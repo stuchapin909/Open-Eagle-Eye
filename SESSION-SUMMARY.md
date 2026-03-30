@@ -10,7 +10,7 @@
 
 | Country | Count | Sources |
 |---------|-------|---------|
-| US | 17,193 | NYC DOT (100), WSDOT (1,654), Caltrans CWWP2 (3,430), CDOT CoTrip (1,023), VDOT 511 (1,695), FDOT FL511 (4,700), NCDOT (779), PennDOT 511PA (1,445), Arizona ADOT (604), Oregon ODOT (1,120), Nevada NDOT (643) |
+| US | 17,181 | NYC DOT (100), WSDOT (1,654), Caltrans CWWP2 (3,430), CDOT CoTrip (1,023), VDOT 511 (1,695), FDOT FL511 (4,700), NCDOT (779), PennDOT 511PA (1,445), Arizona ADOT (604), Oregon ODOT (1,120), Nevada NDOT (643) |
 | FI | 2,223 | Digitraffic weather cameras (Fintraffic) |
 | CA | 1,292 | Ontario MTO (923), Alberta 511 (369) |
 | HK | 995 | Hong Kong Transport Department |
@@ -74,7 +74,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 - `ce9f670` — Add 1,120 Oregon ODOT TripCheck cameras
 - `53a68fc` — Add 643 Nevada NDOT cameras
 - `4a9c287` — Add 195 Brazil CET São Paulo cameras (10 countries)
-- `COMMIT` — Add 2,223 Finland Digitraffic weather cameras (11 countries)
+- `53079be` — Add 2,223 Finland Digitraffic weather cameras (11 countries)
 - Plus CONTRIBUTING.md and README.md updates interleaved
 
 ## Failed sources (do not retry without new approach)
