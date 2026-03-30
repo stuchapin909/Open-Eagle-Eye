@@ -1,0 +1,29 @@
+Starting full MCP client test...
+Connected to MCP server.
+
+--- Testing check_config ---
+Config status: {
+  config_path: 'C:\\Users\\stuch\\.openeagleeye\\config.json',
+  api_keys_configured: 0,
+  auth_required_cameras: 0,
+  cameras: []
+}
+
+--- Testing nearby_cameras (near Times Square) ---
+Found 2 cameras near Times Square.
+  > Broadway @ 46 St (0.1km awawy)
+  > 7 Ave @ 40 St (0.4km awawy)
+
+--- Testing get_snapshots (Batch of 2) ---
+Batch request: 2 requested, 2 succeeded.
+
+--- Testing Local Camera Workflow ---
+Added local camera: Test Fake Camera (local-1774904132774)
+Total local cameras: 1
+Removing local camera local-1774904132774...
+Remove response: {
+  success: true,
+  removed: { id: 'local-1774904132774', name: 'Test Fake Camera' }
+}
+
+Testing complete! (Skipped submit_local and report_camera to avoid spamming GitHub issues)

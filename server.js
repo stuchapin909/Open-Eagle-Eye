@@ -232,6 +232,10 @@ async function downloadSnapshot(cam) {
   const resolvedIPs = safety.resolvedIPs || [];
   const lookup = resolvedIPs.length > 0
     ? (_hostname, opts, cb) => {
+        if (typeof opts === 'function') {
+          cb = opts;
+          opts = {};
+        }
         const family = opts.family || 0;
         let ip = null;
         if (family === 4) {
@@ -243,7 +247,12 @@ async function downloadSnapshot(cam) {
           ip = resolvedIPs.find(a => !a.includes(':')) || resolvedIPs.find(a => a.includes(':'));
         }
         if (!ip) return cb(new Error(`No pinned IP found for family ${family}`));
-        cb(null, ip, ip.includes(':') ? 6 : 4);
+        
+        if (opts.all) {
+          cb(null, [{ address: ip, family: ip.includes(':') ? 6 : 4 }]);
+        } else {
+          cb(null, ip, ip.includes(':') ? 6 : 4);
+        }
       }
     : undefined;
 
