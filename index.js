@@ -127,6 +127,20 @@ const HUMAN_HEADERS = {
   'Sec-Fetch-Site': 'cross-site'
 };
 
+// Per-domain extra headers for hosts that require Referer or other special headers
+const DOMAIN_HEADERS = {
+  'webcams.transport.nsw.gov.au': { 'Referer': 'https://www.livetraffic.com/traffic-cameras' },
+};
+
+function getHeadersForUrl(urlStr) {
+  try {
+    const hostname = new URL(urlStr).hostname;
+    return { ...HUMAN_HEADERS, ...(DOMAIN_HEADERS[hostname] || {}) };
+  } catch {
+    return HUMAN_HEADERS;
+  }
+}
+
 // --- Magic byte detection for CDNs that return wrong content-type ---
 function detectImageType(buffer) {
   if (buffer.length < 4) return null;
@@ -137,7 +151,7 @@ function detectImageType(buffer) {
 
 async function validateImageUrl(url) {
   try {
-    const resp = await axios.get(url, { timeout: 5000, headers: HUMAN_HEADERS, responseType: 'stream' });
+    const resp = await axios.get(url, { timeout: 5000, headers: getHeadersForUrl(url), responseType: 'stream' });
     const ct = resp.headers['content-type'] || "";
     resp.data.destroy();
     return ct.includes('image/');
@@ -151,7 +165,7 @@ async function validateImageUrl(url) {
 function buildRequestConfig(cam) {
   const auth = cam.auth;
   if (!auth || !auth.key_required) {
-    return { url: cam.url, headers: { ...HUMAN_HEADERS } };
+    return { url: cam.url, headers: getHeadersForUrl(cam.url) };
   }
 
   const apiKeys = getUserApiKeys();
@@ -167,7 +181,7 @@ function buildRequestConfig(cam) {
   }
 
   const url = new URL(cam.url);
-  const headers = { ...HUMAN_HEADERS };
+  const headers = getHeadersForUrl(cam.url);
 
   if (auth.key_type === "header") {
     for (const keyName of auth.key_names || [configKey]) {

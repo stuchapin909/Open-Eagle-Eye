@@ -61,6 +61,10 @@ March 30:
 
 11. **Finland Digitraffic** (+2,223) — Fintraffic Digitraffic weather camera API at `tie.digitraffic.fi/api/weathercam/v1/stations` (GeoJSON with features array). 804 camera stations with 2,223 active presets (camera angles). Direct JPEG from `weathercam.digitraffic.fi/{presetId}.jpg` (mix of 1280x720 and 720x576). Covers entire Finnish road network including highways (valtatiet), regional roads (kantatiet), and main roads (seututiet). GPS coordinates included (WGS84). No auth. Requires Accept-Encoding: gzip header. Images update every ~10 minutes. 6/6 validation samples returned valid JPEG (9.8-307KB). Top cities: Oulu (99), Tampere (44), Kuopio (39), Lappeenranta (37), Enontekiö (37), Inari (32), Savonlinna (31).
 
+### Infrastructure work (March 30)
+
+12. **Registry-wide validation** — Validated all 30 image sources. 8 samples each from the 8 largest domains, 6 samples each from the 22 smaller domains. Results: all sources at 100% except `cam.pangbornairport.com` (1 camera offline). Total: 29/30 sources fully healthy. Key finding: NSW cameras require `Referer: https://www.livetraffic.com/traffic-cameras` header — the S3 bucket at `webcams.transport.nsw.gov.au` has hotlink protection. Without Referer, returns a 307-byte HTML error page ("camera image temporarily unavailable"). With Referer, all images serve correctly (46-134KB JPEG). NSW listing data still available via `www.livetraffic.com/datajson/all-feeds-web.json` (197 cameras, GeoJSON with GPS coords). Validator should be updated to send Referer for `webcams.transport.nsw.gov.au` URLs.
+
 ### Validation method
 For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG magic bytes (`\xff\xd8`) or PNG (`\x89PNG`) + reasonable file size (>500B-1KB). Send screenshots to user for visual confirmation.
 
@@ -76,6 +80,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 - `4a9c287` — Add 195 Brazil CET São Paulo cameras (10 countries)
 - `53079be` — Add 2,223 Finland Digitraffic weather cameras (11 countries)
 - Plus CONTRIBUTING.md and README.md updates interleaved
+- No camera additions this run — validation only
 
 ## Failed sources (do not retry without new approach)
 
@@ -116,9 +121,9 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 10. **Taiwan** — Revisit if we add MJPEG stream support to the server. 4,071 cameras waiting.
 
 ### Infrastructure improvements
-11. **NSW validation** — The 197 AU cameras may need URL pattern update. Check nightly validator results.
-12. **Broader validation** — Run spot checks on larger batches (Caltrans 3,430, FL511 4,700) to estimate actual live counts.
-13. **Clean up temp files** — `/tmp/ca_cameras.json`, `/tmp/eu_cameras.json`, `/tmp/fl_cameras_raw.json`, `/tmp/nc_cameras_raw.json`, `/tmp/hk_cameras.json`, `/tmp/*_samples/`, `/tmp/*_batch*` can be deleted.
+11. ~~**NSW validation**~~ — DONE. Cameras still work but require `Referer: https://www.livetraffic.com/traffic-cameras` header (S3 bucket hotlink protection). Without Referer, returns 307-byte HTML error page. Validator should be updated to send Referer for NSW cameras.
+12. ~~**Broader validation**~~ — DONE. Spot-checked 8 samples from each of 8 largest sources + 6 samples from each of 22 smaller sources. All sources at 100% except `cam.pangbornairport.com` (1 camera, offline). Total: 29/30 sources healthy.
+13. ~~**Clean up temp files**~~ — DONE. Removed all `/tmp/*_cameras*.json`, `/tmp/*_samples/`, `/tmp/*_batch*` files.
 
 ## Key files
 

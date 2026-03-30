@@ -49,6 +49,20 @@ const FETCH_HEADERS = {
   'Cache-Control': 'no-cache',
 };
 
+// Per-domain extra headers for hosts that require Referer or other special headers
+const DOMAIN_HEADERS = {
+  'webcams.transport.nsw.gov.au': { 'Referer': 'https://www.livetraffic.com/traffic-cameras' },
+};
+
+function getHeadersForUrl(urlStr) {
+  try {
+    const hostname = new URL(urlStr).hostname;
+    return { ...FETCH_HEADERS, ...(DOMAIN_HEADERS[hostname] || {}) };
+  } catch {
+    return FETCH_HEADERS;
+  }
+}
+
 // --- SSRF protection ---
 const BLOCKED_HOSTNAMES = [
   'metadata.google.internal',
@@ -187,7 +201,7 @@ async function checkUrl(urlStr) {
   try {
     const resp = await axios.get(urlStr, {
       timeout: 10000,
-      headers: FETCH_HEADERS,
+      headers: getHeadersForUrl(urlStr),
       responseType: 'arraybuffer',
       maxContentLength: 5 * 1024 * 1024,
       maxBodyLength: 5 * 1024 * 1024,
