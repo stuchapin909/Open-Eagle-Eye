@@ -73,17 +73,17 @@ Every tool returns structured JSON. Snapshots save to disk and return the file p
 
 ## Registry
 
-**3,757 cameras** across five countries:
-- 424 London TfL JamCams (all boroughs)
-- 100 NYC TMC traffic cams (all 5 boroughs)
- - 153 Sydney metro traffic cams
-- 44 Regional NSW traffic cams
-- 90 Singapore LTA traffic cams
-- 923 Ontario MTO traffic cams
-- 369 Alberta 511 traffic cams
-- 1,654 WSDOT traffic cams (Washington State)
+**7,589 cameras** across eight countries:
+- US: 5,184 (NYC, Washington State, California Caltrans)
+- CA: 1,292 (Ontario, Alberta)
+- UK: 424 (London TfL JamCams, all boroughs)
+- NZ: 251 (NZTA nationwide highways)
+- AU: 197 (Sydney metro + Regional NSW)
+- JP: 98 (NEXCO East expressways)
+- SG: 90 (Singapore LTA traffic cams)
+- IE: 53 (TII motorway cams)
 
-Every camera has `city`, `location`, `timezone`, and `coordinates` (lat/lng). Cameras live in `cameras.json` — one file, one source of truth.
+Every camera has `country`, `city`, `location`, `timezone`, and `coordinates` (lat/lng). Cameras live in `cameras.json` — one file, one source of truth.
 
 ### Self-healing
 
