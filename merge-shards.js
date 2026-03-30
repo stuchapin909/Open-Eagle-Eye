@@ -25,13 +25,31 @@ function main() {
   const log = JSON.parse(fs.readFileSync(LOG_PATH, "utf8"));
 
   // Collect all shard results
-  const shardFiles = fs.readdirSync(SHARD_RESULTS_DIR)
-    .filter(f => f.startsWith("shard-") && f.endsWith(".json"))
-    .sort((a, b) => {
-      const ai = parseInt(a.match(/\d+/)[0], 10);
-      const bi = parseInt(b.match(/\d+/)[0], 10);
-      return ai - bi;
-    });
+  // actions/download-artifact@v4 creates subdirectories per artifact:
+  //   .shard-results/shard-0/shard-0.json
+  // Handle both flat (.shard-results/shard-0.json) and nested structures
+  const allEntries = fs.readdirSync(SHARD_RESULTS_DIR, { withFileTypes: true });
+  let shardFiles = [];
+
+  for (const entry of allEntries) {
+    if (entry.isFile() && entry.name.startsWith("shard-") && entry.name.endsWith(".json")) {
+      // Flat structure: .shard-results/shard-0.json
+      shardFiles.push(entry.name);
+    } else if (entry.isDirectory() && entry.name.startsWith("shard-")) {
+      // Nested structure: .shard-results/shard-0/shard-0.json
+      const inner = fs.readdirSync(path.join(SHARD_RESULTS_DIR, entry.name));
+      const jsonFile = inner.find(f => f.startsWith("shard-") && f.endsWith(".json"));
+      if (jsonFile) {
+        shardFiles.push(path.join(entry.name, jsonFile));
+      }
+    }
+  }
+
+  shardFiles.sort((a, b) => {
+    const ai = parseInt(a.match(/\d+/)[0], 10);
+    const bi = parseInt(b.match(/\d+/)[0], 10);
+    return ai - bi;
+  });
 
   if (shardFiles.length === 0) {
     console.log("No shard results found. Nothing to merge.");
