@@ -80,22 +80,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Merge shard results
+      - name: Merge and commit results
         env:
           MAX_CONSECUTIVE_FAILURES: 2
-        run: node merge-shards.js
-
-      - name: Read summary
-        id: summary
         run: |
+          node merge-shards.js
           SUMMARY=$(cat .validation-summary.json)
-          echo "summary=$SUMMARY" >> "$GITHUB_OUTPUT"
+          REMOVED=$(echo "$SUMMARY" | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));process.stdout.write(String(d.removed))")
+          PASSED=$(echo "$SUMMARY" | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));process.stdout.write(String(d.passed))")
+          TOTAL=$(echo "$SUMMARY" | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));process.stdout.write(String(d.total_checked))")
           echo "$SUMMARY"
-
-      - name: Commit results
-        run: |
           git config --global user.name "registry-bot"
           git config --global user.email "bot@open-public-cam.local"
           git add cameras.json .registry-state.json
-          git diff --cached --quiet || git commit -m "Validator: parallel nightly check (${{ fromJson(steps.summary.outputs.summary).removed }} removed, ${{ fromJson(steps.summary.outputs.summary).passed }}/${{ fromJson(steps.summary.outputs.summary).total_checked }} passed)"
+          git diff --cached --quiet || git commit -m "Validator: parallel nightly check ($REMOVED removed, $PASSED/$TOTAL passed)"
           git push
