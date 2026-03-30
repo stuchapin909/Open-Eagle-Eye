@@ -90,6 +90,14 @@ Current sources in the registry:
 | New England | 511 newengland511.org API (NH, ME, VT) | 408 | None |
 | Louisiana | LADOTD 511la.org API | 296 | None |
 
+## Source documentation
+
+The `sources/` directory contains per-source API research notes for every camera source in the registry. Each file documents the API endpoint, pagination method, image URL pattern, coordinate format, and known pitfalls. Use these as reference when adding new sources or debugging broken ones.
+
+- `sources/datatables-pattern/RESEARCH.md` -- the common 511-style DataTables API used by most US state DOTs
+- `sources/us-{state}/RESEARCH.md` -- individual US state sources
+- `sources/{country-code}/RESEARCH.md` -- international sources (au, br, ca, fi, hk, ie, jp, nz, sg, uk)
+
 ## Code contributions
 
 Bug fixes, improvements, and new features welcome. Open an issue first if the change is substantial.

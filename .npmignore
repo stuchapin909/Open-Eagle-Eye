@@ -1,9 +1,31 @@
-scripts/
-snapshots/
+# Runtime data (downloaded at startup from GitHub)
+cameras.json
 .registry-state.json
-validate-registry.js
-stderr.log
-node_modules.bad/
+local-cameras.json
+config.json
+
+# Dev/test scripts
+scripts/
+sources/
+*.mjs
+
+# CI
 .github/
+
+# Validation tooling (CI-only)
+validate-registry.js
+validate-shard.js
+merge-shards.js
+update-counts.js
+
+# Local state
+node_modules/
+node_modules.bad/
+snapshots/
+verification-evidence/
+stderr.log
+validation-results.md
+
+# Metadata
 .gitignore
 .npmignore

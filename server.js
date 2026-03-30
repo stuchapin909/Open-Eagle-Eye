@@ -45,6 +45,16 @@ try {
 // Merged view: upstream + local
 const allCameras = [...cameras, ...localCameras.map(c => ({ ...c, source: "local" }))];
 
+// Pre-compute aggregates (used by list_cameras and registry-stats resource)
+const cityCounts = {};
+const countryCounts = {};
+const categoryCounts = {};
+for (const c of allCameras) {
+  const city = c.city || "Unknown"; cityCounts[city] = (cityCounts[city] || 0) + 1;
+  const cc = c.country || "unknown"; countryCounts[cc] = (countryCounts[cc] || 0) + 1;
+  const cat = c.category || "other"; categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+}
+
 function saveLocalCameras() {
   fs.writeFileSync(LOCAL_CAMERAS_PATH, JSON.stringify(localCameras, null, 2));
 }
@@ -164,54 +174,51 @@ server.tool(
   async ({ cam_id }) => {
     const cam = findWebcam(cam_id);
     if (!cam) return errResponse("Camera not found", { cam_id });
-
-    const config = buildRequestConfig(cam);
-    if (config.error) {
-      return errResponse("API key required", { details: config.error, camera: cam.name });
-    }
-
-    // SSRF check
-    const safety = await isSafeUrl(config.url);
-    if (!safety.safe) {
-      return errResponse("Blocked", { reason: safety.reason, camera: cam.name });
-    }
-
-    // Random filename to prevent path prediction
-    const filename = `${crypto.randomBytes(8).toString('hex')}.jpg`;
-    const fullPath = path.join(SNAPSHOTS_DIR, filename);
-
-    try {
-      const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024, maxRedirects: 1 });
-      let ct = response.headers['content-type'] || "";
-      // Strict content-type: only jpeg and png
-      let isAllowed = ALLOWED_CONTENT_TYPES.some(t => ct.includes(t));
-      // Fallback: check magic bytes for CDNs with wrong content-type
-      const buf = Buffer.from(response.data);
-      if (!isAllowed) {
-        const detected = detectImageType(buf);
-        if (detected) {
-          isAllowed = true;
-          ct = detected;
-        }
-      }
-      if (!isAllowed) throw new Error(`Rejected content-type: ${ct} (only image/jpeg and image/png allowed)`);
-      if (buf.length > 5 * 1024 * 1024) throw new Error(`Response too large (${(buf.length / 1024 / 1024).toFixed(1)}MB, max 5MB)`);
-      fs.writeFileSync(fullPath, buf);
-      if (!fs.existsSync(fullPath)) throw new Error("No output file created.");
-      return { content: [{ type: "text", text: JSON.stringify({
-        success: true,
-        file_path: fullPath,
-        size_bytes: buf.length,
-        content_type: ct.includes('png') ? 'image/png' : 'image/jpeg',
-        camera: { id: cam.id, name: cam.name, location: cam.location, category: cam.category }
-      }) }] };
-    } catch (e) { return errResponse("Snapshot failed", { message: e.message, camera: cam.name, id: cam.id }); }
+    const result = await downloadSnapshot(cam);
+    if (result.error) return errResponse(result.error, { camera: cam.name, id: cam.id });
+    return { content: [{ type: "text", text: JSON.stringify(result) }] };
   }
 );
 
 // --- Error helper ---
 function errResponse(error, extra = {}) {
   return { content: [{ type: "text", text: JSON.stringify({ error, ...extra }) }], isError: true };
+}
+
+// --- Shared snapshot download helper ---
+async function downloadSnapshot(cam) {
+  const config = buildRequestConfig(cam);
+  if (config.error) return { error: "API key required", details: config.error };
+
+  const safety = await isSafeUrl(config.url);
+  if (!safety.safe) return { error: `Blocked: ${safety.reason}` };
+
+  const filename = `${crypto.randomBytes(8).toString('hex')}.jpg`;
+  const fullPath = path.join(SNAPSHOTS_DIR, filename);
+
+  try {
+    const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024, maxRedirects: 1 });
+    let ct = response.headers['content-type'] || "";
+    let isAllowed = ALLOWED_CONTENT_TYPES.some(t => ct.includes(t));
+    const buf = Buffer.from(response.data);
+    if (!isAllowed) {
+      const detected = detectImageType(buf);
+      if (detected) { isAllowed = true; ct = detected; }
+    }
+    if (!isAllowed) return { error: `Rejected content-type: ${ct}` };
+    if (buf.length > 5 * 1024 * 1024) return { error: `Response too large (${(buf.length / 1024 / 1024).toFixed(1)}MB)` };
+    if (buf.length < 500) return { error: `Response too small: ${buf.length} bytes (likely placeholder)` };
+    fs.writeFileSync(fullPath, buf);
+    return {
+      success: true,
+      file_path: fullPath,
+      size_bytes: buf.length,
+      content_type: ct.includes('png') ? 'image/png' : 'image/jpeg',
+      camera: { id: cam.id, name: cam.name, location: cam.location, category: cam.category }
+    };
+  } catch (e) {
+    return { error: `Snapshot failed: ${e.message.substring(0, 200)}` };
+  }
 }
 
 // --- Haversine distance (km) ---
@@ -268,10 +275,7 @@ server.tool("list_cameras", "Browse the camera registry. Returns cameras with id
   const paged = filtered.slice(effectiveOffset, effectiveOffset + effectiveLimit);
   const result = paged.map(c => mapCameraMeta(c, logs));
 
-  const cities = {};
-  for (const c of allCameras) { const city = c.city || "Unknown"; cities[city] = (cities[city] || 0) + 1; }
-
-  return { content: [{ type: "text", text: JSON.stringify({ version: VERSION, total: allCameras.length, filtered: totalFiltered, offset: effectiveOffset, limit: effectiveLimit, cities, cameras: result }, null, 2) }] };
+  return { content: [{ type: "text", text: JSON.stringify({ version: VERSION, total: allCameras.length, filtered: totalFiltered, offset: effectiveOffset, limit: effectiveLimit, cities: cityCounts, cameras: result }, null, 2) }] };
 });
 
 server.tool("search_cameras", "Search cameras by text. Matches against name, city, country, location, and category. Use when looking for cameras in a specific place or of a specific type.", {
@@ -380,50 +384,8 @@ server.tool("get_snapshots", "Fetch live images from multiple cameras in one cal
       results.push({ cam_id, error: "Camera not found" });
       continue;
     }
-
-    const config = buildRequestConfig(cam);
-    if (config.error) {
-      results.push({ cam_id, error: "API key required", details: config.error, camera: cam.name });
-      continue;
-    }
-
-    try {
-      const safety = await isSafeUrl(config.url);
-      if (!safety.safe) {
-        results.push({ cam_id, error: "Blocked", reason: safety.reason, camera: cam.name });
-        continue;
-      }
-    } catch {
-      results.push({ cam_id, error: "URL safety check failed", camera: cam.name });
-      continue;
-    }
-
-    const filename = `${crypto.randomBytes(8).toString('hex')}.jpg`;
-    const fullPath = path.join(SNAPSHOTS_DIR, filename);
-
-    try {
-      const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024, maxRedirects: 1 });
-      let ct = response.headers['content-type'] || "";
-      let isAllowed = ALLOWED_CONTENT_TYPES.some(t => ct.includes(t));
-      const buf = Buffer.from(response.data);
-      if (!isAllowed) {
-        const detected = detectImageType(buf);
-        if (detected) { isAllowed = true; ct = detected; }
-      }
-      if (!isAllowed) throw new Error(`Rejected content-type: ${ct}`);
-      if (buf.length > 5 * 1024 * 1024) throw new Error(`Response too large`);
-      fs.writeFileSync(fullPath, buf);
-      results.push({
-        cam_id,
-        success: true,
-        file_path: fullPath,
-        size_bytes: buf.length,
-        content_type: ct.includes('png') ? 'image/png' : 'image/jpeg',
-        camera: { id: cam.id, name: cam.name, location: cam.location, category: cam.category }
-      });
-    } catch (e) {
-      results.push({ cam_id, error: "Snapshot failed", message: e.message, camera: cam.name });
-    }
+    const snap = await downloadSnapshot(cam);
+    results.push({ cam_id, ...snap });
   }
 
   const successes = results.filter(r => r.success).length;
@@ -730,30 +692,22 @@ server.tool("check_config", "Show API key configuration status. Lists all camera
 // --- MCP Resources ---
 server.resource("registry-stats", "cameras://stats", async () => {
   const logs = getValidationLog();
-  const countries = {};
-  const categories = {};
-  const cities = {};
   let active = 0, suspect = 0, offline = 0;
   for (const c of allCameras) {
-    const cc = c.country || "unknown";
-    countries[cc] = (countries[cc] || 0) + 1;
-    categories[c.category || "other"] = (categories[c.category || "other"] || 0) + 1;
-    const city = c.city || "Unknown";
-    cities[city] = (cities[city] || 0) + 1;
     const status = (logs[c.id]?.status) || "active";
     if (status === "active") active++;
     else if (status === "suspect") suspect++;
     else offline++;
   }
-  const topCities = Object.entries(cities).sort((a, b) => b[1] - a[1]).slice(0, 20);
+  const topCities = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]).slice(0, 20);
   const stats = {
     version: VERSION,
     total: allCameras.length,
     upstream: cameras.length,
     local: localCameras.length,
     health: { active, suspect, offline },
-    countries,
-    categories,
+    countries: countryCounts,
+    categories: categoryCounts,
     top_cities: topCities,
   };
   return { contents: [{ uri: "cameras://stats", mimeType: "application/json", text: JSON.stringify(stats, null, 2) }] };
