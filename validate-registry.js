@@ -38,8 +38,6 @@ const ALLOWED_CONTENT_TYPES = ["image/jpeg", "image/png"];
 const MAX_CONSECUTIVE_FAILURES = 2;
 // Cron: check cameras not validated in this many days
 const STALE_THRESHOLD_DAYS = 7;
-// Max issues per run (spam protection)
-const MAX_ISSUES_PER_RUN = 5;
 // Max cameras to validate per push/PR (DoS protection)
 const MAX_PUSH_VALIDATIONS = 500;
 
@@ -258,44 +256,6 @@ async function visionCheck(imageBuffer) {
 function loadLog() { try { return JSON.parse(fs.readFileSync(LOG_PATH, "utf8")); } catch { return {}; } }
 function saveLog(data) { fs.writeFileSync(LOG_PATH, JSON.stringify(data, null, 2)); }
 
-// --- GitHub API helpers ---
-async function hasOpenIssue(cameraId) {
-  if (!GITHUB_TOKEN) return false;
-  try {
-    const resp = await axios.get(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues`,
-      {
-        params: {
-          labels: 'dead-camera',
-          state: 'open',
-          per_page: 100,
-        },
-        headers: { Authorization: `Bearer ${GITHUB_TOKEN}`, "User-Agent": "registry-bot" }
-      }
-    );
-    const issues = resp.data || [];
-    return issues.some(i => i.title.includes(cameraId));
-  } catch {
-    return false; // If API fails, proceed cautiously
-  }
-}
-
-async function createIssue(title, body, labels = []) {
-  if (!GITHUB_TOKEN) { console.log(`Would open issue: ${title}`); return true; }
-  try {
-    await axios.post(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues`,
-      { title, body, labels },
-      { headers: { Authorization: `Bearer ${GITHUB_TOKEN}`, "User-Agent": "registry-bot" } }
-    );
-    console.log(`Issue opened: ${title}`);
-    return true;
-  } catch (e) {
-    console.log(`Failed to open issue: ${e.message.substring(0, 100)}`);
-    return false;
-  }
-}
-
 async function postPRComment(body) {
   if (!GITHUB_TOKEN || !PR_NUMBER) return;
   try {
@@ -389,7 +349,6 @@ async function main() {
   const log = loadLog();
   const results = [];
   let removedCount = 0;
-  const issuesToOpen = [];
 
   console.log(`Mode: ${EVENT_NAME}`);
   console.log(`Cameras: ${allCameras.length}`);
@@ -430,7 +389,6 @@ async function main() {
             removedCount++;
           }
           logEntry.status = "offline";
-          issuesToOpen.push({ cam, reason: result.details });
         } else {
           logEntry.status = "suspect";
           console.log(`  SUSPECT ${cam.id} — failure ${logEntry.consecutive_failures}/${MAX_CONSECUTIVE_FAILURES}`);
@@ -497,29 +455,6 @@ async function main() {
 
   saveLog(log);
 
-  // Open issues for dead cameras (with spam protection)
-  let issuesOpened = 0;
-  for (const { cam, reason } of issuesToOpen) {
-    if (issuesOpened >= MAX_ISSUES_PER_RUN) {
-      console.log(`Issue cap reached (${MAX_ISSUES_PER_RUN}). Skipping remaining ${issuesToOpen.length - issuesOpened} cameras.`);
-      break;
-    }
-
-    // Check for existing open issue to avoid duplicates
-    const alreadyOpen = await hasOpenIssue(cam.id);
-    if (alreadyOpen) {
-      console.log(`Skipping issue for ${cam.id} — already open`);
-      continue;
-    }
-
-    const opened = await createIssue(
-      `[dead-camera] ${cam.name} (${cam.id})`,
-      `**Camera:** ${cam.name}\n**ID:** \`${cam.id}\`\n**Location:** ${cam.location}\n**URL:** ${cam.url}\n**Reason:** ${reason}\n**Checked:** ${new Date().toISOString()}\n\nThis camera failed ${MAX_CONSECUTIVE_FAILURES} consecutive validation checks and was removed from the registry. If it's still operational, it should be re-added.`,
-      ["dead-camera", "automated"]
-    );
-    if (opened) issuesOpened++;
-  }
-
   // Generate report
   const passed = results.filter(r => r.status === "pass").length;
   const failed = results.filter(r => r.status === "reject" || r.status === "fail").length;
@@ -530,7 +465,6 @@ async function main() {
   report += `- **Passed:** ${passed}\n`;
   report += `- **Failed:** ${failed}\n`;
   if (removedCount > 0) report += `- **Removed:** ${removedCount}\n`;
-  if (issuesOpened > 0) report += `- **Issues opened:** ${issuesOpened}\n`;
   report += `\n`;
 
   if (failed > 0) {
