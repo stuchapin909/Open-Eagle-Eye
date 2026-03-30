@@ -6,7 +6,7 @@
 - **Package:** openeagleeye v7.0.0 (npm, MCP server)
 - **License:** MIT
 
-## Current Registry: 20,788 cameras across 10 countries
+## Current Registry: 20,776 cameras across 10 countries
 
 | Country | Count | Sources |
 |---------|-------|---------|
@@ -70,7 +70,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 - `7082b56` — Add 1,445 Pennsylvania PennDOT 511PA cameras
 - `ce9f670` — Add 1,120 Oregon ODOT TripCheck cameras
 - `53a68fc` — Add 643 Nevada NDOT cameras
-- `XXXXXXX` — Add 195 Brazil CET São Paulo cameras (10 countries)
+- `4a9c287` — Add 195 Brazil CET São Paulo cameras (10 countries)
 - Plus CONTRIBUTING.md and README.md updates interleaved
 
 ## Failed sources (do not retry without new approach)
