@@ -21,9 +21,8 @@
   "license": "MIT",
   "files": [
     "index.js",
-    "cameras.json",
+    "server.js",
     "README.md",
-    "CONTRIBUTING.md",
     "LICENSE"
   ],
   "dependencies": {
