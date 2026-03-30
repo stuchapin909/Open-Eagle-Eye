@@ -6,11 +6,11 @@
 - **Package:** openeagleeye v7.0.0 (npm, MCP server)
 - **License:** MIT
 
-## Current Registry: 24,987 cameras across 11 countries
+## Current Registry: 25,435 cameras across 11 countries
 
 | Country | Count | Sources |
 |---------|-------|---------|
-| US | 19,207 | NYC DOT, WSDOT, Caltrans CWWP2, CDOT CoTrip, VDOT 511, FDOT FL511, NCDOT, PennDOT 511PA, Arizona ADOT, Oregon ODOT, Nevada NDOT, Utah UDOT |
+| US | 19,655 | NYC DOT, WSDOT, Caltrans CWWP2, CDOT CoTrip, VDOT 511, FDOT FL511, NCDOT, PennDOT 511PA, Arizona ADOT, Oregon ODOT, Nevada NDOT, Utah UDOT, Wisconsin WisDOT |
 | FI | 2,223 | Digitraffic weather cameras (Fintraffic) |
 | CA | 1,292 | Ontario MTO, Alberta 511 |
 | HK | 995 | Hong Kong Transport Department |
@@ -62,6 +62,7 @@ March 30:
 11. **Finland Digitraffic** (+2,223) — Fintraffic Digitraffic weather camera API at `tie.digitraffic.fi/api/weathercam/v1/stations` (GeoJSON with features array). 804 camera stations with 2,223 active presets (camera angles). Direct JPEG from `weathercam.digitraffic.fi/{presetId}.jpg` (mix of 1280x720 and 720x576). Covers entire Finnish road network including highways (valtatiet), regional roads (kantatiet), and main roads (seututiet). GPS coordinates included (WGS84). No auth. Requires Accept-Encoding: gzip header. Images update every ~10 minutes. 6/6 validation samples returned valid JPEG (9.8-307KB). Top cities: Oulu (99), Tampere (44), Kuopio (39), Lappeenranta (37), Enontekiö (37), Inari (32), Savonlinna (31).
 
 12. **Utah UDOT** (+2,026) — DataTables POST API at `udottraffic.utah.gov/List/GetData/Cameras` (pagination, 100/page, 2,026 total). Direct PNG/JPEG from `udottraffic.utah.gov/map/Cctv/{id}`. Source: ADX. Covers I-15, I-80, I-70, I-84, I-215, US-89, US-40, US-6, US-191, US-189, US-285 and many state routes plus city cameras. GPS coords in WKT format. No auth. 49/50 validation samples returned valid images (1 GIF placeholder for offline camera). 6/7 vision checks confirmed real webcam feeds. Top cities: Salt Lake City (186), St. George (92), Provo (90), Orem (73), Lehi (72).
+13. **Wisconsin WisDOT** (+448) — DataTables POST API at `511wi.gov/List/GetData/Cameras` (pagination, 100/page, 448 valid out of 482 API records). Direct PNG from `511wi.gov/map/Cctv/{id}`. Source: ATMS. Covers I-41, I-43, I-90, I-94, US-41, US-51, US-151, US-14, US-18, WIS-29 and state routes plus Milwaukee metro. GPS coords in WKT format (34 cameras had null coords excluded). No auth. 50/50 validation samples returned valid PNG. 2/2 vision checks confirmed real webcam feeds. Top counties: Milwaukee (136), Dane (53), Waukesha (42), Brown (31).
 
 ### Infrastructure work (March 30)
 
@@ -82,6 +83,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 - `4a9c287` — Add 195 Brazil CET São Paulo cameras (10 countries)
 - `53079be` — Add 2,223 Finland Digitraffic weather cameras (11 countries)
 - Add 2,026 Utah UDOT cameras
+- Add 448 Wisconsin WisDOT cameras
 - Plus CONTRIBUTING.md and README.md updates interleaved
 
 ## Failed sources (do not retry without new approach)
@@ -114,7 +116,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 2. ~~**Oregon ODOT**~~ — DONE. 1,120 cameras from tripcheck.com.
 3. ~~**Nevada NDOT**~~ — DONE. 643 cameras from nvroads.com.
 4. **Georgia** — Retry if GDOT launches a new public API.
-5. **Wisconsin** — 482 cameras from 511wi.gov (DataTables API, same pattern as az511/nvroads/511pa).
+5. ~~**Wisconsin**~~ — DONE. 448 cameras from 511wi.gov (34 excluded for null coords).
 6. **New England 511** — 408 cameras from newengland511.org (DataTables API, covers ME/NH/VT/RI).
 7. **Louisiana** — 336 cameras from 511la.org (DataTables API, source: LADOTD).
 
