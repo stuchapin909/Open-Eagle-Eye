@@ -72,6 +72,7 @@ Current sources in the registry:
 | Ontario | MTO 511 API | 923 | None |
 | London | TfL JamCam API | 424 | API key for discovery only, images public |
 | New Zealand | NZTA cameras.json API | 251 | None |
+| Hong Kong | Transport Department CCTV | 995 | None |
 | Sydney | NSW Live Traffic | 153 | None |
 | Alberta | Alberta 511 API | 369 | None |
 | Japan | NEXCO East expressway cameras | 98 | None |
