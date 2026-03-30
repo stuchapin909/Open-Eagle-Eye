@@ -6,18 +6,18 @@
 - **Package:** openeagleeye v7.0.0 (npm, MCP server)
 - **License:** MIT
 
-## Current Registry: 22,999 cameras across 11 countries
+## Current Registry: 22,961 cameras across 11 countries
 
 | Country | Count | Sources |
 |---------|-------|---------|
-| US | 17,181 | NYC DOT (100), WSDOT (1,654), Caltrans CWWP2 (3,430), CDOT CoTrip (1,023), VDOT 511 (1,695), FDOT FL511 (4,700), NCDOT (779), PennDOT 511PA (1,445), Arizona ADOT (604), Oregon ODOT (1,120), Nevada NDOT (643) |
+| US | 17,181 | NYC DOT, WSDOT, Caltrans CWWP2, CDOT CoTrip, VDOT 511, FDOT FL511, NCDOT, PennDOT 511PA, Arizona ADOT, Oregon ODOT, Nevada NDOT |
 | FI | 2,223 | Digitraffic weather cameras (Fintraffic) |
-| CA | 1,292 | Ontario MTO (923), Alberta 511 (369) |
+| CA | 1,292 | Ontario MTO, Alberta 511 |
 | HK | 995 | Hong Kong Transport Department |
 | UK | 424 | London TfL JamCams |
 | NZ | 251 | NZTA nationwide highways |
-| AU | 197 | Sydney metro (153) + Regional NSW (44) |
-| BR | 195 | CET São Paulo urban traffic |
+| BR | 195 | CET Sao Paulo urban traffic |
+| AU | 159 | Sydney metro, Regional NSW |
 | JP | 98 | NEXCO East expressways |
 | SG | 90 | Singapore LTA |
 | IE | 53 | TII motorway cams (M50 Dublin) |
@@ -127,7 +127,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 
 ## Key files
 
-- `cameras.json` — The registry (~6.3MB, 22,999 entries, JSON array)
+- `cameras.json — The registry (~9.7MB, 22,961 entries, JSON array), 22,961 entries, JSON array), 22,961 entries, JSON array)
 - `index.js` — MCP server (main package entry point)
 - `validate-registry.js` — GitHub Action validator
 - `merge_validate.mjs` — Local merge + validation script

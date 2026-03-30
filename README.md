@@ -73,8 +73,28 @@ Every tool returns structured JSON. Snapshots save to disk and return the file p
 
 ## Registry
 
-**22,999 cameras** across eleven countries:
-- US: 17,181 (NYC, Washington State, California Caltrans, Colorado CDOT, Virginia VDOT, Florida FDOT, North Carolina NCDOT, Pennsylvania PennDOT, Arizona ADOT, Oregon ODOT, Nevada NDOT)
+**22,961 cameras** across eleven countries:
+- US: 17,181 (NYC DOT, WSDOT, Caltrans CWWP2, CDOT CoTrip, VDOT 511, FDOT FL511, NCDOT, PennDOT 511PA, Arizona ADOT, Oregon ODOT, Nevada NDOT)
+- FI: 2,223 (Digitraffic weather cameras (Fintraffic))
+- CA: 1,292 (Ontario MTO, Alberta 511)
+- HK: 995 (Hong Kong Transport Department)
+- UK: 424 (London TfL JamCams)
+- NZ: 251 (NZTA nationwide highways)
+- BR: 195 (CET Sao Paulo urban traffic)
+- AU: 159 (Sydney metro, Regional NSW)
+- JP: 98 (NEXCO East expressways)
+- SG: 90 (Singapore LTA)
+- IE: 53 (TII motorway cams (M50 Dublin))
+- FI: 2,223 (Digitraffic weather cameras (Fintraffic))
+- CA: 1,292 (Ontario MTO, Alberta 511)
+- HK: 995 (Hong Kong Transport Department)
+- UK: 424 (London TfL JamCams)
+- NZ: 251 (NZTA nationwide highways)
+- BR: 195 (CET Sao Paulo urban traffic)
+- AU: 159 (Sydney metro, Regional NSW)
+- JP: 98 (NEXCO East expressways)
+- SG: 90 (Singapore LTA)
+- IE: 53 (TII motorway cams (M50 Dublin))
 - FI: 2,223 (Digitraffic weather cameras, nationwide Finnish road network)
 - CA: 1,292 (Ontario, Alberta)
 - HK: 995 (Hong Kong Transport Department, all 18 districts)
