@@ -17,6 +17,105 @@ const LOG_PATH = path.join(CACHE_DIR, ".registry-state.json");
 const SNAPSHOTS_DIR = path.join(CACHE_DIR, "snapshots");
 const USER_CONFIG_PATH = path.join(CACHE_DIR, "config.json");
 
+// Helper: create a temp file, pass to gh --body-file, then clean up
+function ghIssueCreate(title, body, label) {
+  const tmpFile = path.join(os.tmpdir(), `oee-${crypto.randomBytes(4).toString('hex')}.md`);
+  fs.writeFileSync(tmpFile, body, 'utf8');
+  try {
+    const result = execSync(
+      `gh issue create --repo ${GITHUB_REPO} --title ${JSON.stringify(title)} --body-file ${JSON.stringify(tmpFile)} --label ${JSON.stringify(label)}`,
+      { encoding: "utf8", timeout: 30000 }
+    ).trim();
+    return result;
+  } finally {
+    try { fs.unlinkSync(tmpFile); } catch {}
+  }
+}
+
+// Helper: classify gh CLI errors into specific types
+function classifyGhError(err) {
+  const msg = err.stderr?.toString() || err.message || "";
+  if (msg.includes("not found") && msg.includes("gh")) return { type: "gh_not_installed", message: "gh CLI is not installed", fix: "Install: https://cli.github.com/" };
+  if (msg.includes("not authenticated") || msg.includes("authentication") || msg.includes("auth")) return { type: "not_authenticated", message: "gh CLI is not authenticated", fix: "Run: gh auth login" };
+  if (msg.includes("not found") && msg.includes("label")) return { type: "label_missing", message: "GitHub label not found on repo", fix: "Create the label on GitHub first" };
+  if (msg.includes("rate limit") || msg.includes("rate-limit") || msg.includes("secondary rate")) return { type: "rate_limited", message: "GitHub API rate limit hit", fix: "Wait a few minutes and retry" };
+  if (msg.includes("timed out") || msg.includes("ETIMEDOUT") || msg.includes("ECONNREFUSED")) return { type: "network_error", message: "Network error contacting GitHub", fix: "Check your internet connection" };
+  if (msg.includes("permission") || msg.includes("403") || msg.includes("Forbidden")) return { type: "permission_denied", message: "Permission denied — token may lack 'issues' scope", fix: "Run: gh auth refresh -s repo,write:issues" };
+  if (msg.includes("could not add label")) return { type: "label_missing", message: msg.trim(), fix: "Label does not exist on the repo" };
+  return { type: "unknown", message: msg.substring(0, 300), fix: "Check gh CLI configuration" };
+}
+
+// Helper: check gh auth status
+function checkGhAuth() {
+  try {
+    execSync("gh auth status", { stdio: "pipe", timeout: 5000 });
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, ...classifyGhError(e) };
+  }
+}
+
+// Helper: fetch a camera image and return { buffer, contentType, error }
+async function fetchCameraImage(url) {
+  try {
+    const safety = await isSafeUrl(url);
+    if (!safety.safe) return { error: `Blocked: ${safety.reason}` };
+
+    const response = await axios.get(url, {
+      responseType: 'arraybuffer', timeout: 10000,
+      headers: getHeadersForUrl(url),
+      maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024, maxRedirects: 1
+    });
+
+    let ct = response.headers['content-type'] || "";
+    let isAllowed = ALLOWED_CONTENT_TYPES.some(t => ct.includes(t));
+    const buf = Buffer.from(response.data);
+
+    if (!isAllowed) {
+      const detected = detectImageType(buf);
+      if (detected) { isAllowed = true; ct = detected; }
+    }
+    if (!isAllowed) return { error: `Invalid content-type: ${ct}` };
+    if (buf.length > 5 * 1024 * 1024) return { error: `Image too large: ${(buf.length / 1024 / 1024).toFixed(1)}MB` };
+    if (buf.length < 500) return { error: `Image too small: ${buf.length} bytes (likely a placeholder or error page)` };
+
+    return { buffer: buf, contentType: ct.includes('png') ? 'image/png' : 'image/jpeg', size: buf.length };
+  } catch (e) {
+    return { error: e.message.substring(0, 200) };
+  }
+}
+
+// Helper: validate a camera URL returns a real image
+async function validateCameraUrl(cam) {
+  const result = await fetchCameraImage(cam.url);
+  if (result.error) return { valid: false, reason: result.error };
+  return { valid: true, size: result.size, content_type: result.contentType };
+}
+
+// Helper: check for duplicate open submission issues with the same URL
+function checkDuplicateUrls(cameraUrls) {
+  try {
+    const output = execSync(
+      `gh issue list --repo ${GITHUB_REPO} --label webcam-submission --state open --json number,body,title --limit 50`,
+      { encoding: "utf8", timeout: 15000 }
+    );
+    const issues = JSON.parse(output);
+    const duplicates = [];
+    for (const issue of issues) {
+      const body = issue.body || "";
+      for (const url of cameraUrls) {
+        if (body.includes(url)) {
+          duplicates.push({ url, issue_number: issue.number, issue_title: issue.title });
+        }
+      }
+    }
+    return duplicates;
+  } catch (e) {
+    // If we can't check, don't block the submission
+    return [];
+  }
+}
+
 // Renamed to Open Eagle Eye, npm: openeagleeye
 const VERSION = "8.0.0";
 
@@ -24,6 +123,7 @@ const VERSION = "8.0.0";
 const GITHUB_REPO = "stuchapin909/Open-Eagle-Eye";
 
 if (!fs.existsSync(CACHE_DIR)) fs.mkdirSync(CACHE_DIR, { recursive: true });
+if (!fs.existsSync(SNAPSHOTS_DIR)) fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
 
 const server = new McpServer({ name: "openeagleeye", version: VERSION });
 
@@ -406,59 +506,119 @@ server.tool("remove_local", "Delete a locally-added camera. Use if the camera UR
 });
 
 // SUBMIT LOCAL
-server.tool("submit_local", "Share your locally-added cameras with the upstream Open Eagle Eye registry by filing a GitHub issue. Requires the 'gh' CLI installed and authenticated (gh auth login). Your local cameras are not removed — use remove_local after they are accepted.", {}, async () => {
+server.tool("submit_local", "Share your locally-added cameras with the upstream Open Eagle Eye registry by filing a GitHub issue. Validates each camera URL, checks for duplicates, and embeds a snapshot preview. Requires the 'gh' CLI installed and authenticated (gh auth login). Your local cameras are not removed — use remove_local after they are accepted.", {}, async () => {
   if (localCameras.length === 0) return { content: [{ type: "text", text: JSON.stringify({ error: "No local cameras to submit. Use add_local_camera to add cameras first." }) }], isError: true };
 
-  try {
-    execSync("gh auth status", { stdio: "pipe", timeout: 5000 });
-  } catch {
+  // Check gh auth with detailed error
+  const authCheck = checkGhAuth();
+  if (!authCheck.ok) {
     return { content: [{ type: "text", text: JSON.stringify({
-      error: "gh CLI not found or not authenticated",
-      fix: "Install: https://cli.github.com/ — then run: gh auth login",
-      message: "Local cameras are saved. Install gh and authenticate, then retry."
+      error: authCheck.message, error_type: authCheck.type, fix: authCheck.fix,
+      message: "Local cameras are saved. Fix gh CLI, then retry."
     }) }], isError: true };
   }
 
+  // Pre-flight validation: fetch each camera and verify it returns a real image
+  const validations = [];
+  for (const cam of localCameras) {
+    const v = await validateCameraUrl(cam);
+    validations.push({ id: cam.id, name: cam.name, url: cam.url, ...v });
+  }
+  const validCams = localCameras.filter((_, i) => validations[i].valid);
+  const invalidCams = validations.filter(v => !v.valid);
+
+  if (validCams.length === 0) {
+    return { content: [{ type: "text", text: JSON.stringify({
+      error: "No valid cameras to submit — all URLs failed validation",
+      failed: invalidCams.map(v => ({ name: v.name, url: v.url, reason: v.reason })),
+      message: "Fix the broken URLs with remove_local + add_local_camera, then retry."
+    }) }], isError: true };
+  }
+
+  // Duplicate detection: check open submission issues for same URLs
+  const urlsToCheck = validCams.map(c => c.url);
+  const duplicates = checkDuplicateUrls(urlsToCheck);
+  const dupUrls = new Set(duplicates.map(d => d.url));
+  const camsToSubmit = validCams.filter(c => !dupUrls.has(c.url));
+
+  if (camsToSubmit.length === 0) {
+    return { content: [{ type: "text", text: JSON.stringify({
+      error: "All cameras already have open submission issues",
+      duplicates: duplicates.map(d => ({ url: d.url, issue: `#${d.issue_number}`, title: d.issue_title }))
+    }) }], isError: true };
+  }
+
+  // Fetch snapshots for embedding (up to 5 to keep issue size manageable)
+  // Use camera URLs directly in markdown — GitHub renders them inline
+  const snapshots = [];
+  const camsToSnapshot = camsToSubmit.slice(0, 5);
+  for (const cam of camsToSnapshot) {
+    // Validate the URL is image-accessible (already validated above), embed as markdown image
+    snapshots.push({ cam });
+  }
+
   // Strip local-internal fields for submission
-  const cleanCameras = localCameras.map(c => {
+  const cleanCameras = camsToSubmit.map(c => {
     const { added_at, ...clean } = c;
     return clean;
   });
 
-  const body = [
+  // Build issue body
+  const bodyParts = [
     "## New Camera Submission",
     "",
-    `${cleanCameras.length} camera(s) submitted via Open Eagle Eye MCP server.`,
-    "",
-    "```json",
-    JSON.stringify(cleanCameras, null, 2),
-    "```",
-    "",
-    "---",
-    "*Submitted automatically from openeagleeye v" + VERSION + "*"
-  ].join("\n");
+    `${camsToSubmit.length} camera(s) submitted via Open Eagle Eye MCP server.`,
+  ];
 
-  const title = `New camera submission: ${cleanCameras.length} camera(s) from ${cleanCameras[0]?.city || "unknown"}`;
+  // Warnings section
+  const warnings = [];
+  if (invalidCams.length > 0) {
+    warnings.push(`**${invalidCams.length} camera(s) skipped** (failed validation): ${invalidCams.map(v => `${v.name} — ${v.reason}`).join("; ")}`);
+  }
+  if (duplicates.length > 0) {
+    warnings.push(`**${duplicates.length} camera(s) skipped** (duplicate open issue): ${duplicates.map(d => `[${d.url}](${d.url}) — see #${d.issue_number}`).join("; ")}`);
+  }
+  if (warnings.length > 0) {
+    bodyParts.push("", "> [!WARNING]", ...warnings.map(w => `> ${w}`));
+  }
+
+  bodyParts.push("", "```json", JSON.stringify(cleanCameras, null, 2), "```");
+
+  // Embed snapshot previews
+  if (snapshots.length > 0) {
+    bodyParts.push("", "### Snapshot Previews");
+    for (const snap of snapshots) {
+      bodyParts.push("", `**${snap.cam.name}** — ${snap.cam.location || snap.cam.city || "Unknown"}`, `![${snap.cam.name}](${snap.cam.url})`);
+    }
+  }
+
+  bodyParts.push("", "---", `*Submitted automatically from openeagleeye v${VERSION}*`);
+
+  const body = bodyParts.join("\n");
+  const title = `New camera submission: ${camsToSubmit.length} camera(s) from ${camsToSubmit[0]?.city || "unknown"}`;
 
   try {
-    const result = execSync(
-      `gh issue create --repo ${GITHUB_REPO} --title ${JSON.stringify(title)} --body ${JSON.stringify(body)} --label "new-camera"`,
-      { encoding: "utf8", timeout: 30000 }
-    ).trim();
-
+    const result = ghIssueCreate(title, body, "webcam-submission");
     return { content: [{ type: "text", text: JSON.stringify({
       success: true,
-      submitted: cleanCameras.length,
+      submitted: camsToSubmit.length,
+      skipped_invalid: invalidCams.length,
+      skipped_duplicates: duplicates.length,
+      snapshots_embedded: snapshots.length,
       issue_url: result,
-      message: `Submitted ${cleanCameras.length} camera(s). Your local cameras are unchanged — use remove_local after they are accepted upstream.`
+      message: `Submitted ${camsToSubmit.length} camera(s) with ${snapshots.length} snapshot preview(s). Your local cameras are unchanged — use remove_local after they are accepted upstream.`
     }) }] };
   } catch (e) {
-    return { content: [{ type: "text", text: JSON.stringify({ error: "Failed to create GitHub issue", details: e.message.substring(0, 200) }) }], isError: true };
+    const errInfo = classifyGhError(e);
+    return { content: [{ type: "text", text: JSON.stringify({
+      error: "Failed to create GitHub issue", error_type: errInfo.type,
+      details: errInfo.message, fix: errInfo.fix
+    }) }], isError: true };
   }
 });
 
 // REPORT CAMERA
-server.tool("report_camera", "Report a broken or low-quality camera. Files a GitHub issue and saves the report locally. If the camera is local with a broken link, it is automatically removed. Requires 'gh' CLI for GitHub issue creation.", {
+server.tool("report_camera", "Report a broken or low-quality camera. Files a GitHub issue with a snapshot showing the current state, and saves the report locally. If the camera is local with a broken link, it is automatically removed. Requires 'gh' CLI for GitHub issue creation.", {
   cam_id: z.string().describe("Camera ID to report"),
   status: z.enum(["offline", "broken_link", "low_quality"]).describe("Type of issue"),
   notes: z.string().optional().describe("Additional details about the issue")
@@ -483,53 +643,63 @@ server.tool("report_camera", "Report a broken or low-quality camera. Files a Git
     }
   }
 
-  try {
-    execSync("gh auth status", { stdio: "pipe", timeout: 5000 });
-  } catch {
+  // Check gh auth
+  const authCheck = checkGhAuth();
+  if (!authCheck.ok) {
     return { content: [{ type: "text", text: JSON.stringify({
-      success: true,
-      saved_locally: true,
-      github_error: "gh CLI not found or not authenticated",
-      fix: "Install: https://cli.github.com/ — then run: gh auth login",
-      message: "Report saved locally. Install gh to also file a GitHub issue."
+      success: true, saved_locally: true,
+      github_error: authCheck.message, error_type: authCheck.type,
+      fix: authCheck.fix,
+      message: "Report saved locally. Fix gh CLI to also file a GitHub issue."
     }) }] };
   }
 
+  // Attempt to fetch a snapshot for the report
+  let snapshotSection = "";
+  const img = await fetchCameraImage(cam.url);
+  if (!img.error) {
+    snapshotSection = [
+      "", "### Current Snapshot", "",
+      `![${cam.name}](${cam.url})`, "",
+      `*Image fetched at report time: ${new Date().toISOString()} (${img.size} bytes, ${img.contentType})*`
+    ].join("\n");
+  } else {
+    snapshotSection = [
+      "", "### Snapshot Attempt", "",
+      `*Failed to fetch snapshot: ${img.error} — this confirms the reported issue.*`
+    ].join("\n");
+  }
+
   const body = [
-    "## Webcam Issue Report",
-    "",
+    "## Webcam Issue Report", "",
     `**Camera:** ${cam.name} (\`${cam.id}\`)`,
     `**Status:** ${status}`,
     `**Location:** ${cam.location || "Unknown"}`,
     `**URL:** ${cam.url}`,
     notes ? `**Notes:** ${notes}` : "",
-    "",
+    snapshotSection, "",
     "---",
-    "*Reported via openeagleeye v" + VERSION + "*"
+    `*Reported via openeagleeye v${VERSION}*`
   ].filter(Boolean).join("\n");
 
   const title = `Camera issue [${status}]: ${cam.name}`;
 
   try {
-    const result = execSync(
-      `gh issue create --repo ${GITHUB_REPO} --title ${JSON.stringify(title)} --body ${JSON.stringify(body)} --label "camera-issue"`,
-      { encoding: "utf8", timeout: 30000 }
-    ).trim();
-
+    const result = ghIssueCreate(title, body, "webcam-report");
     return { content: [{ type: "text", text: JSON.stringify({
-      success: true,
-      saved_locally: true,
+      success: true, saved_locally: true,
       issue_url: result,
       camera: { id: cam.id, name: cam.name },
       status,
-      message: "Report saved locally and filed as a GitHub issue."
+      snapshot_embedded: !!img.buffer,
+      message: "Report saved locally and filed as a GitHub issue with snapshot."
     }) }] };
   } catch (e) {
+    const errInfo = classifyGhError(e);
     return { content: [{ type: "text", text: JSON.stringify({
-      success: true,
-      saved_locally: true,
-      github_error: "Failed to create GitHub issue",
-      details: e.message.substring(0, 200),
+      success: true, saved_locally: true,
+      github_error: "Failed to create GitHub issue", error_type: errInfo.type,
+      details: errInfo.message, fix: errInfo.fix,
       message: "Report saved locally but could not file a GitHub issue."
     }) }] };
   }

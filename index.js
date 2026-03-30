@@ -9,10 +9,9 @@
 
 import axios from "axios";
 import fs from "fs";
-import path from "os";
-import { fileURLToPath } from "url";
+import path from "path";
+import os from "os";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CACHE_DIR = path.join(os.homedir(), ".openeagleeye");
 const GITHUB_RAW = "https://raw.githubusercontent.com/stuchapin909/Open-Eagle-Eye/master";
 
