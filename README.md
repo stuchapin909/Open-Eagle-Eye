@@ -73,8 +73,8 @@ Every tool returns structured JSON. Snapshots save to disk and return the file p
 
 ## Registry
 
-**8,612 cameras** across eight countries:
-- US: 6,207 (NYC, Washington State, California Caltrans, Colorado CDOT)
+**10,307 cameras** across eight countries:
+- US: 7,902 (NYC, Washington State, California Caltrans, Colorado CDOT, Virginia VDOT)
 - CA: 1,292 (Ontario, Alberta)
 - UK: 424 (London TfL JamCams, all boroughs)
 - NZ: 251 (NZTA nationwide highways)
