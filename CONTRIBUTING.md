@@ -25,6 +25,7 @@ The most valuable contribution is new webcam sources. Here's the process:
    - `timezone` -- IANA timezone (e.g. `America/New_York`)
    - `category` -- one of the categories below
    - `coordinates` -- `{ "lat": ..., "lng": ... }` if available
+   - `country` -- ISO 3166-1 alpha-2 country code (e.g. `US`, `CA`, `GB`, `AU`, `NZ`, `JP`, `SG`, `IE`)
 
    The GitHub Action will:
    - Validate the schema
@@ -62,14 +63,18 @@ Current sources in the registry:
 
 | Region | Source | Count | Auth |
 |---|---|---|---|
-| London | TfL JamCam API | 424 | API key for discovery only, images public |
-| New York | NYC TMC API | 100 | None |
-| Sydney | NSW Live Traffic | 153 | None |
-| Regional NSW | NSW Live Traffic | 44 | None |
-| Singapore | LTA Traffic Images API | 90 | None |
-| Ontario | MTO 511 API | 923 | None |
-| Alberta | Alberta 511 API | 369 | None |
+| California | Caltrans CWWP2 JSON API (all 12 districts) | 3,430 | None |
 | Washington | WSDOT KML feed | 1,654 | None |
+| Ontario | MTO 511 API | 923 | None |
+| London | TfL JamCam API | 424 | API key for discovery only, images public |
+| New Zealand | NZTA cameras.json API | 251 | None |
+| Sydney | NSW Live Traffic | 153 | None |
+| Alberta | Alberta 511 API | 369 | None |
+| Japan | NEXCO East expressway cameras | 98 | None |
+| Singapore | LTA Traffic Images API | 90 | None |
+| Ireland | TII motorway cameras (M50 Dublin) | 53 | None |
+| Regional NSW | NSW Live Traffic | 44 | None |
+| New York | NYC TMC API | 100 | None |
 
 ## Code contributions
 
