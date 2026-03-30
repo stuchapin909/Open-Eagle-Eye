@@ -84,8 +84,8 @@ Every tool returns structured JSON. Snapshots save to disk and return the file p
 
 ## Registry
 
-**~23,000 cameras** across eleven countries:
-- US: state DOTs (NYC, Washington, California, Colorado, Virginia, Florida, North Carolina, Pennsylvania, Arizona, Oregon, Nevada, Utah)
+**~26,000 cameras** across eleven countries:
+- US: state DOTs (NYC, Washington, California, Colorado, Virginia, Florida, North Carolina, Pennsylvania, Arizona, Oregon, Nevada, Utah, Wisconsin, New England 511, Louisiana)
 - FI: 2,223 Digitraffic weather cameras
 - CA: 1,292 (Ontario, Alberta)
 - HK: 995 Hong Kong Transport Department

@@ -25,7 +25,7 @@ The most valuable contribution is new webcam sources. Here's the process:
    - `timezone` -- IANA timezone (e.g. `America/New_York`)
    - `category` -- one of the categories below
    - `coordinates` -- `{ "lat": ..., "lng": ... }` if available
-   - `country` -- ISO 3166-1 alpha-2 country code (e.g. `US`, `CA`, `GB`, `AU`, `NZ`, `JP`, `SG`, `IE`)
+   - `country` -- ISO 3166-1 alpha-2 country code (e.g. `US`, `CA`, `GB`, `AU`, `NZ`, `JP`, `SG`, `HK`, `FI`, `BR`, `IE`)
 
    The GitHub Action will:
    - Validate the schema
@@ -88,6 +88,8 @@ Current sources in the registry:
 | Finland | Fintraffic Digitraffic weather cameras (nationwide) | 2,223 | None |
 | Utah | UDOT udottraffic.utah.gov API (ADX) | 2,026 | None |
 | Wisconsin | WisDOT 511wi.gov API (ATMS) | 448 | None |
+| New England | 511 newengland511.org API (NH, ME, VT) | 408 | None |
+| Louisiana | LADOTD 511la.org API | 296 | None |
 
 ## Code contributions
 

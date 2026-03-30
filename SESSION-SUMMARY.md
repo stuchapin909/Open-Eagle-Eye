@@ -6,11 +6,11 @@
 - **Package:** openeagleeye v7.0.0 (npm, MCP server)
 - **License:** MIT
 
-## Current Registry: 25,843 cameras across 11 countries
+## Current Registry: 26,139 cameras across 11 countries
 
 | Country | Count | Sources |
 |---------|-------|---------|
-| US | 20,063 | NYC DOT, WSDOT, Caltrans CWWP2, CDOT CoTrip, VDOT 511, FDOT FL511, NCDOT, PennDOT 511PA, Arizona ADOT, Oregon ODOT, Nevada NDOT, Utah UDOT, Wisconsin WisDOT, New England 511 |
+| US | 20,359 | NYC DOT, WSDOT, Caltrans CWWP2, CDOT CoTrip, VDOT 511, FDOT FL511, NCDOT, PennDOT 511PA, Arizona ADOT, Oregon ODOT, Nevada NDOT, Utah UDOT, Wisconsin WisDOT, New England 511, Louisiana LADOTD |
 | FI | 2,223 | Digitraffic weather cameras (Fintraffic) |
 | CA | 1,292 | Ontario MTO, Alberta 511 |
 | HK | 995 | Hong Kong Transport Department |
@@ -66,6 +66,8 @@ March 30:
 
 14. **New England 511** (+408) — DataTables POST API at `newengland511.org/List/GetData/Cameras` (pagination, 100/page, 408 total). Direct JPEG from `newengland511.org/map/Cctv/{id}`. Covers three New England states: New Hampshire (185), Maine (134), Vermont (89). Highways include I-89, I-91, I-93, I-95, I-295, I-395, I-293, US-2, US-3, US-4, US-5, US-7, US-302, NH-101, NH-16, VT-9, VT-100, F.E. Everett Turnpike, Spaulding Turnpike, and many state routes. GPS coords in WKT format. No auth. 55/55 validation samples returned valid JPEG (4-470KB). 6/6 vision checks confirmed real webcam feeds (NHDOT, MaineDOT, VTrans).
 
+15. **Louisiana LADOTD** (+296) — DataTables POST API at `511la.org/List/GetData/Cameras` (pagination, 100/page, 336 API total, 296 valid). Direct JPEG/PNG from `511la.org/map/Cctv/{id}`. Sources: LADOTD (314), USER (22). 40 cameras excluded (return 15,136-byte placeholder PNG reading "No live camera feed at this time"). Covers I-10, I-12, I-20, I-49, I-55, I-59, I-110, I-210, I-220, US-61, US-61, US-80, US-190, US-171, US-90, and many state routes (LA-1, LA-70, LA-3132, etc.) plus local roads statewide. GPS coords in WKT format. No auth. 34/34 HTTP validation samples returned valid images. 4/6 vision checks confirmed real webcam feeds (1 placeholder detected, 1 timeout). Top cities: Baton Rouge (50), Shreveport (22), New Orleans (19), Lake Charles (18), Port Allen (17).
+
 ### Infrastructure work (March 30)
 
 12. **Registry-wide validation** — Validated all 30 image sources. 8 samples each from the 8 largest domains, 6 samples each from the 22 smaller domains. Results: all sources at 100% except `cam.pangbornairport.com` (1 camera offline). Total: 29/30 sources fully healthy. Key finding: NSW cameras require `Referer: https://www.livetraffic.com/traffic-cameras` header — the S3 bucket at `webcams.transport.nsw.gov.au` has hotlink protection. Without Referer, returns a 307-byte HTML error page ("camera image temporarily unavailable"). With Referer, all images serve correctly (46-134KB JPEG). NSW listing data still available via `www.livetraffic.com/datajson/all-feeds-web.json` (197 cameras, GeoJSON with GPS coords). Validator should be updated to send Referer for `webcams.transport.nsw.gov.au` URLs.
@@ -87,6 +89,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 - Add 2,026 Utah UDOT cameras
 - Add 448 Wisconsin WisDOT cameras
 - Add 408 New England 511 cameras (NH, ME, VT)
+- Add 296 Louisiana LADOTD cameras
 - Plus CONTRIBUTING.md and README.md updates interleaved
 
 ## Failed sources (do not retry without new approach)
@@ -121,7 +124,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 4. **Georgia** — Retry if GDOT launches a new public API.
 5. ~~**Wisconsin**~~ — DONE. 448 cameras from 511wi.gov (34 excluded for null coords).
 6. ~~**New England 511**~~ — DONE. 408 cameras from newengland511.org (NH: 185, ME: 134, VT: 89).
-7. **Louisiana** — 336 cameras from 511la.org (DataTables API, source: LADOTD).
+7. ~~**Louisiana**~~ — DONE. 296 cameras from 511la.org (336 API total, 40 offline placeholders excluded).
 
 ### International (mixed probability)
 6. ~~**Brazil**~~ — DONE. 195 cameras from CET São Paulo.
@@ -137,7 +140,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 
 ## Key files
 
-- `cameras.json — The registry (~9.7MB, 22,961 entries, JSON array), 22,961 entries, JSON array), 22,961 entries, JSON array)
+- `cameras.json — The registry (~10MB, 26,139 entries, JSON array)
 - `index.js` — MCP server (main package entry point)
 - `validate-registry.js` — GitHub Action validator
 - `merge_validate.mjs` — Local merge + validation script
