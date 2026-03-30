@@ -64,7 +64,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 - `d10f1b7` — Add 995 Hong Kong Transport Department cameras (9 countries)
 - `7082b56` — Add 1,445 Pennsylvania PennDOT 511PA cameras
 - `ce9f670` — Add 1,120 Oregon ODOT TripCheck cameras
-- `PENDING` — Add 643 Nevada NDOT cameras
+- `53a68fc` — Add 643 Nevada NDOT cameras
 - Plus CONTRIBUTING.md and README.md updates interleaved
 
 ## Failed sources (do not retry without new approach)
