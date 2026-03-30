@@ -92,6 +92,6 @@ jobs:
           node update-counts.js
           git config --global user.name "registry-bot"
           git config --global user.email "bot@openeagleeye.local"
-          git add cameras.json .registry-state.json README.md SESSION-SUMMARY.md
+          git add cameras.json .registry-state.json README.md
           git diff --cached --quiet || git commit -m "Validator: parallel nightly check ($REMOVED removed, $PASSED/$TOTAL passed)"
           git push

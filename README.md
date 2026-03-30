@@ -54,7 +54,7 @@ A valid camera URL is any endpoint that returns a JPEG or PNG on a plain HTTP GE
 
 The registry has two layers:
 
-- **Upstream** — the global registry fetched from GitHub on every server start. These are the ~23,000 validated public cameras.
+- **Upstream** — the global registry fetched from GitHub on every server start. These are the ~26,000 validated public cameras.
 - **Local** — cameras you add yourself via `add_local_camera`. They persist in `~/.openeagleeye/local-cameras.json`, survive restarts, and appear in `list_cameras`/`search_cameras` with `source: "local"`. Share them upstream anytime with `submit_local`.
 
 ### Filtering
@@ -85,14 +85,14 @@ Every tool returns structured JSON. Snapshots save to disk and return the file p
 ## Registry
 
 **~26,000 cameras** across eleven countries:
-- US: state DOTs (NYC, Washington, California, Colorado, Virginia, Florida, North Carolina, Pennsylvania, Arizona, Oregon, Nevada, Utah, Wisconsin, New England 511, Louisiana)
+- US: 20,359 state DOTs (NYC, Washington, California, Colorado, Virginia, Florida, North Carolina, Pennsylvania, Arizona, Oregon, Nevada, Utah, Wisconsin, New England 511, Louisiana)
 - FI: 2,223 Digitraffic weather cameras
 - CA: 1,292 (Ontario, Alberta)
 - HK: 995 Hong Kong Transport Department
 - UK: 424 London TfL JamCams
 - NZ: 251 NZTA highways
 - BR: 195 CET São Paulo
-- AU: 197 Sydney + Regional NSW
+- AU: 159 Sydney + Regional NSW
 - JP: 98 NEXCO East expressways
 - SG: 90 Singapore LTA
 - IE: 53 TII motorway cams

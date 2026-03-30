@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * update-counts.js — Sync camera counts in README.md and SESSION-SUMMARY.md
+ * update-counts.js — Sync camera counts in README.md
  *
  * Reads cameras.json, counts total and per-country, updates docs.
- * Designed to be called by both the parallel validator and the cron job.
+ * Called by the parallel validator after removing dead cameras.
  */
 
 import fs from "fs";
@@ -13,7 +13,6 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CAMERAS_PATH = path.join(__dirname, "cameras.json");
 const README_PATH = path.join(__dirname, "README.md");
-const SUMMARY_PATH = path.join(__dirname, "SESSION-SUMMARY.md");
 
 const cameras = JSON.parse(fs.readFileSync(CAMERAS_PATH, "utf8"));
 
@@ -32,7 +31,7 @@ const sorted = Object.entries(countryCounts).sort((a, b) => b[1] - a[1]);
 
 // Source details per country (hardcoded from known additions — update when new sources added)
 const COUNTRY_SOURCES = {
-  US: "NYC DOT, WSDOT, Caltrans CWWP2, CDOT CoTrip, VDOT 511, FDOT FL511, NCDOT, PennDOT 511PA, Arizona ADOT, Oregon ODOT, Nevada NDOT",
+  US: "NYC DOT, WSDOT, Caltrans CWWP2, CDOT CoTrip, VDOT 511, FDOT FL511, NCDOT, PennDOT 511PA, Arizona ADOT, Oregon ODOT, Nevada NDOT, Utah UDOT, Wisconsin WisDOT, New England 511, Louisiana LADOTD",
   FI: "Digitraffic weather cameras (Fintraffic)",
   CA: "Ontario MTO, Alberta 511",
   HK: "Hong Kong Transport Department",
@@ -80,51 +79,5 @@ if (countryListMatch) {
 
 fs.writeFileSync(README_PATH, readme);
 console.log("Updated README.md");
-
-// --- Update SESSION-SUMMARY.md ---
-let summary = fs.readFileSync(SUMMARY_PATH, "utf8");
-
-// Update header count: ## Current Registry: 22,999 cameras across 11 countries
-summary = summary.replace(
-  /## Current Registry: \d[\d,]+ cameras across \d+ countries/,
-  `## Current Registry: ${total.toLocaleString()} cameras across ${countryNum} countries`
-);
-
-// Rebuild the country table
-const tableHeader = "| Country | Count | Sources |";
-const tableSeparator = "|---------|-------|---------|";
-
-const tableRows = sorted.map(([cc, count]) => {
-  const sources = COUNTRY_SOURCES[cc] || "unknown";
-  return `| ${cc} | ${count.toLocaleString()} | ${sources} |`;
-}).join("\n");
-
-// Find existing table and replace it
-const tablePattern = new RegExp(
-  `(${tableHeader.replace(/[|]/g, '\\|')}\\n${tableSeparator.replace(/[|]/g, '\\|')}\\n)([\\s\\S]*?)(\\n\\n|\\n##)`,
-  "m"
-);
-const tableMatch = summary.match(tablePattern);
-if (tableMatch) {
-  summary = summary.replace(tablePattern, `$1${tableRows}$3`);
-} else {
-  console.log("WARNING: Could not find country table in SESSION-SUMMARY.md");
-}
-
-// Also update any "## Key files" section that mentions the count
-summary = summary.replace(
-  /cameras\.json.*?(\d[\d,]+)( entries| cameras)/g,
-  (match, count, suffix) => match.replace(count, total.toLocaleString())
-);
-summary = summary.replace(
-  /cameras\.json.*?~[\d.]+MB/g,
-  (match) => {
-    const sizeMB = (fs.statSync(CAMERAS_PATH).size / (1024 * 1024)).toFixed(1);
-    return `cameras.json — The registry (~${sizeMB}MB, ${total.toLocaleString()} entries, JSON array)`;
-  }
-);
-
-fs.writeFileSync(SUMMARY_PATH, summary);
-console.log("Updated SESSION-SUMMARY.md");
 
 console.log(`\nDone. ${total.toLocaleString()} cameras across ${countryNum} countries.`);

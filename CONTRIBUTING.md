@@ -64,8 +64,8 @@ Current sources in the registry:
 | Region | Source | Count | Auth |
 |---|---|---|---|
 | California | Caltrans CWWP2 JSON API (all 12 districts) | 3,430 | None |
-| Washington | WSDOT KML feed | 1,654 | None |
-| Colorado | CDOT CoTrip CARS Program API | 1,023 | None |
+| Washington | WSDOT KML feed | 1,641 | None |
+| Colorado | CDOT CoTrip CARS Program API | 1,022 | None |
 | Virginia | VDOT 511 GeoJSON API | 1,695 | None |
 | Florida | FDOT FL511 DIVAS API (all 7 districts) | 4,700 | None |
 | North Carolina | NCDOT Traffic API | 779 | None |
@@ -73,15 +73,14 @@ Current sources in the registry:
 | London | TfL JamCam API | 424 | API key for discovery only, images public |
 | New Zealand | NZTA cameras.json API | 251 | None |
 | Hong Kong | Transport Department CCTV | 995 | None |
-| Sydney | NSW Live Traffic | 153 | None |
+| NSW | NSW Live Traffic (Sydney + Regional) | 159 | None |
 | Alberta | Alberta 511 API | 369 | None |
 | Japan | NEXCO East expressway cameras | 98 | None |
 | Singapore | LTA Traffic Images API | 90 | None |
 | Ireland | TII motorway cameras (M50 Dublin) | 53 | None |
-| Regional NSW | NSW Live Traffic | 44 | None |
 | Pennsylvania | PennDOT 511PA API (PennDOT + PTC + RWIS) | 1,445 | None |
 | Arizona | ADOT az511.com API | 604 | None |
-| Oregon | ODOT TripCheck camera inventory | 1,120 | None |
+| Oregon | ODOT TripCheck camera inventory | 1,122 | None |
 | Nevada | NDOT nvroads.com API (LV, Reno, Elko) | 643 | None |
 | New York | NYC TMC API | 100 | None |
 | São Paulo | CET urban traffic cameras | 195 | None |
