@@ -91,41 +91,13 @@ function isNighttimeAt(timezone) {
   } catch (e) { return false; }
 }
 
-// Helper: fetch a camera image and return { buffer, contentType, error }
-async function fetchCameraImage(url) {
-  try {
-    const safety = await isSafeUrl(url);
-    if (!safety.safe) return { error: `Blocked: ${safety.reason}` };
-
-    const response = await axios.get(url, {
-      responseType: 'arraybuffer', timeout: 10000,
-      headers: getHeadersForUrl(url),
-      maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024, maxRedirects: 1
-    });
-
-    let ct = response.headers['content-type'] || "";
-    let isAllowed = ALLOWED_CONTENT_TYPES.some(t => ct.includes(t));
-    const buf = Buffer.from(response.data);
-
-    if (!isAllowed) {
-      const detected = detectImageType(buf);
-      if (detected) { isAllowed = true; ct = detected; }
-    }
-    if (!isAllowed) return { error: `Invalid content-type: ${ct}` };
-    if (buf.length > 5 * 1024 * 1024) return { error: `Image too large: ${(buf.length / 1024 / 1024).toFixed(1)}MB` };
-    if (buf.length < 500) return { error: `Image too small: ${buf.length} bytes (likely a placeholder or error page)` };
-
-    return { buffer: buf, contentType: ct.includes('png') ? 'image/png' : 'image/jpeg', size: buf.length };
-  } catch (e) {
-    return { error: e.message.substring(0, 200) };
-  }
-}
-
 // Helper: validate a camera URL returns a real image
 async function validateCameraUrl(cam) {
-  const result = await fetchCameraImage(cam.url);
+  const result = await downloadSnapshot(cam);
   if (result.error) return { valid: false, reason: result.error };
-  return { valid: true, size: result.size, content_type: result.contentType };
+  // Clean up temp file — we only needed to verify the URL works
+  try { fs.unlinkSync(result.file_path); } catch {}
+  return { valid: true, size: result.size_bytes, content_type: result.content_type };
 }
 
 /**
@@ -618,17 +590,18 @@ server.tool("report_camera", "Report a broken or low-quality camera. Files a Git
 
   // Attempt to fetch a snapshot for the report
   let snapshotSection = "";
-  const img = await fetchCameraImage(cam.url);
-  if (!img.error) {
+  const snap = await downloadSnapshot(cam);
+  if (snap.success) {
+    try { fs.unlinkSync(snap.file_path); } catch {}
     snapshotSection = [
       "", "### Current Snapshot", "",
       `![${cam.name}](${cam.url})`, "",
-      `*Image fetched at report time: ${new Date().toISOString()} (${img.size} bytes, ${img.contentType})*`
+      `*Image fetched at report time: ${new Date().toISOString()} (${snap.size_bytes} bytes, ${snap.content_type})*`
     ].join("\n");
   } else {
     snapshotSection = [
       "", "### Snapshot Attempt", "",
-      `*Failed to fetch snapshot: ${img.error} — this confirms the reported issue.*`
+      `*Failed to fetch snapshot: ${snap.error} — this confirms the reported issue.*`
     ].join("\n");
   }
 
@@ -653,7 +626,7 @@ server.tool("report_camera", "Report a broken or low-quality camera. Files a Git
       issue_url: result,
       camera: { id: cam.id, name: cam.name },
       status,
-      snapshot_embedded: !!img.buffer,
+      snapshot_embedded: snap.success,
       message: "Report saved locally and filed as a GitHub issue with snapshot."
     }) }] };
   } catch (e) {
