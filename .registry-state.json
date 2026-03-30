@@ -8,7 +8,7 @@
   },
   "nyc-bb-21-north-rdwy-at-above-south-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:32.759Z",
+    "last_checked": "2026-03-30T10:13:59.953Z",
     "consecutive_failures": 0
   },
   "nyc-6-ave-at-58-st": {
@@ -34,27 +34,27 @@
   },
   "nyc-mhb-23-manh-lrdwy-at-twr": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:37.352Z",
+    "last_checked": "2026-03-30T10:14:00.087Z",
     "consecutive_failures": 0
   },
   "nyc-cpw-at-110-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:37.373Z",
+    "last_checked": "2026-03-30T10:14:00.272Z",
     "consecutive_failures": 0
   },
   "nyc-mhb-16-manhattan-colonade-entr": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:37.393Z",
+    "last_checked": "2026-03-30T10:14:00.423Z",
     "consecutive_failures": 0
   },
   "nyc-houston-st-at-broadway": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:37.454Z",
+    "last_checked": "2026-03-30T10:14:00.589Z",
     "consecutive_failures": 0
   },
   "nyc-west-st-and-chambers": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:37.679Z",
+    "last_checked": "2026-03-30T10:14:00.629Z",
     "consecutive_failures": 0
   },
   "nyc-3-ave-at-14-st": {
@@ -66,7 +66,7 @@
   },
   "nyc-lincoln-tun-approachbet-9av-10av-at-w-33-st-350": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:37.927Z",
+    "last_checked": "2026-03-30T10:14:00.816Z",
     "consecutive_failures": 0
   },
   "nyc-1-ave-at-57-st": {
@@ -78,27 +78,27 @@
   },
   "nyc-worth-street-at-lafayette-street": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.010Z",
+    "last_checked": "2026-03-30T10:14:01.037Z",
     "consecutive_failures": 0
   },
   "nyc-rockefeller-plaza-at-w-51-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.244Z",
+    "last_checked": "2026-03-30T10:14:01.075Z",
     "consecutive_failures": 0
   },
   "nyc-dyer-ave-at-w-40-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.489Z",
+    "last_checked": "2026-03-30T10:14:01.114Z",
     "consecutive_failures": 0
   },
   "nyc-canal-st-at-greenwich-st-holland-tunnel": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.510Z",
+    "last_checked": "2026-03-30T10:14:01.152Z",
     "consecutive_failures": 0
   },
   "nyc-hudson-st-at-laight-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.531Z",
+    "last_checked": "2026-03-30T10:14:01.308Z",
     "consecutive_failures": 0
   },
   "nyc-12-ave-at-22-st": {
@@ -117,42 +117,42 @@
   },
   "nyc-7-ave-at-40-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.599Z",
+    "last_checked": "2026-03-30T10:14:01.348Z",
     "consecutive_failures": 0
   },
   "nyc-west-st-and-west-thames-battery-tunnel": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.812Z",
+    "last_checked": "2026-03-30T10:14:01.492Z",
     "consecutive_failures": 0
   },
   "nyc-henry-hudson-pkwy-at-125-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.837Z",
+    "last_checked": "2026-03-30T10:14:01.531Z",
     "consecutive_failures": 0
   },
   "nyc-rockefeller-plaza-at-w-50-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.863Z",
+    "last_checked": "2026-03-30T10:14:01.688Z",
     "consecutive_failures": 0
   },
   "nyc-7-ave-at-34-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.888Z",
+    "last_checked": "2026-03-30T10:14:01.728Z",
     "consecutive_failures": 0
   },
   "nyc-harlem-river-dr-at-150-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.907Z",
+    "last_checked": "2026-03-30T10:14:01.766Z",
     "consecutive_failures": 0
   },
   "nyc-delancy-st-at-essex-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.937Z",
+    "last_checked": "2026-03-30T10:14:02.074Z",
     "consecutive_failures": 0
   },
   "nyc-grand-st-at-broadway": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:38.979Z",
+    "last_checked": "2026-03-30T10:14:02.113Z",
     "consecutive_failures": 0
   },
   "nyc-6-ave-at-39-st": {
@@ -164,17 +164,17 @@
   },
   "nyc-audobon-ave-at-w-181-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:39.419Z",
+    "last_checked": "2026-03-30T10:14:02.154Z",
     "consecutive_failures": 0
   },
   "nyc-broadway-at-46-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:39.700Z",
+    "last_checked": "2026-03-30T10:14:02.193Z",
     "consecutive_failures": 0
   },
   "nyc-br-br-20-s-rdwy-fdr-dr": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:39.720Z",
+    "last_checked": "2026-03-30T10:14:02.442Z",
     "consecutive_failures": 0
   },
   "nyc-62-st-at-qbb-upper-level-exit-ramp": {
@@ -186,42 +186,42 @@
   },
   "nyc-worth-st-at-centre-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:39.752Z",
+    "last_checked": "2026-03-30T10:14:02.482Z",
     "consecutive_failures": 0
   },
   "nyc-qbb-ul-cm-at-york-ave": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:39.771Z",
+    "last_checked": "2026-03-30T10:14:02.520Z",
     "consecutive_failures": 0
   },
   "nyc-galvin-ave-at-w-40-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:39.796Z",
+    "last_checked": "2026-03-30T10:14:02.559Z",
     "consecutive_failures": 0
   },
   "nyc-houston-st-at-christies-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.024Z",
+    "last_checked": "2026-03-30T10:14:02.599Z",
     "consecutive_failures": 0
   },
   "nyc-henry-hudson-at-137-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.060Z",
+    "last_checked": "2026-03-30T10:14:02.638Z",
     "consecutive_failures": 0
   },
   "nyc-madison-ave-at-46-st-manhattan": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.165Z",
+    "last_checked": "2026-03-30T10:14:02.677Z",
     "consecutive_failures": 0
   },
   "nyc-c2-bqe-30b-w-at-stewart-ave": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.199Z",
+    "last_checked": "2026-03-30T10:14:02.888Z",
     "consecutive_failures": 0
   },
   "nyc-mhb-33-bklyn-lrw-at-ex-ramp": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.425Z",
+    "last_checked": "2026-03-30T10:14:03.030Z",
     "consecutive_failures": 0
   },
   "nyc-3-ave-at-65-st-ent-eb-bqegowanus": {
@@ -240,27 +240,27 @@
   },
   "nyc-c2-bqe-25-wb-at-s5th-st-ex32": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.689Z",
+    "last_checked": "2026-03-30T10:14:03.220Z",
     "consecutive_failures": 0
   },
   "nyc-ocean-pkwy-at-surf-av-at-sea-breeze-ave": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.710Z",
+    "last_checked": "2026-03-30T10:14:03.354Z",
     "consecutive_failures": 0
   },
   "nyc-grand-st-at-graham-ave": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.747Z",
+    "last_checked": "2026-03-30T10:14:03.393Z",
     "consecutive_failures": 0
   },
   "nyc-mcdonald-ave-at-10th-ave-20th-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.768Z",
+    "last_checked": "2026-03-30T10:14:03.432Z",
     "consecutive_failures": 0
   },
   "nyc-flatbush-ave-at-utica-ave": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.794Z",
+    "last_checked": "2026-03-30T10:14:03.609Z",
     "consecutive_failures": 0
   },
   "nyc-3-ave-at-60-st": {
@@ -272,202 +272,202 @@
   },
   "nyc-wbb-2-nor-at-above-bedford-ave-s-5-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.827Z",
+    "last_checked": "2026-03-30T10:14:03.659Z",
     "consecutive_failures": 0
   },
   "nyc-flatbush-ave-at-fillmore-ave": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.848Z",
+    "last_checked": "2026-03-30T10:14:03.697Z",
     "consecutive_failures": 0
   },
   "nyc-grand-army-plaza": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:40.869Z",
+    "last_checked": "2026-03-30T10:14:03.736Z",
     "consecutive_failures": 0
   },
   "nyc-c2-pe-05-ctr-at-7th-ave-ex4": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.000Z",
+    "last_checked": "2026-03-30T10:14:03.777Z",
     "consecutive_failures": 0
   },
   "nyc-c2-bqe-04-wb-at-sackett-st-ex26": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.023Z",
+    "last_checked": "2026-03-30T10:14:03.821Z",
     "consecutive_failures": 0
   },
   "nyc-c2-bqe-20-wb-at-wythe-ave-ex31": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.046Z",
+    "last_checked": "2026-03-30T10:14:04.002Z",
     "consecutive_failures": 0
   },
   "nyc-cadman-plz-west-at-tillary-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.240Z",
+    "last_checked": "2026-03-30T10:14:04.039Z",
     "consecutive_failures": 0
   },
   "nyc-atlantic-ave-at-barclays-center": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.260Z",
+    "last_checked": "2026-03-30T10:14:04.199Z",
     "consecutive_failures": 0
   },
   "nyc-wbb-4-at-nor-bklyn-mid-span": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.284Z",
+    "last_checked": "2026-03-30T10:14:04.240Z",
     "consecutive_failures": 0
   },
   "nyc-old-fulton-st-at-furman-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.316Z",
+    "last_checked": "2026-03-30T10:14:04.279Z",
     "consecutive_failures": 0
   },
   "nyc-wythe-ave-at-williamsburg-st-e": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.335Z",
+    "last_checked": "2026-03-30T10:14:04.318Z",
     "consecutive_failures": 0
   },
   "nyc-rockaway-pkwy-at-seaview-ave": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.358Z",
+    "last_checked": "2026-03-30T10:14:04.356Z",
     "consecutive_failures": 0
   },
   "nyc-beach-channel-dr-atb-32-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.378Z",
+    "last_checked": "2026-03-30T10:14:04.395Z",
     "consecutive_failures": 0
   },
   "nyc-seagirt-blvd-at-b-32-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.399Z",
+    "last_checked": "2026-03-30T10:14:04.440Z",
     "consecutive_failures": 0
   },
   "nyc-cross-island-pkwy-at-union-tpke": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.422Z",
+    "last_checked": "2026-03-30T10:14:04.478Z",
     "consecutive_failures": 0
   },
   "nyc-east-21-st-at-qbb-upper-roadway-exit-ramp": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.444Z",
+    "last_checked": "2026-03-30T10:14:04.519Z",
     "consecutive_failures": 0
   },
   "nyc-grand-central-pkwy-nsr-at-79-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.465Z",
+    "last_checked": "2026-03-30T10:14:04.558Z",
     "consecutive_failures": 0
   },
   "nyc-qbb-ul-at-queens-pier": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.485Z",
+    "last_checked": "2026-03-30T10:14:04.599Z",
     "consecutive_failures": 0
   },
   "nyc-farmers-blvd-at-n-conduit-ave": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.503Z",
+    "last_checked": "2026-03-30T10:14:04.640Z",
     "consecutive_failures": 0
   },
   "nyc-c5-bqe-41-eb-at-31st-ave-ex43": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.531Z",
+    "last_checked": "2026-03-30T10:14:04.686Z",
     "consecutive_failures": 0
   },
   "nyc-c5-bqe-45-eb-at-gcp-astoria-blvd": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.554Z",
+    "last_checked": "2026-03-30T10:14:04.842Z",
     "consecutive_failures": 0
   },
   "nyc-metropolitan-ave-at-fresh-pond-rd": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.574Z",
+    "last_checked": "2026-03-30T10:14:04.881Z",
     "consecutive_failures": 0
   },
   "nyc-c5-lie-15-wb-at-queens-blvd-ex19": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.598Z",
+    "last_checked": "2026-03-30T10:14:04.921Z",
     "consecutive_failures": 0
   },
   "nyc-hempstead-ave-at-cross-island-pkwy-ptz": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.617Z",
+    "last_checked": "2026-03-30T10:14:04.959Z",
     "consecutive_failures": 0
   },
   "nyc-woodhaven-blvd-at-union-tpke": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.637Z",
+    "last_checked": "2026-03-30T10:14:04.998Z",
     "consecutive_failures": 0
   },
   "nyc-northern-blvd-at-honeywell-bridge": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.659Z",
+    "last_checked": "2026-03-30T10:14:05.038Z",
     "consecutive_failures": 0
   },
   "nyc-crescent-st-at-41-ave": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.681Z",
+    "last_checked": "2026-03-30T10:14:05.079Z",
     "consecutive_failures": 0
   },
   "nyc-s-conduit-ave-at-150-st": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:41.699Z",
+    "last_checked": "2026-03-30T10:14:05.119Z",
     "consecutive_failures": 0
   },
   "nyc-long-island-expy-at-qmt-at-pulaski-br": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:48.576Z",
+    "last_checked": "2026-03-30T10:14:05.158Z",
     "consecutive_failures": 0
   },
   "nyc-queens-plaza-n-at-northern-blvd": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:48.701Z",
+    "last_checked": "2026-03-30T10:14:05.198Z",
     "consecutive_failures": 0
   },
   "nyc-jamaica-ave-at-165-st": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:48.827Z",
+    "last_checked": "2026-03-30T10:14:05.236Z",
     "consecutive_failures": 0
   },
   "nyc-beach-channel-dr-atb-90-st": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:48.962Z",
+    "last_checked": "2026-03-30T10:14:05.274Z",
     "consecutive_failures": 0
   },
   "nyc-northern-blvd-at-francis-lewis-blvd": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:49.093Z",
+    "last_checked": "2026-03-30T10:14:05.314Z",
     "consecutive_failures": 0
   },
   "nyc-rockaway-blvd-at-van-wyck-expy-e-sr": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:49.217Z",
+    "last_checked": "2026-03-30T10:14:05.352Z",
     "consecutive_failures": 0
   },
   "nyc-c3-sie-07-eb-at-woolley-ave-ex10": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:49.339Z",
+    "last_checked": "2026-03-30T10:14:05.392Z",
     "consecutive_failures": 0
   },
   "nyc-victory-blvd-at-bay-st": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:49.463Z",
+    "last_checked": "2026-03-30T10:14:05.430Z",
     "consecutive_failures": 0
   },
   "nyc-richmond-ave-at-north-access-rd": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:49.590Z",
+    "last_checked": "2026-03-30T10:14:05.468Z",
     "consecutive_failures": 0
   },
   "nyc-sie-at-clove-rd": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:49.715Z",
+    "last_checked": "2026-03-30T10:14:05.507Z",
     "consecutive_failures": 0
   },
   "nyc-hylan-blvd-at-huguenot-ave": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:49.927Z",
+    "last_checked": "2026-03-30T10:14:05.623Z",
     "consecutive_failures": 0
   },
   "nyc-c3-wse-04-sb-at-rossville-ave-ex4": {
     "status": "active",
-    "last_checked": "2026-03-29T21:36:50.056Z",
+    "last_checked": "2026-03-30T10:14:05.662Z",
     "consecutive_failures": 0
   },
   "nyc-c3-sie-02-eb-at-wse-int-ex3": {
@@ -527,2122 +527,2122 @@
   },
   "tfl-00001.09731": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:45.790Z",
+    "last_checked": "2026-03-30T10:12:59.052Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09740": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:45.997Z",
+    "last_checked": "2026-03-30T10:12:59.347Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09741": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:46.132Z",
+    "last_checked": "2026-03-30T10:12:59.511Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01445": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:46.248Z",
+    "last_checked": "2026-03-30T10:12:59.649Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04005": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:46.355Z",
+    "last_checked": "2026-03-30T10:12:59.784Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00344": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:46.489Z",
+    "last_checked": "2026-03-30T10:12:59.934Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00345": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:46.597Z",
+    "last_checked": "2026-03-30T10:13:00.079Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01603": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:46.719Z",
+    "last_checked": "2026-03-30T10:13:00.233Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08100": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:46.829Z",
+    "last_checked": "2026-03-30T10:13:00.407Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00810": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:46.970Z",
+    "last_checked": "2026-03-30T10:13:00.587Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02420": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:47.102Z",
+    "last_checked": "2026-03-30T10:13:00.763Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00840": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:47.216Z",
+    "last_checked": "2026-03-30T10:13:00.965Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00838": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:47.354Z",
+    "last_checked": "2026-03-30T10:13:01.142Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00816": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:47.505Z",
+    "last_checked": "2026-03-30T10:13:01.290Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00851": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:47.638Z",
+    "last_checked": "2026-03-30T10:13:01.437Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00852": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:47.743Z",
+    "last_checked": "2026-03-30T10:13:01.570Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00850": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:47.875Z",
+    "last_checked": "2026-03-30T10:13:01.746Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00421": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:47.982Z",
+    "last_checked": "2026-03-30T10:13:01.883Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00330": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:48.115Z",
+    "last_checked": "2026-03-30T10:13:02.017Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02258": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:48.223Z",
+    "last_checked": "2026-03-30T10:13:02.213Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00333": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:48.329Z",
+    "last_checked": "2026-03-30T10:13:02.354Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00334": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:48.512Z",
+    "last_checked": "2026-03-30T10:13:02.494Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00252": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:48.617Z",
+    "last_checked": "2026-03-30T10:13:02.646Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00254": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:48.733Z",
+    "last_checked": "2026-03-30T10:13:02.779Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00343": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:48.838Z",
+    "last_checked": "2026-03-30T10:13:02.915Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03672": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:48.944Z",
+    "last_checked": "2026-03-30T10:13:03.047Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03660": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:49.056Z",
+    "last_checked": "2026-03-30T10:13:03.179Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03659": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:49.171Z",
+    "last_checked": "2026-03-30T10:13:03.313Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03664": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:49.286Z",
+    "last_checked": "2026-03-30T10:13:03.448Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03674": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:49.391Z",
+    "last_checked": "2026-03-30T10:13:03.636Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03662": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:49.524Z",
+    "last_checked": "2026-03-30T10:13:03.773Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03663": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:49.636Z",
+    "last_checked": "2026-03-30T10:13:03.911Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00342": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:49.770Z",
+    "last_checked": "2026-03-30T10:13:04.057Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03700": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:49.878Z",
+    "last_checked": "2026-03-30T10:13:04.190Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03764": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:50.057Z",
+    "last_checked": "2026-03-30T10:13:04.352Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03753": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:50.163Z",
+    "last_checked": "2026-03-30T10:13:04.489Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03748": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:50.273Z",
+    "last_checked": "2026-03-30T10:13:04.627Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03762": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:50.385Z",
+    "last_checked": "2026-03-30T10:13:04.762Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03778": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:50.520Z",
+    "last_checked": "2026-03-30T10:13:04.897Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03757": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:50.633Z",
+    "last_checked": "2026-03-30T10:13:05.030Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06726": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:50.752Z",
+    "last_checked": "2026-03-30T10:13:05.167Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03756": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:50.856Z",
+    "last_checked": "2026-03-30T10:13:05.302Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06717": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:50.962Z",
+    "last_checked": "2026-03-30T10:13:05.477Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03750": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:51.069Z",
+    "last_checked": "2026-03-30T10:13:05.645Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03770": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:51.173Z",
+    "last_checked": "2026-03-30T10:13:05.780Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03758": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:51.283Z",
+    "last_checked": "2026-03-30T10:13:05.918Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06716": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:51.387Z",
+    "last_checked": "2026-03-30T10:13:06.055Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06625": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:51.525Z",
+    "last_checked": "2026-03-30T10:13:06.206Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03754": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:51.636Z",
+    "last_checked": "2026-03-30T10:13:06.341Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03755": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:51.750Z",
+    "last_checked": "2026-03-30T10:13:06.475Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03720": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:51.855Z",
+    "last_checked": "2026-03-30T10:13:06.633Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03749": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:51.959Z",
+    "last_checked": "2026-03-30T10:13:06.770Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03817": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:52.064Z",
+    "last_checked": "2026-03-30T10:13:06.905Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03816": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:52.186Z",
+    "last_checked": "2026-03-30T10:13:07.044Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03815": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:52.299Z",
+    "last_checked": "2026-03-30T10:13:07.180Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03813": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:52.446Z",
+    "last_checked": "2026-03-30T10:13:07.317Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03803": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:52.552Z",
+    "last_checked": "2026-03-30T10:13:07.462Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03805": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:52.651Z",
+    "last_checked": "2026-03-30T10:13:07.595Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04575": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:52.759Z",
+    "last_checked": "2026-03-30T10:13:07.754Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04150": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:52.868Z",
+    "last_checked": "2026-03-30T10:13:07.885Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04534": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:52.974Z",
+    "last_checked": "2026-03-30T10:13:08.022Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04535": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:53.080Z",
+    "last_checked": "2026-03-30T10:13:08.166Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04526": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:53.185Z",
+    "last_checked": "2026-03-30T10:13:08.331Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04523": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:53.294Z",
+    "last_checked": "2026-03-30T10:13:08.466Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04536": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:53.416Z",
+    "last_checked": "2026-03-30T10:13:08.616Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04568": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:53.537Z",
+    "last_checked": "2026-03-30T10:13:08.749Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04567": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:53.657Z",
+    "last_checked": "2026-03-30T10:13:08.880Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04561": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:53.761Z",
+    "last_checked": "2026-03-30T10:13:09.032Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04518": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:53.873Z",
+    "last_checked": "2026-03-30T10:13:09.172Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04533": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:53.986Z",
+    "last_checked": "2026-03-30T10:13:09.309Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04515": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:54.087Z",
+    "last_checked": "2026-03-30T10:13:09.446Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04530": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:54.201Z",
+    "last_checked": "2026-03-30T10:13:09.582Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04514": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:54.310Z",
+    "last_checked": "2026-03-30T10:13:09.716Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04524": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:54.418Z",
+    "last_checked": "2026-03-30T10:13:09.854Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04528": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:54.534Z",
+    "last_checked": "2026-03-30T10:13:09.991Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04519": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:54.653Z",
+    "last_checked": "2026-03-30T10:13:10.144Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04520": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:54.761Z",
+    "last_checked": "2026-03-30T10:13:10.277Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04569": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:54.873Z",
+    "last_checked": "2026-03-30T10:13:10.408Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04521": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:54.978Z",
+    "last_checked": "2026-03-30T10:13:10.545Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04377": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:55.122Z",
+    "last_checked": "2026-03-30T10:13:10.681Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07378": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:55.239Z",
+    "last_checked": "2026-03-30T10:13:10.817Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04655": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:55.355Z",
+    "last_checked": "2026-03-30T10:13:10.955Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04654": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:55.456Z",
+    "last_checked": "2026-03-30T10:13:11.091Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04621": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:55.571Z",
+    "last_checked": "2026-03-30T10:13:11.228Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04611": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:55.678Z",
+    "last_checked": "2026-03-30T10:13:11.363Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04610": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:55.790Z",
+    "last_checked": "2026-03-30T10:13:11.498Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04608": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:55.903Z",
+    "last_checked": "2026-03-30T10:13:11.635Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04609": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:56.015Z",
+    "last_checked": "2026-03-30T10:13:11.770Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04616": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:56.122Z",
+    "last_checked": "2026-03-30T10:13:11.909Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04613": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:56.233Z",
+    "last_checked": "2026-03-30T10:13:12.044Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04614": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:56.343Z",
+    "last_checked": "2026-03-30T10:13:12.177Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04620": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:56.448Z",
+    "last_checked": "2026-03-30T10:13:12.309Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04618": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:56.553Z",
+    "last_checked": "2026-03-30T10:13:12.442Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04627": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:56.659Z",
+    "last_checked": "2026-03-30T10:13:12.583Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04629": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:56.766Z",
+    "last_checked": "2026-03-30T10:13:12.722Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04684": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:56.871Z",
+    "last_checked": "2026-03-30T10:13:12.859Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04646": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:56.982Z",
+    "last_checked": "2026-03-30T10:13:12.993Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04642": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:57.087Z",
+    "last_checked": "2026-03-30T10:13:13.126Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04637": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:57.191Z",
+    "last_checked": "2026-03-30T10:13:13.261Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06750": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:57.296Z",
+    "last_checked": "2026-03-30T10:13:13.400Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06738": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:57.557Z",
+    "last_checked": "2026-03-30T10:13:13.918Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04281": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:57.661Z",
+    "last_checked": "2026-03-30T10:13:14.224Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06921": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:57.761Z",
+    "last_checked": "2026-03-30T10:13:14.360Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06648": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:57.863Z",
+    "last_checked": "2026-03-30T10:13:14.493Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06948": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:57.963Z",
+    "last_checked": "2026-03-30T10:13:14.627Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06910": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:58.064Z",
+    "last_checked": "2026-03-30T10:13:14.808Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06605": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:58.172Z",
+    "last_checked": "2026-03-30T10:13:14.944Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06506": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:58.271Z",
+    "last_checked": "2026-03-30T10:13:15.076Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07310": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:58.375Z",
+    "last_checked": "2026-03-30T10:13:15.212Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07325": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:58.475Z",
+    "last_checked": "2026-03-30T10:13:15.351Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07320": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:58.577Z",
+    "last_checked": "2026-03-30T10:13:15.488Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07326": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:58.674Z",
+    "last_checked": "2026-03-30T10:13:15.623Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07302": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:58.772Z",
+    "last_checked": "2026-03-30T10:13:15.757Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07303": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:58.871Z",
+    "last_checked": "2026-03-30T10:13:15.895Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07317": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:58.973Z",
+    "last_checked": "2026-03-30T10:13:16.028Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07308": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:59.070Z",
+    "last_checked": "2026-03-30T10:13:16.164Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00113": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:59.181Z",
+    "last_checked": "2026-03-30T10:13:16.299Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00869": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:59.282Z",
+    "last_checked": "2026-03-30T10:13:16.431Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00865": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:59.382Z",
+    "last_checked": "2026-03-30T10:13:16.564Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00866": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:59.484Z",
+    "last_checked": "2026-03-30T10:13:16.697Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00110": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:59.579Z",
+    "last_checked": "2026-03-30T10:13:16.835Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00868": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:59.684Z",
+    "last_checked": "2026-03-30T10:13:16.966Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08300": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:59.780Z",
+    "last_checked": "2026-03-30T10:13:17.102Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00867": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:59.874Z",
+    "last_checked": "2026-03-30T10:13:17.242Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00116": {
     "status": "active",
-    "last_checked": "2026-03-30T03:44:59.972Z",
+    "last_checked": "2026-03-30T10:13:17.373Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00870": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:00.075Z",
+    "last_checked": "2026-03-30T10:13:17.505Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09049": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:00.177Z",
+    "last_checked": "2026-03-30T10:13:17.642Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08009": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:00.278Z",
+    "last_checked": "2026-03-30T10:13:17.773Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00107": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:00.379Z",
+    "last_checked": "2026-03-30T10:13:17.953Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09060": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:00.487Z",
+    "last_checked": "2026-03-30T10:13:18.083Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09050": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:00.616Z",
+    "last_checked": "2026-03-30T10:13:18.217Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09064": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:00.714Z",
+    "last_checked": "2026-03-30T10:13:18.354Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09051": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:00.814Z",
+    "last_checked": "2026-03-30T10:13:18.499Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09061": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:00.914Z",
+    "last_checked": "2026-03-30T10:13:18.632Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08003": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:01.014Z",
+    "last_checked": "2026-03-30T10:13:18.767Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07929": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:01.111Z",
+    "last_checked": "2026-03-30T10:13:18.899Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08959": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:01.210Z",
+    "last_checked": "2026-03-30T10:13:19.038Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08855": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:01.320Z",
+    "last_checked": "2026-03-30T10:13:19.215Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07360": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:01.421Z",
+    "last_checked": "2026-03-30T10:13:19.348Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07358": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:01.522Z",
+    "last_checked": "2026-03-30T10:13:19.484Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07365": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:01.624Z",
+    "last_checked": "2026-03-30T10:13:19.615Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09054": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:01.724Z",
+    "last_checked": "2026-03-30T10:13:19.752Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04255": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:01.827Z",
+    "last_checked": "2026-03-30T10:13:19.884Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04254": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:01.931Z",
+    "last_checked": "2026-03-30T10:13:20.020Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09716": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:02.029Z",
+    "last_checked": "2026-03-30T10:13:20.151Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09718": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:02.129Z",
+    "last_checked": "2026-03-30T10:13:20.286Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03950": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:02.232Z",
+    "last_checked": "2026-03-30T10:13:20.418Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02307": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:02.335Z",
+    "last_checked": "2026-03-30T10:13:20.551Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02301": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:02.435Z",
+    "last_checked": "2026-03-30T10:13:20.688Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02315": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:02.548Z",
+    "last_checked": "2026-03-30T10:13:20.868Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02314": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:02.647Z",
+    "last_checked": "2026-03-30T10:13:21.000Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06923": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:02.752Z",
+    "last_checked": "2026-03-30T10:13:21.131Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06551": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:02.852Z",
+    "last_checked": "2026-03-30T10:13:21.266Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04632": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:02.949Z",
+    "last_checked": "2026-03-30T10:13:21.398Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06660": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:03.049Z",
+    "last_checked": "2026-03-30T10:13:21.534Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00625": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:03.148Z",
+    "last_checked": "2026-03-30T10:13:21.697Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03609": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:03.252Z",
+    "last_checked": "2026-03-30T10:13:21.834Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03675": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:03.351Z",
+    "last_checked": "2026-03-30T10:13:21.967Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03670": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:03.448Z",
+    "last_checked": "2026-03-30T10:13:22.102Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02110": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:03.545Z",
+    "last_checked": "2026-03-30T10:13:22.240Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01436": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:03.642Z",
+    "last_checked": "2026-03-30T10:13:22.373Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04573": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:03.739Z",
+    "last_checked": "2026-03-30T10:13:22.509Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04572": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:03.836Z",
+    "last_checked": "2026-03-30T10:13:22.644Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04407": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:03.934Z",
+    "last_checked": "2026-03-30T10:13:22.782Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04511": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:04.032Z",
+    "last_checked": "2026-03-30T10:13:22.941Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04510": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:04.130Z",
+    "last_checked": "2026-03-30T10:13:23.078Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04512": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:04.229Z",
+    "last_checked": "2026-03-30T10:13:23.219Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04505": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:04.335Z",
+    "last_checked": "2026-03-30T10:13:23.383Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04507": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:04.438Z",
+    "last_checked": "2026-03-30T10:13:23.520Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02205": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:04.538Z",
+    "last_checked": "2026-03-30T10:13:23.651Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02202": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:04.637Z",
+    "last_checked": "2026-03-30T10:13:23.783Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02201": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:04.751Z",
+    "last_checked": "2026-03-30T10:13:23.920Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02200": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:04.850Z",
+    "last_checked": "2026-03-30T10:13:24.055Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02204": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:04.962Z",
+    "last_checked": "2026-03-30T10:13:24.191Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00857": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:05.089Z",
+    "last_checked": "2026-03-30T10:13:24.365Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00856": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:05.195Z",
+    "last_checked": "2026-03-30T10:13:24.499Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09630": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:05.291Z",
+    "last_checked": "2026-03-30T10:13:24.656Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09631": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:05.389Z",
+    "last_checked": "2026-03-30T10:13:24.806Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04335": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:05.486Z",
+    "last_checked": "2026-03-30T10:13:24.942Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04503": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:05.586Z",
+    "last_checked": "2026-03-30T10:13:25.074Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04333": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:05.713Z",
+    "last_checked": "2026-03-30T10:13:25.208Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04343": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:05.813Z",
+    "last_checked": "2026-03-30T10:13:25.341Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04339": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:05.920Z",
+    "last_checked": "2026-03-30T10:13:25.474Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03825": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:06.020Z",
+    "last_checked": "2026-03-30T10:13:25.609Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09619": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:06.118Z",
+    "last_checked": "2026-03-30T10:13:25.746Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09603": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:06.216Z",
+    "last_checked": "2026-03-30T10:13:25.881Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03763": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:06.314Z",
+    "last_checked": "2026-03-30T10:13:26.014Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03752": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:06.418Z",
+    "last_checked": "2026-03-30T10:13:26.151Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06620": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:06.516Z",
+    "last_checked": "2026-03-30T10:13:26.286Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07551": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:06.619Z",
+    "last_checked": "2026-03-30T10:13:26.419Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07550": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:06.719Z",
+    "last_checked": "2026-03-30T10:13:26.551Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00854": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:06.828Z",
+    "last_checked": "2026-03-30T10:13:26.682Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06647": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:06.932Z",
+    "last_checked": "2026-03-30T10:13:26.818Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07354": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:07.034Z",
+    "last_checked": "2026-03-30T10:13:26.951Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02257": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:07.163Z",
+    "last_checked": "2026-03-30T10:13:27.085Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02254": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:07.263Z",
+    "last_checked": "2026-03-30T10:13:27.223Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02255": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:07.362Z",
+    "last_checked": "2026-03-30T10:13:27.367Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02256": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:07.460Z",
+    "last_checked": "2026-03-30T10:13:27.503Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02253": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:07.559Z",
+    "last_checked": "2026-03-30T10:13:27.634Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02269": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:07.662Z",
+    "last_checked": "2026-03-30T10:13:27.766Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02310": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:08.018Z",
+    "last_checked": "2026-03-30T10:13:28.136Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03721": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:08.184Z",
+    "last_checked": "2026-03-30T10:13:28.274Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08600": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:08.287Z",
+    "last_checked": "2026-03-30T10:13:28.408Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03223": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:08.386Z",
+    "last_checked": "2026-03-30T10:13:28.543Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06598": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:08.497Z",
+    "last_checked": "2026-03-30T10:13:28.680Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06600": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:08.602Z",
+    "last_checked": "2026-03-30T10:13:28.813Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04672": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:08.703Z",
+    "last_checked": "2026-03-30T10:13:28.942Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04376": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:08.807Z",
+    "last_checked": "2026-03-30T10:13:29.075Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03665": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:08.911Z",
+    "last_checked": "2026-03-30T10:13:29.208Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00341": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:09.010Z",
+    "last_checked": "2026-03-30T10:13:29.341Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06586": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:09.109Z",
+    "last_checked": "2026-03-30T10:13:29.496Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02259": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:09.206Z",
+    "last_checked": "2026-03-30T10:13:29.628Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02433": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:09.313Z",
+    "last_checked": "2026-03-30T10:13:29.763Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08861": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:09.414Z",
+    "last_checked": "2026-03-30T10:13:29.897Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03718": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:09.516Z",
+    "last_checked": "2026-03-30T10:13:30.028Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07387": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:09.615Z",
+    "last_checked": "2026-03-30T10:13:30.174Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07356": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:09.716Z",
+    "last_checked": "2026-03-30T10:13:30.306Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07361": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:09.820Z",
+    "last_checked": "2026-03-30T10:13:30.439Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03556": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:09.927Z",
+    "last_checked": "2026-03-30T10:13:30.582Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09738": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:10.031Z",
+    "last_checked": "2026-03-30T10:13:30.714Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03835": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:10.139Z",
+    "last_checked": "2026-03-30T10:13:30.851Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03600": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:10.252Z",
+    "last_checked": "2026-03-30T10:13:30.983Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03608": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:10.352Z",
+    "last_checked": "2026-03-30T10:13:31.119Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00635": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:10.452Z",
+    "last_checked": "2026-03-30T10:13:31.255Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09056": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:10.553Z",
+    "last_checked": "2026-03-30T10:13:31.390Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08961": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:10.654Z",
+    "last_checked": "2026-03-30T10:13:31.524Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09642": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:10.762Z",
+    "last_checked": "2026-03-30T10:13:31.657Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09641": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:10.864Z",
+    "last_checked": "2026-03-30T10:13:31.802Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08958": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:10.965Z",
+    "last_checked": "2026-03-30T10:13:31.938Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08960": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:11.069Z",
+    "last_checked": "2026-03-30T10:13:32.072Z",
     "consecutive_failures": 0
   },
   "tfl-00001.05832": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:11.170Z",
+    "last_checked": "2026-03-30T10:13:32.214Z",
     "consecutive_failures": 0
   },
   "tfl-00001.05827": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:11.272Z",
+    "last_checked": "2026-03-30T10:13:32.349Z",
     "consecutive_failures": 0
   },
   "tfl-00001.05829": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:11.376Z",
+    "last_checked": "2026-03-30T10:13:32.482Z",
     "consecutive_failures": 0
   },
   "tfl-00001.05826": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:11.485Z",
+    "last_checked": "2026-03-30T10:13:32.612Z",
     "consecutive_failures": 0
   },
   "tfl-00001.05900": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:11.586Z",
+    "last_checked": "2026-03-30T10:13:32.749Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00858": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:11.691Z",
+    "last_checked": "2026-03-30T10:13:32.884Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00632": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:11.799Z",
+    "last_checked": "2026-03-30T10:13:33.020Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09701": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:11.902Z",
+    "last_checked": "2026-03-30T10:13:33.152Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03747": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:12.006Z",
+    "last_checked": "2026-03-30T10:13:33.286Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09640": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:12.114Z",
+    "last_checked": "2026-03-30T10:13:33.419Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06908": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:12.216Z",
+    "last_checked": "2026-03-30T10:13:33.555Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01429": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:12.318Z",
+    "last_checked": "2026-03-30T10:13:33.697Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08005": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:12.421Z",
+    "last_checked": "2026-03-30T10:13:33.834Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08010": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:12.525Z",
+    "last_checked": "2026-03-30T10:13:33.969Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07553": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:12.629Z",
+    "last_checked": "2026-03-30T10:13:34.105Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07552": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:12.737Z",
+    "last_checked": "2026-03-30T10:13:34.241Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01685": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:12.851Z",
+    "last_checked": "2026-03-30T10:13:34.375Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07311": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:12.954Z",
+    "last_checked": "2026-03-30T10:13:34.547Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08001": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:13.052Z",
+    "last_checked": "2026-03-30T10:13:34.689Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08000": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:13.154Z",
+    "last_checked": "2026-03-30T10:13:34.825Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04329": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:13.255Z",
+    "last_checked": "2026-03-30T10:13:35.004Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04332": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:13.358Z",
+    "last_checked": "2026-03-30T10:13:35.134Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07375": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:13.464Z",
+    "last_checked": "2026-03-30T10:13:35.268Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07376": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:13.570Z",
+    "last_checked": "2026-03-30T10:13:35.399Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07322": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:13.696Z",
+    "last_checked": "2026-03-30T10:13:35.536Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07321": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:13.794Z",
+    "last_checked": "2026-03-30T10:13:35.666Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03865": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:13.897Z",
+    "last_checked": "2026-03-30T10:13:35.801Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09755": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:13.998Z",
+    "last_checked": "2026-03-30T10:13:35.935Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04901": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:14.097Z",
+    "last_checked": "2026-03-30T10:13:36.067Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09723": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:14.197Z",
+    "last_checked": "2026-03-30T10:13:36.199Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09708": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:14.301Z",
+    "last_checked": "2026-03-30T10:13:36.334Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09710": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:14.405Z",
+    "last_checked": "2026-03-30T10:13:36.466Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09709": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:14.505Z",
+    "last_checked": "2026-03-30T10:13:36.600Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09707": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:14.607Z",
+    "last_checked": "2026-03-30T10:13:36.732Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09712": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:14.705Z",
+    "last_checked": "2026-03-30T10:13:36.867Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01606": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:14.804Z",
+    "last_checked": "2026-03-30T10:13:37.000Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04235": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:14.908Z",
+    "last_checked": "2026-03-30T10:13:37.135Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06624": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:15.042Z",
+    "last_checked": "2026-03-30T10:13:37.271Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04345": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:15.147Z",
+    "last_checked": "2026-03-30T10:13:37.425Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04300": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:15.252Z",
+    "last_checked": "2026-03-30T10:13:37.558Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04303": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:15.357Z",
+    "last_checked": "2026-03-30T10:13:37.692Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04604": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:15.454Z",
+    "last_checked": "2026-03-30T10:13:37.827Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04305": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:15.554Z",
+    "last_checked": "2026-03-30T10:13:37.963Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04304": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:15.655Z",
+    "last_checked": "2026-03-30T10:13:38.097Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04331": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:15.756Z",
+    "last_checked": "2026-03-30T10:13:38.235Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04606": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:15.868Z",
+    "last_checked": "2026-03-30T10:13:38.366Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04607": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:15.967Z",
+    "last_checked": "2026-03-30T10:13:38.497Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04605": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:16.067Z",
+    "last_checked": "2026-03-30T10:13:38.630Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04500": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:16.175Z",
+    "last_checked": "2026-03-30T10:13:38.762Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06609": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:16.284Z",
+    "last_checked": "2026-03-30T10:13:38.907Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03810": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:16.389Z",
+    "last_checked": "2026-03-30T10:13:39.065Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01611": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:16.490Z",
+    "last_checked": "2026-03-30T10:13:39.200Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06710": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:16.596Z",
+    "last_checked": "2026-03-30T10:13:39.338Z",
     "consecutive_failures": 0
   },
   "tfl-00001.05975": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:16.696Z",
+    "last_checked": "2026-03-30T10:13:39.474Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03591": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:16.798Z",
+    "last_checked": "2026-03-30T10:13:39.609Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03590": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:16.898Z",
+    "last_checked": "2026-03-30T10:13:39.756Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07600": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:17.004Z",
+    "last_checked": "2026-03-30T10:13:39.911Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02342": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:17.119Z",
+    "last_checked": "2026-03-30T10:13:40.042Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09088": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:17.222Z",
+    "last_checked": "2026-03-30T10:13:40.176Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03705": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:17.324Z",
+    "last_checked": "2026-03-30T10:13:40.308Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00389": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:17.424Z",
+    "last_checked": "2026-03-30T10:13:40.442Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00378": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:17.526Z",
+    "last_checked": "2026-03-30T10:13:40.575Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00403": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:17.631Z",
+    "last_checked": "2026-03-30T10:13:40.713Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00361": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:17.732Z",
+    "last_checked": "2026-03-30T10:13:40.845Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00629": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:17.841Z",
+    "last_checked": "2026-03-30T10:13:40.981Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04540": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:17.942Z",
+    "last_checked": "2026-03-30T10:13:41.122Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04545": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:18.044Z",
+    "last_checked": "2026-03-30T10:13:41.252Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03901": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:18.146Z",
+    "last_checked": "2026-03-30T10:13:41.390Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01605": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:18.250Z",
+    "last_checked": "2026-03-30T10:13:41.526Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03557": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:18.352Z",
+    "last_checked": "2026-03-30T10:13:41.659Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01432": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:18.635Z",
+    "last_checked": "2026-03-30T10:13:42.030Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01601": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:18.741Z",
+    "last_checked": "2026-03-30T10:13:42.166Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06619": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:18.848Z",
+    "last_checked": "2026-03-30T10:13:42.322Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00853": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:18.950Z",
+    "last_checked": "2026-03-30T10:13:42.459Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08865": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:19.051Z",
+    "last_checked": "2026-03-30T10:13:42.594Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01502": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:19.155Z",
+    "last_checked": "2026-03-30T10:13:42.731Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07391": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:19.260Z",
+    "last_checked": "2026-03-30T10:13:42.865Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07364": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:19.362Z",
+    "last_checked": "2026-03-30T10:13:42.999Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02109": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:19.493Z",
+    "last_checked": "2026-03-30T10:13:43.134Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02105": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:19.606Z",
+    "last_checked": "2026-03-30T10:13:43.268Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02115": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:19.707Z",
+    "last_checked": "2026-03-30T10:13:43.403Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02106": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:19.841Z",
+    "last_checked": "2026-03-30T10:13:43.539Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00628": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:19.974Z",
+    "last_checked": "2026-03-30T10:13:43.674Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08006": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:20.082Z",
+    "last_checked": "2026-03-30T10:13:43.805Z",
     "consecutive_failures": 0
   },
   "tfl-00001.05752": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:20.212Z",
+    "last_checked": "2026-03-30T10:13:43.944Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04275": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:20.325Z",
+    "last_checked": "2026-03-30T10:13:44.080Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04279": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:20.426Z",
+    "last_checked": "2026-03-30T10:13:44.218Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04277": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:20.536Z",
+    "last_checked": "2026-03-30T10:13:44.353Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04276": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:20.642Z",
+    "last_checked": "2026-03-30T10:13:44.493Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00623": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:20.746Z",
+    "last_checked": "2026-03-30T10:13:44.627Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06602": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:20.856Z",
+    "last_checked": "2026-03-30T10:13:44.805Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07500": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:20.973Z",
+    "last_checked": "2026-03-30T10:13:44.940Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06408": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:21.123Z",
+    "last_checked": "2026-03-30T10:13:45.077Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06580": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:21.230Z",
+    "last_checked": "2026-03-30T10:13:45.213Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06581": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:21.347Z",
+    "last_checked": "2026-03-30T10:13:45.349Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03657": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:21.456Z",
+    "last_checked": "2026-03-30T10:13:45.481Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03656": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:21.570Z",
+    "last_checked": "2026-03-30T10:13:45.612Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00338": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:21.674Z",
+    "last_checked": "2026-03-30T10:13:45.746Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03668": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:21.781Z",
+    "last_checked": "2026-03-30T10:13:45.881Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06587": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:21.984Z",
+    "last_checked": "2026-03-30T10:13:46.014Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07355": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:22.098Z",
+    "last_checked": "2026-03-30T10:13:46.151Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07450": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:22.200Z",
+    "last_checked": "2026-03-30T10:13:46.286Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06592": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:22.301Z",
+    "last_checked": "2026-03-30T10:13:46.418Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00631": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:22.408Z",
+    "last_checked": "2026-03-30T10:13:46.548Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00622": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:22.512Z",
+    "last_checked": "2026-03-30T10:13:46.682Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00621": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:22.613Z",
+    "last_checked": "2026-03-30T10:13:46.839Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00620": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:22.729Z",
+    "last_checked": "2026-03-30T10:13:46.978Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04564": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:22.830Z",
+    "last_checked": "2026-03-30T10:13:47.114Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04563": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:22.948Z",
+    "last_checked": "2026-03-30T10:13:47.245Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04562": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:23.051Z",
+    "last_checked": "2026-03-30T10:13:47.382Z",
     "consecutive_failures": 0
   },
   "tfl-00001.05825": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:23.152Z",
+    "last_checked": "2026-03-30T10:13:47.516Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04348": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:23.290Z",
+    "last_checked": "2026-03-30T10:13:47.657Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04344": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:23.401Z",
+    "last_checked": "2026-03-30T10:13:47.790Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04641": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:23.506Z",
+    "last_checked": "2026-03-30T10:13:47.921Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00636": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:23.618Z",
+    "last_checked": "2026-03-30T10:13:48.057Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07451": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:23.718Z",
+    "last_checked": "2026-03-30T10:13:48.196Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02158": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:23.826Z",
+    "last_checked": "2026-03-30T10:13:48.335Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02156": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:23.954Z",
+    "last_checked": "2026-03-30T10:13:48.469Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02154": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:24.058Z",
+    "last_checked": "2026-03-30T10:13:48.603Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02160": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:24.160Z",
+    "last_checked": "2026-03-30T10:13:48.741Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00884": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:24.296Z",
+    "last_checked": "2026-03-30T10:13:48.874Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01551": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:24.408Z",
+    "last_checked": "2026-03-30T10:13:49.029Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01615": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:24.508Z",
+    "last_checked": "2026-03-30T10:13:49.171Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03821": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:24.619Z",
+    "last_checked": "2026-03-30T10:13:49.304Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07379": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:24.725Z",
+    "last_checked": "2026-03-30T10:13:49.442Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09607": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:24.835Z",
+    "last_checked": "2026-03-30T10:13:49.577Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09622": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:24.953Z",
+    "last_checked": "2026-03-30T10:13:49.713Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09609": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:25.082Z",
+    "last_checked": "2026-03-30T10:13:49.876Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09620": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:25.186Z",
+    "last_checked": "2026-03-30T10:13:50.010Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09711": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:25.287Z",
+    "last_checked": "2026-03-30T10:13:50.146Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09608": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:25.420Z",
+    "last_checked": "2026-03-30T10:13:50.279Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09621": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:25.525Z",
+    "last_checked": "2026-03-30T10:13:50.412Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07458": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:25.637Z",
+    "last_checked": "2026-03-30T10:13:50.551Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07300": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:25.741Z",
+    "last_checked": "2026-03-30T10:13:50.690Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06723": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:25.849Z",
+    "last_checked": "2026-03-30T10:13:50.827Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03205": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:25.956Z",
+    "last_checked": "2026-03-30T10:13:50.961Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03760": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:26.092Z",
+    "last_checked": "2026-03-30T10:13:51.094Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04473": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:26.192Z",
+    "last_checked": "2026-03-30T10:13:51.230Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04476": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:26.305Z",
+    "last_checked": "2026-03-30T10:13:51.377Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04474": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:26.435Z",
+    "last_checked": "2026-03-30T10:13:51.510Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07590": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:26.539Z",
+    "last_checked": "2026-03-30T10:13:51.650Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06518": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:26.644Z",
+    "last_checked": "2026-03-30T10:13:51.782Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07301": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:26.775Z",
+    "last_checked": "2026-03-30T10:13:51.918Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04565": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:26.880Z",
+    "last_checked": "2026-03-30T10:13:52.055Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04220": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:26.988Z",
+    "last_checked": "2026-03-30T10:13:52.191Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03765": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:27.091Z",
+    "last_checked": "2026-03-30T10:13:52.330Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04477": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:27.190Z",
+    "last_checked": "2026-03-30T10:13:52.473Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04486": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:27.293Z",
+    "last_checked": "2026-03-30T10:13:52.605Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04485": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:27.399Z",
+    "last_checked": "2026-03-30T10:13:52.739Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04675": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:27.503Z",
+    "last_checked": "2026-03-30T10:13:52.875Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06590": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:27.610Z",
+    "last_checked": "2026-03-30T10:13:53.011Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06584": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:27.710Z",
+    "last_checked": "2026-03-30T10:13:53.148Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06603": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:27.825Z",
+    "last_checked": "2026-03-30T10:13:53.281Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06693": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:27.947Z",
+    "last_checked": "2026-03-30T10:13:53.423Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06686": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:28.053Z",
+    "last_checked": "2026-03-30T10:13:53.593Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02352": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:28.168Z",
+    "last_checked": "2026-03-30T10:13:53.727Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02353": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:28.285Z",
+    "last_checked": "2026-03-30T10:13:53.865Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07591": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:28.389Z",
+    "last_checked": "2026-03-30T10:13:54.003Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04560": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:28.494Z",
+    "last_checked": "2026-03-30T10:13:54.139Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03902": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:28.597Z",
+    "last_checked": "2026-03-30T10:13:54.283Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07390": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:28.701Z",
+    "last_checked": "2026-03-30T10:13:54.424Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06502": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:28.803Z",
+    "last_checked": "2026-03-30T10:13:54.572Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03808": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:28.910Z",
+    "last_checked": "2026-03-30T10:13:54.710Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03809": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:29.013Z",
+    "last_checked": "2026-03-30T10:13:54.854Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07389": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:29.115Z",
+    "last_checked": "2026-03-30T10:13:55.036Z",
     "consecutive_failures": 0
   },
   "tfl-00001.01604": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:29.223Z",
+    "last_checked": "2026-03-30T10:13:55.175Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06712": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:29.326Z",
+    "last_checked": "2026-03-30T10:13:55.315Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09703": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:29.424Z",
+    "last_checked": "2026-03-30T10:13:55.452Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09705": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:29.533Z",
+    "last_checked": "2026-03-30T10:13:55.586Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06692": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:29.638Z",
+    "last_checked": "2026-03-30T10:13:55.721Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06697": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:29.901Z",
+    "last_checked": "2026-03-30T10:13:56.098Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04324": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:30.013Z",
+    "last_checked": "2026-03-30T10:13:56.238Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04328": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:30.114Z",
+    "last_checked": "2026-03-30T10:13:56.372Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04322": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:30.215Z",
+    "last_checked": "2026-03-30T10:13:56.506Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04256": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:30.318Z",
+    "last_checked": "2026-03-30T10:13:56.640Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02500": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:30.426Z",
+    "last_checked": "2026-03-30T10:13:56.772Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06585": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:30.526Z",
+    "last_checked": "2026-03-30T10:13:56.908Z",
     "consecutive_failures": 0
   },
   "tfl-00001.06601": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:30.633Z",
+    "last_checked": "2026-03-30T10:13:57.045Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04223": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:30.735Z",
+    "last_checked": "2026-03-30T10:13:57.182Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00859": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:30.836Z",
+    "last_checked": "2026-03-30T10:13:57.314Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00860": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:30.938Z",
+    "last_checked": "2026-03-30T10:13:57.471Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04644": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:31.040Z",
+    "last_checked": "2026-03-30T10:13:57.609Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03761": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:31.172Z",
+    "last_checked": "2026-03-30T10:13:57.744Z",
     "consecutive_failures": 0
   },
   "tfl-00001.09650": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:31.278Z",
+    "last_checked": "2026-03-30T10:13:57.887Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02102": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:31.384Z",
+    "last_checked": "2026-03-30T10:13:58.024Z",
     "consecutive_failures": 0
   },
   "tfl-00001.02103": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:31.487Z",
+    "last_checked": "2026-03-30T10:13:58.160Z",
     "consecutive_failures": 0
   },
   "tfl-00001.07305": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:31.591Z",
+    "last_checked": "2026-03-30T10:13:58.295Z",
     "consecutive_failures": 0
   },
   "tfl-00001.08402": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:31.691Z",
+    "last_checked": "2026-03-30T10:13:58.426Z",
     "consecutive_failures": 0
   },
   "tfl-00002.00624": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:31.792Z",
+    "last_checked": "2026-03-30T10:13:58.565Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03111": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:31.897Z",
+    "last_checked": "2026-03-30T10:13:58.699Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03115": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:32.004Z",
+    "last_checked": "2026-03-30T10:13:58.833Z",
     "consecutive_failures": 0
   },
   "tfl-00001.03118": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:32.107Z",
+    "last_checked": "2026-03-30T10:13:58.971Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04676": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:32.208Z",
+    "last_checked": "2026-03-30T10:13:59.122Z",
     "consecutive_failures": 0
   },
   "tfl-00001.04226": {
     "status": "active",
-    "last_checked": "2026-03-30T03:45:32.308Z",
+    "last_checked": "2026-03-30T10:13:59.256Z",
     "consecutive_failures": 0
   },
   "nyc-major-deegan-expy-atvan-cortland-pk-s": {
