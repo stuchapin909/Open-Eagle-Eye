@@ -1,4 +1,4 @@
-# Open Eagle Eye — Session Summary (March 28, 2026)
+# Open Eagle Eye — Session Summary (March 28-29, 2026)
 
 ## Project
 - **Repo:** github.com/stuchapin909/Open-Eagle-Eye
@@ -6,11 +6,11 @@
 - **Package:** openeagleeye v7.0.0 (npm, MCP server)
 - **License:** MIT
 
-## Current Registry: 18,830 cameras across 9 countries
+## Current Registry: 19,950 cameras across 9 countries
 
 | Country | Count | Sources |
 |---------|-------|---------|
-| US | 15,430 | NYC DOT (100), WSDOT (1,654), Caltrans CWWP2 (3,430), CDOT CoTrip (1,023), VDOT 511 (1,695), FDOT FL511 (4,700), NCDOT (779), PennDOT 511PA (1,445), Arizona ADOT (604) |
+| US | 16,550 | NYC DOT (100), WSDOT (1,654), Caltrans CWWP2 (3,430), CDOT CoTrip (1,023), VDOT 511 (1,695), FDOT FL511 (4,700), NCDOT (779), PennDOT 511PA (1,445), Arizona ADOT (604), Oregon ODOT (1,120) |
 | CA | 1,292 | Ontario MTO (923), Alberta 511 (369) |
 | HK | 995 | Hong Kong Transport Department |
 | UK | 424 | London TfL JamCams |
@@ -29,7 +29,7 @@ Every camera has: id, name, url, category, location, timezone, country, city, co
 - Added Caltrans (3,430), Japan NEXCO East (98), NZ NZTA (251), Ireland TII (53)
 - Removed 235 fabricated EU cameras (DE, DK, FR, NO, SE)
 
-### This session additions (+9,796 cameras)
+### This session additions (+11,120 cameras)
 
 Previous session (March 28):
 
@@ -48,6 +48,8 @@ This session (March 29):
 6. **Pennsylvania PennDOT** (+1,445) — DataTables POST API at `511pa.com/List/GetData/Cameras` (pagination, 100/page, 1,445 total). Direct JPEG from `511pa.com/map/Cctv/{id}`. Sources: PennDOT (1,279), RWIS (77), PTC/Pennsylvania Turnpike Commission (89). GPS coords in WKT format. No auth. All 15 validation samples returned valid JPEG (5-50KB).
 
 7. **Arizona ADOT** (+604) — DataTables POST API at `az511.com/List/GetData/Cameras` (pagination, 100/page, 604 total). Direct JPEG/PNG from `az511.com/map/Cctv/{id}`. Source: AZDOT. Covers I-10, I-17, I-40, I-8, Loop 101/202/303, SR-51 and state routes statewide. GPS coords in WKT format. No auth. 12/12 validation samples returned valid images (mix of JPEG 27KB-545KB and PNG 15KB). Top cities: Phoenix (395), Tucson (53), Flagstaff (17), Nogales (16), Prescott (14).
+
+8. **Oregon ODOT** (+1,120) — Camera inventory JSON at `tripcheck.com/Scripts/map/data/cctvinventory.js` (ESRI JSON with features array). Direct JPEG from `tripcheck.com/roadcams/cams/{filename}`. 765 highway + 355 city cameras. Covers I-5, I-84, I-205, I-405, I-82, US20, US26, US30, US395, US95, US97, US101, US199, US197, US730, OR18, OR22, OR126, OR140, OR217, OR219, OR221, and many state routes plus city/county cameras. GPS coordinates included (WGS84). No auth. 12/12 validation samples returned valid JPEG (10-32KB). Top cities: Portland (259), Vancouver WA (137), Oregon City (78), Eugene (53), Salem (33), Bend (31), Medford (22).
 
 ### Validation method
 For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG magic bytes (`\xff\xd8`) or PNG (`\x89PNG`) + reasonable file size (>500B-1KB). Send screenshots to user for visual confirmation.
@@ -84,7 +86,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 
 ### US states (high probability of success)
 1. ~~**Arizona ADOT**~~ — DONE. 604 cameras from az511.com.
-2. **Oregon ODOT** — TripCheck has a well-known camera system. Check tripcheck.com for API endpoints.
+2. ~~**Oregon ODOT**~~ — DONE. 1,120 cameras from tripcheck.com.
 3. **Nevada NDOT** — Check nvroads.com for camera feeds.
 4. **Georgia** — Retry if GDOT launches a new public API.
 
@@ -102,7 +104,7 @@ For each new source: download samples (6-12 per cluster), verify HTTP 200 + JPEG
 
 ## Key files
 
-- `cameras.json` — The registry (~4.9MB, 18,830 entries, JSON array)
+- `cameras.json` — The registry (~5.2MB, 19,950 entries, JSON array)
 - `index.js` — MCP server (main package entry point)
 - `validate-registry.js` — GitHub Action validator
 - `merge_validate.mjs` — Local merge + validation script
@@ -130,7 +132,7 @@ The registry is a JSON array. Each entry:
 }
 ```
 
-ID naming convention: `{country_code}-{descriptive-slug}` (e.g., `co-i-70-...`, `va-nrocctvi66e00501`, `fl-1-0517n-...`, `nc-5-i-40-exit-270`, `td-H429F`, `az-635`).
+ID naming convention: `{country_code}-{descriptive-slug}` (e.g., `co-i-70-...`, `va-nrocctvi66e00501`, `fl-1-0517n-...`, `nc-5-i-40-exit-270`, `td-H429F`, `az-635`, `or-i-5-at-roseburg-mp120-pid676`).
 
 ## Workflow for adding a new source
 
