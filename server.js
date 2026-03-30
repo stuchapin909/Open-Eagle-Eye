@@ -3,6 +3,8 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import axios from "axios";
+import http from "http";
+import https from "https";
 import fs from "fs";
 import path from "path";
 import os from "os";
@@ -18,10 +20,27 @@ const CAMERAS_PATH = path.join(CACHE_DIR, "cameras.json");
 const LOCAL_CAMERAS_PATH = path.join(CACHE_DIR, "local-cameras.json");
 const LOG_PATH = path.join(CACHE_DIR, ".registry-state.json");
 const SNAPSHOTS_DIR = path.join(CACHE_DIR, "snapshots");
+const MAX_SNAPSHOTS = 100;
 const USER_CONFIG_PATH = path.join(CACHE_DIR, "config.json");
 
 if (!fs.existsSync(CACHE_DIR)) fs.mkdirSync(CACHE_DIR, { recursive: true });
 if (!fs.existsSync(SNAPSHOTS_DIR)) fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
+
+// --- Snapshot cleanup (LRU by mtime) ---
+function cleanupSnapshots() {
+  try {
+    const files = fs.readdirSync(SNAPSHOTS_DIR)
+      .map(f => ({ name: f, mtime: fs.statSync(path.join(SNAPSHOTS_DIR, f)).mtimeMs }))
+      .sort((a, b) => a.mtime - b.mtime);
+
+    while (files.length > MAX_SNAPSHOTS) {
+      const oldest = files.shift();
+      fs.unlinkSync(path.join(SNAPSHOTS_DIR, oldest.name));
+    }
+  } catch (e) {
+    console.error(`[server] Snapshot cleanup failed: ${e.message}`);
+  }
+}
 
 const server = new McpServer({ name: "openeagleeye", version: VERSION });
 
@@ -165,11 +184,44 @@ async function downloadSnapshot(cam) {
   const safety = await isSafeUrl(config.url);
   if (!safety.safe) return { error: `Blocked: ${safety.reason}` };
 
+  // Pin resolved IPs to prevent TOCTOU DNS rebinding attacks.
+  // isSafeUrl already validated these IPs; we force axios to use them
+  // instead of performing a second DNS lookup.
+  const resolvedIPs = safety.resolvedIPs || [];
+  const lookup = resolvedIPs.length > 0
+    ? (_hostname, opts, cb) => {
+        const family = opts.family || 0;
+        let ip = null;
+        if (family === 4) {
+          ip = resolvedIPs.find(a => !a.includes(':'));
+        } else if (family === 6) {
+          ip = resolvedIPs.find(a => a.includes(':'));
+        } else {
+          // family=0: prefer IPv4, fall back to IPv6
+          ip = resolvedIPs.find(a => !a.includes(':')) || resolvedIPs.find(a => a.includes(':'));
+        }
+        if (!ip) return cb(new Error(`No pinned IP found for family ${family}`));
+        cb(null, ip, ip.includes(':') ? 6 : 4);
+      }
+    : undefined;
+
   const filename = `${crypto.randomBytes(8).toString('hex')}.jpg`;
   const fullPath = path.join(SNAPSHOTS_DIR, filename);
 
   try {
-    const response = await axios.get(config.url, { responseType: 'arraybuffer', timeout: 10000, headers: config.headers, maxContentLength: 5 * 1024 * 1024, maxBodyLength: 5 * 1024 * 1024, maxRedirects: 1 });
+    const axiosOpts = {
+      responseType: 'arraybuffer',
+      timeout: 10000,
+      headers: config.headers,
+      maxContentLength: 5 * 1024 * 1024,
+      maxBodyLength: 5 * 1024 * 1024,
+      maxRedirects: 1,
+    };
+    if (lookup) {
+      axiosOpts.httpAgent = new http.Agent({ lookup });
+      axiosOpts.httpsAgent = new https.Agent({ lookup });
+    }
+    const response = await axios.get(config.url, axiosOpts);
     let ct = response.headers['content-type'] || "";
     let isAllowed = ALLOWED_CONTENT_TYPES.some(t => ct.includes(t));
     const buf = Buffer.from(response.data);
@@ -181,6 +233,7 @@ async function downloadSnapshot(cam) {
     if (buf.length > 5 * 1024 * 1024) return { error: `Response too large (${(buf.length / 1024 / 1024).toFixed(1)}MB)` };
     if (buf.length < 500) return { error: `Response too small: ${buf.length} bytes (likely placeholder)` };
     fs.writeFileSync(fullPath, buf);
+    cleanupSnapshots();
     return {
       success: true,
       file_path: fullPath,
@@ -236,7 +289,7 @@ server.tool("list_cameras", "Browse the camera registry. Returns cameras with id
   if (city) filtered = filtered.filter(c => (c.city || "").toLowerCase() === city.toLowerCase());
   if (country) filtered = filtered.filter(c => {
     const cc = (c.country || "").toLowerCase();
-    return cc === country.toLowerCase() || cc.includes(country.toLowerCase());
+    return cc === country.toLowerCase();
   });
   if (location) filtered = filtered.filter(c => (c.location || "").toLowerCase().includes(location.toLowerCase()));
   if (category) filtered = filtered.filter(c => (c.category || "") === category);
@@ -324,7 +377,7 @@ server.tool("explore_cameras", "Get random cameras from the registry for discove
   if (city) pool = pool.filter(c => (c.city || "").toLowerCase() === city.toLowerCase());
   if (country) pool = pool.filter(c => {
     const cc = (c.country || "").toLowerCase();
-    return cc === country.toLowerCase() || cc.includes(country.toLowerCase());
+    return cc === country.toLowerCase();
   });
   if (category) pool = pool.filter(c => (c.category || "") === category);
 
@@ -485,20 +538,25 @@ server.tool("submit_local", "Share your locally-added cameras with the upstream 
     });
   }
 
-  // Fetch snapshots for embedding (up to 5 to keep issue size manageable)
-  // Use camera URLs directly in markdown — GitHub renders them inline
-  const snapshots = [];
-  const camsToSnapshot = camsToSubmit.slice(0, 5);
-  for (const cam of camsToSnapshot) {
-    // Validate the URL is image-accessible (already validated above), embed as markdown image
-    snapshots.push({ cam });
-  }
-
   // Strip local-internal fields for submission
   const cleanCameras = camsToSubmit.map(c => {
     const { added_at, ...clean } = c;
     return clean;
   });
+
+  // Snapshot previews (up to 5, embedded as markdown images in the issue)
+  const previewCams = camsToSubmit.slice(0, 5);
+  const snapshots = [];
+  for (const cam of previewCams) {
+    try {
+      const result = await downloadSnapshot(cam);
+      if (result && result.success) {
+        snapshots.push({ cam });
+      }
+    } catch (_) {
+      // Skip failed snapshots gracefully
+    }
+  }
 
   // Build issue body
   const bodyParts = [

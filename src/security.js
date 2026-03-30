@@ -59,15 +59,16 @@ export async function isSafeUrl(urlStr) {
     const rawHost = hostname.replace(/^\[|\]$/g, '');
     if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(rawHost) || rawHost.includes(':')) {
       if (isPrivateIP(rawHost)) return { safe: false, reason: `Blocked: private/reserved IP ${hostname}` };
-      return { safe: true };
+      return { safe: true, resolvedIPs: [rawHost] };
     }
     const addrs4 = await dns.resolve4(hostname).catch(() => []);
     const addrs6 = await dns.resolve6(hostname).catch(() => []);
     if (addrs4.length === 0 && addrs6.length === 0) return { safe: false, reason: `Cannot resolve: ${hostname}` };
-    for (const ip of [...addrs4, ...addrs6]) {
+    const allAddrs = [...addrs4, ...addrs6];
+    for (const ip of allAddrs) {
       if (isPrivateIP(ip)) return { safe: false, reason: `Blocked: ${hostname} resolves to private IP ${ip}` };
     }
-    return { safe: true };
+    return { safe: true, resolvedIPs: allAddrs };
   } catch (e) { return { safe: false, reason: `DNS error: ${e.message.substring(0, 80)}` }; }
 }
 

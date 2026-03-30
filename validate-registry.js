@@ -16,10 +16,10 @@
  */
 
 import axios from "axios";
-import dns from "dns/promises";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { isSafeUrl, detectImageType, getHeadersForUrl } from "./src/security.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CAMERAS_PATH = path.join(__dirname, "cameras.json");
@@ -40,115 +40,6 @@ const MAX_CONSECUTIVE_FAILURES = 2;
 const STALE_THRESHOLD_DAYS = 7;
 // Max cameras to validate per push/PR (DoS protection)
 const MAX_PUSH_VALIDATIONS = 500;
-
-const FETCH_HEADERS = {
-  'User-Agent': 'open-public-cam-validator',
-  'Accept': 'image/jpeg,image/png,image/*;q=0.8,*/*;q=0.1',
-  'Cache-Control': 'no-cache',
-};
-
-// Per-domain extra headers for hosts that require Referer or other special headers
-const DOMAIN_HEADERS = {
-  'webcams.transport.nsw.gov.au': { 'Referer': 'https://www.livetraffic.com/traffic-cameras' },
-};
-
-function getHeadersForUrl(urlStr) {
-  try {
-    const hostname = new URL(urlStr).hostname;
-    return { ...FETCH_HEADERS, ...(DOMAIN_HEADERS[hostname] || {}) };
-  } catch {
-    return FETCH_HEADERS;
-  }
-}
-
-// --- SSRF protection ---
-const BLOCKED_HOSTNAMES = [
-  'metadata.google.internal',
-  'metadata.goog',
-  '169.254.169.254',
-  'metadata.amazonaws.com',
-  '100.100.100.200',     // GCP metadata
-  'fd00:ec2::254',       // AWS IPv6 metadata
-];
-
-function isPrivateIP(ip) {
-  if (!ip) return true;
-  // Strip brackets from IPv6 addresses
-  const clean = ip.replace(/^\[|\]$/g, '');
-  const v4 = clean.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
-  if (v4) {
-    const [, a, b] = v4.map(Number);
-    if (a === 10) return true;
-    if (a === 172 && b >= 16 && b <= 31) return true;
-    if (a === 192 && b === 168) return true;
-    if (a === 127) return true;
-    if (a === 0) return true;
-    if (a === 169 && b === 254) return true;
-    if (a === 100 && b >= 64 && b <= 127) return true;
-    if (a === 198 && b === 18) return true;
-    if (a === 192 && b === 0 && v4[3] >= 0 && v4[3] <= 2) return true;
-  }
-  if (clean === '::1' || clean === '::') return true;
-  if (clean.startsWith('fc') || clean.startsWith('fd') || clean.startsWith('fe80')) return true;
-  if (clean.startsWith('::ffff:127.') || clean.startsWith('::ffff:10.') || clean.startsWith('::ffff:192.168.')) return true;
-  return false;
-}
-
-async function isSafeUrl(urlStr) {
-  let url;
-  try {
-    url = new URL(urlStr);
-  } catch {
-    return { safe: false, reason: "Invalid URL" };
-  }
-
-  // Only allow http and https
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
-    return { safe: false, reason: `Blocked protocol: ${url.protocol}` };
-  }
-
-  // Block known metadata hostnames
-  const hostname = url.hostname.toLowerCase();
-  if (BLOCKED_HOSTNAMES.some(h => hostname === h || hostname.endsWith('.' + h))) {
-    return { safe: false, reason: "Blocked: cloud metadata endpoint" };
-  }
-
-  // Block localhost variants
-  if (hostname === 'localhost' || hostname === 'localhost.localdomain') {
-    return { safe: false, reason: "Blocked: localhost" };
-  }
-
-  // DNS resolution to check for private IPs
-  try {
-    // For IP addresses, check directly
-    const rawHost = hostname.replace(/^\[|\]$/g, '');
-    if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(rawHost) || rawHost.includes(':')) {
-      if (isPrivateIP(rawHost)) {
-        return { safe: false, reason: `Blocked: private/reserved IP ${hostname}` };
-      }
-      return { safe: true };
-    }
-
-    // For hostnames, resolve and check all IPs
-    const addresses = await dns.resolve4(hostname).catch(() => []);
-    const addresses6 = await dns.resolve6(hostname).catch(() => []);
-    const allAddresses = [...addresses, ...addresses6];
-
-    if (allAddresses.length === 0) {
-      return { safe: false, reason: `Cannot resolve hostname: ${hostname}` };
-    }
-
-    for (const ip of allAddresses) {
-      if (isPrivateIP(ip)) {
-        return { safe: false, reason: `Blocked: ${hostname} resolves to private IP ${ip}` };
-      }
-    }
-
-    return { safe: true };
-  } catch (e) {
-    return { safe: false, reason: `DNS resolution error: ${e.message.substring(0, 80)}` };
-  }
-}
 
 // --- Load cameras ---
 function loadCameras() {
@@ -176,16 +67,6 @@ function validateSchema(entry, index) {
     }
   }
   return errors;
-}
-
-// --- Magic byte detection for CDNs that return wrong content-type ---
-function detectImageType(buffer) {
-  if (buffer.length < 4) return null;
-  // JPEG: FF D8 FF
-  if (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) return "image/jpeg";
-  // PNG: 89 50 4E 47
-  if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) return "image/png";
-  return null;
 }
 
 // --- URL liveness check ---
