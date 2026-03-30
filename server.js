@@ -9,7 +9,10 @@ import os from "os";
 import crypto from "crypto";
 import dns from "dns/promises";
 import { execSync } from "child_process";
+import { fileURLToPath } from "url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const VERSION = JSON.parse(fs.readFileSync(path.join(__dirname, "package.json"), "utf8")).version;
 const CACHE_DIR = path.join(os.homedir(), ".openeagleeye");
 const CAMERAS_PATH = path.join(CACHE_DIR, "cameras.json");
 const LOCAL_CAMERAS_PATH = path.join(CACHE_DIR, "local-cameras.json");
@@ -115,9 +118,6 @@ function checkDuplicateUrls(cameraUrls) {
     return [];
   }
 }
-
-// Renamed to Open Eagle Eye, npm: openeagleeye
-const VERSION = "8.0.0";
 
 // GitHub repo for issue submissions
 const GITHUB_REPO = "stuchapin909/Open-Eagle-Eye";
@@ -267,15 +267,6 @@ function detectImageType(buffer) {
   return null;
 }
 
-async function validateImageUrl(url) {
-  try {
-    const resp = await axios.get(url, { timeout: 5000, headers: getHeadersForUrl(url), responseType: 'stream' });
-    const ct = resp.headers['content-type'] || "";
-    resp.data.destroy();
-    return ct.includes('image/');
-  } catch (e) { return false; }
-}
-
 /**
  * Build request config for a camera, injecting API keys if needed.
  * Returns { url, headers } or { error } if required keys are missing.
@@ -321,17 +312,17 @@ server.tool(
   { cam_id: z.string().describe("Camera ID (from list_cameras/search_cameras), or a direct image URL") },
   async ({ cam_id }) => {
     const cam = findWebcam(cam_id);
-    if (!cam) return { content: [{ type: "text", text: JSON.stringify({ error: "Camera not found", cam_id }) }], isError: true };
+    if (!cam) return errResponse("Camera not found", { cam_id });
 
     const config = buildRequestConfig(cam);
     if (config.error) {
-      return { content: [{ type: "text", text: JSON.stringify({ error: "API key required", details: config.error, camera: cam.name }) }], isError: true };
+      return errResponse("API key required", { details: config.error, camera: cam.name });
     }
 
     // SSRF check
     const safety = await isSafeUrl(config.url);
     if (!safety.safe) {
-      return { content: [{ type: "text", text: JSON.stringify({ error: "Blocked", reason: safety.reason, camera: cam.name }) }], isError: true };
+      return errResponse("Blocked", { reason: safety.reason, camera: cam.name });
     }
 
     // Random filename to prevent path prediction
@@ -363,9 +354,14 @@ server.tool(
         content_type: ct.includes('png') ? 'image/png' : 'image/jpeg',
         camera: { id: cam.id, name: cam.name, location: cam.location, category: cam.category }
       }) }] };
-    } catch (e) { return { content: [{ type: "text", text: JSON.stringify({ error: "Snapshot failed", message: e.message, camera: cam.name, id: cam.id }) }], isError: true }; }
+    } catch (e) { return errResponse("Snapshot failed", { message: e.message, camera: cam.name, id: cam.id }); }
   }
 );
+
+// --- Error helper ---
+function errResponse(error, extra = {}) {
+  return { content: [{ type: "text", text: JSON.stringify({ error, ...extra }) }], isError: true };
+}
 
 // --- Haversine distance (km) ---
 function haversineKm(lat1, lon1, lat2, lon2) {
@@ -388,7 +384,6 @@ function mapCameraMeta(c, logs) {
     category: c.category || "other",
     timezone: c.timezone || null,
     coordinates: c.coordinates || null,
-    verified: c.verified || false,
     status: (logs && logs[c.id]?.status) || "active",
     source: c.source || "upstream",
     auth_required: c.auth?.key_required || false,
@@ -451,7 +446,7 @@ server.tool("get_camera_info", "Look up camera metadata by ID. Returns full deta
   cam_id: z.string().describe("Camera ID to look up")
 }, async ({ cam_id }) => {
   const cam = findWebcam(cam_id);
-  if (!cam) return { content: [{ type: "text", text: JSON.stringify({ error: "Camera not found", cam_id }) }], isError: true };
+  if (!cam) return errResponse("Camera not found", { cam_id });
   const logs = getValidationLog();
   return { content: [{ type: "text", text: JSON.stringify({ ...mapCameraMeta(cam, logs), url: cam.url }, null, 2) }] };
 });
@@ -506,7 +501,7 @@ server.tool("explore_cameras", "Get random cameras from the registry for discove
   });
   if (category) pool = pool.filter(c => (c.category || "") === category);
 
-  if (pool.length === 0) return { content: [{ type: "text", text: JSON.stringify({ error: "No cameras match the filters", filters: { city, country, category }, pool_size: 0 }) }], isError: true };
+  if (pool.length === 0) return errResponse("No cameras match the filters", { filters: { city, country, category }, pool_size: 0 });
 
   // Fisher-Yates partial shuffle for true random without bias
   const shuffled = [...pool];
@@ -636,7 +631,7 @@ server.tool("add_local_camera", "Add a camera to your local collection. Local ca
 });
 
 // LIST LOCAL
-server.tool("list_local", "Show your locally-added cameras. These are cameras you added via add_local_camera that are not in the upstream registry.", {}, async () => {
+server.tool("list_local", "Show your locally-added cameras. These persist in ~/.openeagleeye/local-cameras.json and survive restarts and registry updates. They appear in list_cameras and search_cameras with source 'local'. Returns camera IDs, names, URLs, coordinates, and auth requirements.", {}, async () => {
   if (localCameras.length === 0) return { content: [{ type: "text", text: JSON.stringify({ total: 0, cameras: [], message: "No local cameras. Use add_local_camera to add cameras." }) }] };
   const result = localCameras.map(c => ({
     id: c.id,
@@ -654,11 +649,11 @@ server.tool("list_local", "Show your locally-added cameras. These are cameras yo
 });
 
 // REMOVE LOCAL
-server.tool("remove_local", "Delete a locally-added camera. Use if the camera URL no longer works, or after sharing it upstream.", {
-  cam_id: z.string().describe("Local camera ID (starts with 'local-')")
+server.tool("remove_local", "Delete a locally-added camera by ID. Removes it from ~/.openeagleeye/local-cameras.json and the in-memory merged view. The camera is also auto-removed from the merged list. Use after sharing upstream via submit_local, or when a URL stops working.", {
+  cam_id: z.string().describe("Local camera ID to remove (starts with 'local-')")
 }, async ({ cam_id }) => {
   const idx = localCameras.findIndex(c => c.id === cam_id);
-  if (idx === -1) return { content: [{ type: "text", text: JSON.stringify({ error: "Local camera not found", cam_id }) }], isError: true };
+  if (idx === -1) return errResponse("Local camera not found", { cam_id });
 
   const removed = localCameras.splice(idx, 1)[0];
   const mergedIdx = allCameras.findIndex(c => c.id === cam_id);
@@ -669,15 +664,12 @@ server.tool("remove_local", "Delete a locally-added camera. Use if the camera UR
 
 // SUBMIT LOCAL
 server.tool("submit_local", "Share your locally-added cameras with the upstream Open Eagle Eye registry by filing a GitHub issue. Validates each camera URL, checks for duplicates, and embeds a snapshot preview. Requires the 'gh' CLI installed and authenticated (gh auth login). Your local cameras are not removed — use remove_local after they are accepted.", {}, async () => {
-  if (localCameras.length === 0) return { content: [{ type: "text", text: JSON.stringify({ error: "No local cameras to submit. Use add_local_camera to add cameras first." }) }], isError: true };
+  if (localCameras.length === 0) return errResponse("No local cameras to submit. Use add_local_camera to add cameras first.");
 
   // Check gh auth with detailed error
   const authCheck = checkGhAuth();
   if (!authCheck.ok) {
-    return { content: [{ type: "text", text: JSON.stringify({
-      error: authCheck.message, error_type: authCheck.type, fix: authCheck.fix,
-      message: "Local cameras are saved. Fix gh CLI, then retry."
-    }) }], isError: true };
+    return errResponse(authCheck.message, { error_type: authCheck.type, fix: authCheck.fix, message: "Local cameras are saved. Fix gh CLI, then retry." });
   }
 
   // Pre-flight validation: fetch each camera and verify it returns a real image
@@ -690,11 +682,10 @@ server.tool("submit_local", "Share your locally-added cameras with the upstream 
   const invalidCams = validations.filter(v => !v.valid);
 
   if (validCams.length === 0) {
-    return { content: [{ type: "text", text: JSON.stringify({
-      error: "No valid cameras to submit — all URLs failed validation",
+    return errResponse("No valid cameras to submit — all URLs failed validation", {
       failed: invalidCams.map(v => ({ name: v.name, url: v.url, reason: v.reason })),
       message: "Fix the broken URLs with remove_local + add_local_camera, then retry."
-    }) }], isError: true };
+    });
   }
 
   // Duplicate detection: check open submission issues for same URLs
@@ -704,10 +695,9 @@ server.tool("submit_local", "Share your locally-added cameras with the upstream 
   const camsToSubmit = validCams.filter(c => !dupUrls.has(c.url));
 
   if (camsToSubmit.length === 0) {
-    return { content: [{ type: "text", text: JSON.stringify({
-      error: "All cameras already have open submission issues",
+    return errResponse("All cameras already have open submission issues", {
       duplicates: duplicates.map(d => ({ url: d.url, issue: `#${d.issue_number}`, title: d.issue_title }))
-    }) }], isError: true };
+    });
   }
 
   // Fetch snapshots for embedding (up to 5 to keep issue size manageable)
@@ -772,10 +762,7 @@ server.tool("submit_local", "Share your locally-added cameras with the upstream 
     }) }] };
   } catch (e) {
     const errInfo = classifyGhError(e);
-    return { content: [{ type: "text", text: JSON.stringify({
-      error: "Failed to create GitHub issue", error_type: errInfo.type,
-      details: errInfo.message, fix: errInfo.fix
-    }) }], isError: true };
+    return errResponse("Failed to create GitHub issue", { error_type: errInfo.type, details: errInfo.message, fix: errInfo.fix });
   }
 });
 
@@ -786,8 +773,8 @@ server.tool("report_camera", "Report a broken or low-quality camera. Files a Git
   notes: z.string().optional().describe("Additional details about the issue")
 }, async ({ cam_id, status, notes }) => {
   const cam = findWebcam(cam_id);
-  if (!cam) return { content: [{ type: "text", text: JSON.stringify({ error: "Camera not found", cam_id }) }], isError: true };
-  if (cam.source === "local" && isNighttimeAt(cam.timezone)) return { content: [{ type: "text", text: JSON.stringify({ error: "Report blocked: nighttime at camera location", camera: cam.name, timezone: cam.timezone }) }], isError: true };
+  if (!cam) return errResponse("Camera not found", { cam_id });
+  if (cam.source === "local" && isNighttimeAt(cam.timezone)) return errResponse("Report blocked: nighttime at camera location", { camera: cam.name, timezone: cam.timezone });
 
   // Save locally regardless
   const logs = getValidationLog();
@@ -858,17 +845,12 @@ server.tool("report_camera", "Report a broken or low-quality camera. Files a Git
     }) }] };
   } catch (e) {
     const errInfo = classifyGhError(e);
-    return { content: [{ type: "text", text: JSON.stringify({
-      success: true, saved_locally: true,
-      github_error: "Failed to create GitHub issue", error_type: errInfo.type,
-      details: errInfo.message, fix: errInfo.fix,
-      message: "Report saved locally but could not file a GitHub issue."
-    }) }] };
+    return errResponse("Failed to create GitHub issue", { error_type: errInfo.type, details: errInfo.message, fix: errInfo.fix });
   }
 });
 
 // --- CONFIG ---
-server.tool("check_config", "Show API key configuration. Lists cameras that require authentication and whether the required keys are set in ~/.openeagleeye/config.json. Use when a snapshot fails with an API key error.", {}, async () => {
+server.tool("check_config", "Show API key configuration status. Lists all cameras in the registry that require authentication, the provider name, whether a key is configured in ~/.openeagleeye/config.json, and the signup URL for each. Use when a snapshot fails with an API key error to see which keys are missing.", {}, async () => {
   const config = getUserConfig();
   const apiKeys = getUserApiKeys();
 
@@ -892,6 +874,80 @@ server.tool("check_config", "Show API key configuration. Lists cameras that requ
     auth_required_cameras: status.length,
     cameras: status,
   }, null, 2) }] };
+});
+
+// --- MCP Resources ---
+server.resource("registry-stats", "cameras://stats", async () => {
+  const logs = getValidationLog();
+  const countries = {};
+  const categories = {};
+  const cities = {};
+  let active = 0, suspect = 0, offline = 0;
+  for (const c of allCameras) {
+    const cc = c.country || "unknown";
+    countries[cc] = (countries[cc] || 0) + 1;
+    categories[c.category || "other"] = (categories[c.category || "other"] || 0) + 1;
+    const city = c.city || "Unknown";
+    cities[city] = (cities[city] || 0) + 1;
+    const status = (logs[c.id]?.status) || "active";
+    if (status === "active") active++;
+    else if (status === "suspect") suspect++;
+    else offline++;
+  }
+  const topCities = Object.entries(cities).sort((a, b) => b[1] - a[1]).slice(0, 20);
+  const stats = {
+    version: VERSION,
+    total: allCameras.length,
+    upstream: cameras.length,
+    local: localCameras.length,
+    health: { active, suspect, offline },
+    countries,
+    categories,
+    top_cities: topCities,
+  };
+  return { contents: [{ uri: "cameras://stats", mimeType: "application/json", text: JSON.stringify(stats, null, 2) }] };
+});
+
+// --- MCP Prompts ---
+server.prompt("discover-cameras", "Guide for finding and adding new public webcam sources to Open Eagle Eye", async () => {
+  return {
+    messages: [{
+      role: "user",
+      content: {
+        type: "text",
+        text: [
+          "Find publicly accessible webcam sources and add them to Open Eagle Eye.",
+          "",
+          "A valid webcam URL must return a JPEG or PNG image on a plain HTTP GET — no JavaScript rendering, no authentication, no streams.",
+          "",
+          "**Good sources to check:**",
+          "- City/state DOT traffic camera APIs (search: '[city] traffic camera API')",
+          "- Weather station webcams (Weather Underground, PWSWeather)",
+          "- Ski resort cameras",
+          "- National park webcams",
+          "- Port authority cameras",
+          "- Airport perimeter cameras",
+          "- University campus cameras",
+          "",
+          "**To verify a URL:**",
+          "1. `curl -I -s URL | grep content-type` — must return `image/`",
+          "2. Fetch twice, 5 seconds apart — file size should change for live cameras",
+          "3. Must be accessible without cookies, sessions, or CAPTCHAs",
+          "",
+          "**To add cameras:**",
+          "1. Use `add_local_camera` with the URL, city, location, timezone",
+          "2. Test with `get_snapshot`",
+          "3. Share upstream with `submit_local`",
+          "",
+          "**Invalid sources (will not work):**",
+          "- YouTube streams, EarthCam/SkylineWebcams page URLs",
+          "- RTSP, HLS, or DASH streams",
+          "- Pages requiring JavaScript rendering",
+          "- URLs behind Cloudflare challenges or cookie consent",
+        ].join("\n"),
+      },
+    }],
+  };
 });
 
 async function main() {

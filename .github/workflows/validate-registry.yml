@@ -46,6 +46,6 @@ jobs:
         if: github.event_name == 'push'
         run: |
           git config --global user.name "registry-bot"
-          git config --global user.email "bot@open-public-cam.local"
+          git config --global user.email "bot@openeagleeye.local"
           git add cameras.json .registry-state.json
           git diff --cached --quiet || (git commit -m "Validator: auto-remove invalid cameras" && git push)
