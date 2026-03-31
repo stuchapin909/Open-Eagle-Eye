@@ -85,16 +85,16 @@ Every tool returns structured JSON. Snapshots save to disk and return the file p
 
 ## Registry
 
-~31,000 cameras across eleven countries:
+~31,000 cameras across eleven countries (31,070 verified):
 
 | Country | Count | Sources |
 |---|---|---|
-| US | 26,142 | NYC DOT, NY 511, WSDOT, Caltrans CWWP2, CDOT CoTrip, VDOT 511, FDOT FL511, NCDOT, PennDOT 511PA, Arizona ADOT, Oregon ODOT, Nevada NDOT, Utah UDOT, Wisconsin WisDOT, New England 511, Louisiana LADOTD, Alaska DOT&PF |
-| FI | 2,223 | Digitraffic weather cameras (Fintraffic) |
+| US | 26,275 | NYC DOT, NY 511, WSDOT, Caltrans CWWP2, CDOT CoTrip, VDOT 511, FDOT FL511, NCDOT, PennDOT 511PA, Arizona ADOT, Oregon ODOT, Nevada NDOT, Utah UDOT, Wisconsin WisDOT, New England 511, Louisiana LADOTD, Alaska DOT&PF, Missouri MoDOT |
+| FI | 1,404 | Digitraffic weather cameras (Fintraffic) |
 | CA | 1,292 | Ontario MTO, Alberta 511 |
 | HK | 995 | Hong Kong Transport Department |
 | GB | 424 | London TfL JamCams |
-| NZ | 251 | NZTA nationwide highways |
+| NZ | 248 | NZTA nationwide highways |
 | BR | 195 | CET São Paulo urban traffic |
 | AU | 159 | Sydney + Regional NSW |
 | JP | 98 | NEXCO East expressways |
