@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="1000" height="500">
+  <rect width="1000" height="500" fill="#0F172A" rx="12"/>
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <line x1="40" y1="390" x2="960" y2="390" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="40" y1="343.3333333333333" x2="960" y2="343.3333333333333" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="40" y1="296.6666666666667" x2="960" y2="296.6666666666667" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="40" y1="250" x2="960" y2="250" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="40" y1="203.33333333333334" x2="960" y2="203.33333333333334" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="40" y1="156.66666666666669" x2="960" y2="156.66666666666669" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="40" y1="110" x2="960" y2="110" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="40" y1="63.33333333333333" x2="960" y2="63.33333333333333" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="40" y1="40" x2="40" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="116.66666666666666" y1="40" x2="116.66666666666666" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="193.33333333333331" y1="40" x2="193.33333333333331" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="270" y1="40" x2="270" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="346.66666666666663" y1="40" x2="346.66666666666663" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="423.33333333333337" y1="40" x2="423.33333333333337" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="500" y1="40" x2="500" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="576.6666666666667" y1="40" x2="576.6666666666667" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="653.3333333333333" y1="40" x2="653.3333333333333" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="730" y1="40" x2="730" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="806.6666666666667" y1="40" x2="806.6666666666667" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="883.3333333333333" y1="40" x2="883.3333333333333" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <line x1="960" y1="40" x2="960" y2="460" stroke="#1E293B" stroke-width="0.5"/>
+  <circle cx="248.27777777777777" cy="157.13333333333333" r="34.040305361364105" fill="#3B82F6" opacity="0.15"/>
+  <circle cx="248.27777777777777" cy="157.13333333333333" r="31.040305361364105" fill="#3B82F6" opacity="0.8" filter="url(#glow)"/>
+  <text x="248.27777777777777" y="121.09302797196922" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">US 27,184</text>
+  <circle cx="566.4444444444445" cy="100.66666666666666" r="24.82089906959035" fill="#8B5CF6" opacity="0.15"/>
+  <circle cx="566.4444444444445" cy="100.66666666666666" r="21.82089906959035" fill="#8B5CF6" opacity="0.8" filter="url(#glow)"/>
+  <text x="566.4444444444445" y="95.8457675970763" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">FI 1,309</text>
+  <circle cx="229.11111111111111" cy="119.33333333333333" r="24.78118967416276" fill="#EF4444" opacity="0.15"/>
+  <circle cx="229.11111111111111" cy="119.33333333333333" r="21.78118967416276" fill="#EF4444" opacity="0.8" filter="url(#glow)"/>
+  <text x="229.11111111111111" y="114.55214365917057" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">CA 1,292</text>
+  <circle cx="791.8444444444444" cy="197.96666666666667" r="23.98781536896589" fill="#F59E0B" opacity="0.15"/>
+  <circle cx="791.8444444444444" cy="197.96666666666667" r="20.98781536896589" fill="#F59E0B" opacity="0.8" filter="url(#glow)"/>
+  <text x="821.8444444444444" y="175.97885129770077" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">HK 995</text>
+  <circle cx="494.8888888888889" cy="124" r="21.39872251035218" fill="#10B981" opacity="0.15"/>
+  <circle cx="494.8888888888889" cy="124" r="18.39872251035218" fill="#10B981" opacity="0.8" filter="url(#glow)"/>
+  <text x="494.8888888888889" y="122.60127748964783" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">GB 424</text>
+  <circle cx="944.6666666666666" cy="345.66666666666663" r="19.773395429670153" fill="#06B6D4" opacity="0.15"/>
+  <circle cx="944.6666666666666" cy="345.66666666666663" r="16.773395429670153" fill="#06B6D4" opacity="0.8" filter="url(#glow)"/>
+  <text x="944.6666666666666" y="345.8932712369965" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">NZ 248</text>
+  <circle cx="842.4444444444445" cy="308.3333333333333" r="19.761161765783516" fill="#F97316" opacity="0.15"/>
+  <circle cx="842.4444444444445" cy="308.3333333333333" r="16.761161765783516" fill="#F97316" opacity="0.8" filter="url(#glow)"/>
+  <text x="842.4444444444445" y="286.5721715675498" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">AU 247</text>
+  <circle cx="379.8888888888889" cy="285" r="18.447781132222946" fill="#22C55E" opacity="0.15"/>
+  <circle cx="379.8888888888889" cy="285" r="15.447781132222946" fill="#22C55E" opacity="0.8" filter="url(#glow)"/>
+  <text x="379.8888888888889" y="264.55221886777707" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">BR 160</text>
+  <circle cx="852.6666666666666" cy="166" r="16.96944636218285" fill="#EC4899" opacity="0.15"/>
+  <circle cx="852.6666666666666" cy="166" r="13.969446362182849" fill="#EC4899" opacity="0.8" filter="url(#glow)"/>
+  <text x="852.6666666666666" y="169.03055363781715" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">JP 98</text>
+  <circle cx="765.2666666666667" cy="246.96666666666667" r="16.713289746247654" fill="#A855F7" opacity="0.15"/>
+  <circle cx="765.2666666666667" cy="246.96666666666667" r="13.713289746247655" fill="#A855F7" opacity="0.8" filter="url(#glow)"/>
+  <text x="735.2666666666667" y="244.25337692041902" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">SG 90</text>
+  <circle cx="474.44444444444446" cy="125.63333333333334" r="14.892790030352131" fill="#14B8A6" opacity="0.15"/>
+  <circle cx="474.44444444444446" cy="125.63333333333334" r="11.892790030352131" fill="#14B8A6" opacity="0.8" filter="url(#glow)"/>
+  <text x="454.44444444444446" y="96.74054330298121" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">IE 49</text>
+  <text x="500" y="24" text-anchor="middle" fill="#F1F5F9" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" letter-spacing="0.5">Open Eagle Eye -- Global Camera Coverage</text>
+  <text x="500" y="490" text-anchor="middle" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="11">32,096 cameras across 11 countries</text>
+</svg>
