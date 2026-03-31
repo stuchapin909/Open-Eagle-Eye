@@ -1,7 +1,7 @@
 {
   "name": "openeagleeye",
   "version": "8.0.0",
-  "description": "Instant webcam snapshots from public cameras worldwide via MCP",
+  "description": "Instant webcam snapshots from public cameras worldwide via MCP — designed for AI agents using the Model Context Protocol",
   "type": "module",
   "bin": {
     "openeagleeye": "./index.js"
@@ -12,14 +12,32 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
+    "model-context-protocol",
     "webcam",
     "camera",
-    "surveillance",
+    "public-webcams",
+    "public-cameras",
     "traffic",
-    "public-cameras"
+    "traffic-camera",
+    "weather-camera",
+    "camera-api",
+    "image-fetch",
+    "snapshot"
   ],
   "author": "stuchapin909",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stuchapin909/Open-Eagle-Eye.git"
+  },
+  "homepage": "https://github.com/stuchapin909/Open-Eagle-Eye#readme",
+  "bugs": {
+    "url": "https://github.com/stuchapin909/Open-Eagle-Eye/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "files": [
     "index.js",
     "server.js",

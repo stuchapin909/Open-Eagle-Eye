@@ -1,9 +1,27 @@
-node_modules
-node_modules.bad
+# Dependencies
+node_modules/
+node_modules.bad/
+
+# Local camera data (not committed)
+local-cameras.json
+.registry-state.json
+
+# Environment & config
 .env
-.DS_Store
 config.json
+
+# Logs
+*.log
+stderr.log
+
+# macOS
+.DS_Store
+
+# Dev artifacts
+SESSION-SUMMARY.md
+validation-results.md
 snapshots/
 verification-evidence/
-stderr.log
-validation-results.md
+
+# Temp files
+/tmp/*
