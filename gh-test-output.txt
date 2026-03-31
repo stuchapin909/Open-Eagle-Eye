@@ -1,0 +1,37 @@
+Starting GitHub integration test for MCP tools...
+Connected to MCP server.
+
+--- Testing submit_local ---
+Adding a valid local camera for testing...
+Local camera added: local-1774904256928
+Submitting local cameras upstream via GitHub issue...
+Submit Response:
+{
+  "success": true,
+  "submitted": 1,
+  "skipped_invalid": 0,
+  "skipped_duplicates": 0,
+  "snapshots_embedded": 1,
+  "issue_url": "https://github.com/stuchapin909/Open-Eagle-Eye/issues/45",
+  "message": "Submitted 1 camera(s) with 1 snapshot preview(s). Your local cameras are unchanged — use remove_local after they are accepted upstream."
+}
+
+Cleaning up local camera...
+
+--- Testing report_camera ---
+Reporting upstream camera: A1 Barnet Wy/Barnet Ln (tfl-00001.09731)
+Report Response:
+{
+  "success": true,
+  "saved_locally": true,
+  "issue_url": "https://github.com/stuchapin909/Open-Eagle-Eye/issues/46",
+  "camera": {
+    "id": "tfl-00001.09731",
+    "name": "A1 Barnet Wy/Barnet Ln"
+  },
+  "status": "offline",
+  "snapshot_embedded": true,
+  "message": "Report saved locally and filed as a GitHub issue with snapshot."
+}
+
+Testing complete!

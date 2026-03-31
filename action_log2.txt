@@ -1,0 +1,200 @@
+validate	Set up job	﻿2026-03-30T21:16:03.7769966Z Current runner version: '2.333.0'
+validate	Set up job	2026-03-30T21:16:03.7793678Z ##[group]Runner Image Provisioner
+validate	Set up job	2026-03-30T21:16:03.7794484Z Hosted Compute Agent
+validate	Set up job	2026-03-30T21:16:03.7795190Z Version: 20260213.493
+validate	Set up job	2026-03-30T21:16:03.7795880Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+validate	Set up job	2026-03-30T21:16:03.7796541Z Build Date: 2026-02-13T00:28:41Z
+validate	Set up job	2026-03-30T21:16:03.7797117Z Worker ID: {199c153c-bf40-42fa-ac22-42458194a49c}
+validate	Set up job	2026-03-30T21:16:03.7797770Z Azure Region: northcentralus
+validate	Set up job	2026-03-30T21:16:03.7798310Z ##[endgroup]
+validate	Set up job	2026-03-30T21:16:03.7799692Z ##[group]Operating System
+validate	Set up job	2026-03-30T21:16:03.7800289Z Ubuntu
+validate	Set up job	2026-03-30T21:16:03.7800719Z 24.04.4
+validate	Set up job	2026-03-30T21:16:03.7801157Z LTS
+validate	Set up job	2026-03-30T21:16:03.7801549Z ##[endgroup]
+validate	Set up job	2026-03-30T21:16:03.7802059Z ##[group]Runner Image
+validate	Set up job	2026-03-30T21:16:03.7802551Z Image: ubuntu-24.04
+validate	Set up job	2026-03-30T21:16:03.7803051Z Version: 20260323.65.1
+validate	Set up job	2026-03-30T21:16:03.7803970Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260323.65/images/ubuntu/Ubuntu2404-Readme.md
+validate	Set up job	2026-03-30T21:16:03.7805616Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260323.65
+validate	Set up job	2026-03-30T21:16:03.7806406Z ##[endgroup]
+validate	Set up job	2026-03-30T21:16:03.7807458Z ##[group]GITHUB_TOKEN Permissions
+validate	Set up job	2026-03-30T21:16:03.7809450Z Contents: write
+validate	Set up job	2026-03-30T21:16:03.7809937Z Metadata: read
+validate	Set up job	2026-03-30T21:16:03.7810417Z PullRequests: write
+validate	Set up job	2026-03-30T21:16:03.7810950Z ##[endgroup]
+validate	Set up job	2026-03-30T21:16:03.7812902Z Secret source: Actions
+validate	Set up job	2026-03-30T21:16:03.7813576Z Prepare workflow directory
+validate	Set up job	2026-03-30T21:16:03.8247119Z Prepare all required actions
+validate	Set up job	2026-03-30T21:16:03.8304764Z Getting action download info
+validate	Set up job	2026-03-30T21:16:04.1308039Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+validate	Set up job	2026-03-30T21:16:04.2446212Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+validate	Set up job	2026-03-30T21:16:04.4039759Z Complete job name: validate
+validate	Checkout	﻿2026-03-30T21:16:04.4675908Z ##[group]Run actions/checkout@v4
+validate	Checkout	2026-03-30T21:16:04.4676959Z with:
+validate	Checkout	2026-03-30T21:16:04.4677462Z   fetch-depth: 0
+validate	Checkout	2026-03-30T21:16:04.4677956Z   lfs: true
+validate	Checkout	2026-03-30T21:16:04.4678404Z   repository: stuchapin909/Open-Eagle-Eye
+validate	Checkout	2026-03-30T21:16:04.4679216Z   token: ***
+validate	Checkout	2026-03-30T21:16:04.4679676Z   ssh-strict: true
+validate	Checkout	2026-03-30T21:16:04.4680129Z   ssh-user: git
+validate	Checkout	2026-03-30T21:16:04.4680629Z   persist-credentials: true
+validate	Checkout	2026-03-30T21:16:04.4681100Z   clean: true
+validate	Checkout	2026-03-30T21:16:04.4681580Z   sparse-checkout-cone-mode: true
+validate	Checkout	2026-03-30T21:16:04.4682081Z   fetch-tags: false
+validate	Checkout	2026-03-30T21:16:04.4682581Z   show-progress: true
+validate	Checkout	2026-03-30T21:16:04.4683052Z   submodules: false
+validate	Checkout	2026-03-30T21:16:04.4683522Z   set-safe-directory: true
+validate	Checkout	2026-03-30T21:16:04.4684277Z ##[endgroup]
+validate	Checkout	2026-03-30T21:16:04.5823581Z Syncing repository: stuchapin909/Open-Eagle-Eye
+validate	Checkout	2026-03-30T21:16:04.5825667Z ##[group]Getting Git version info
+validate	Checkout	2026-03-30T21:16:04.5826385Z Working directory is '/home/runner/work/Open-Eagle-Eye/Open-Eagle-Eye'
+validate	Checkout	2026-03-30T21:16:04.5827427Z [command]/usr/bin/git version
+validate	Checkout	2026-03-30T21:16:04.5827880Z git version 2.53.0
+validate	Checkout	2026-03-30T21:16:04.5829007Z [command]/usr/bin/git lfs version
+validate	Checkout	2026-03-30T21:16:04.6000679Z git-lfs/3.7.1 (GitHub; linux amd64; go 1.24.4)
+validate	Checkout	2026-03-30T21:16:04.6011280Z ##[endgroup]
+validate	Checkout	2026-03-30T21:16:04.6026262Z Temporarily overriding HOME='/home/runner/work/_temp/6c44f093-4adb-4fe0-ad56-b8843c20e0c2' before making global git config changes
+validate	Checkout	2026-03-30T21:16:04.6028008Z Adding repository directory to the temporary git global config as a safe directory
+validate	Checkout	2026-03-30T21:16:04.6031584Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Open-Eagle-Eye/Open-Eagle-Eye
+validate	Checkout	2026-03-30T21:16:04.6058929Z Deleting the contents of '/home/runner/work/Open-Eagle-Eye/Open-Eagle-Eye'
+validate	Checkout	2026-03-30T21:16:04.6062024Z ##[group]Initializing the repository
+validate	Checkout	2026-03-30T21:16:04.6065935Z [command]/usr/bin/git init /home/runner/work/Open-Eagle-Eye/Open-Eagle-Eye
+validate	Checkout	2026-03-30T21:16:04.6142940Z hint: Using 'master' as the name for the initial branch. This default branch name
+validate	Checkout	2026-03-30T21:16:04.6144207Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+validate	Checkout	2026-03-30T21:16:04.6145488Z hint: to use in all of your new repositories, which will suppress this warning,
+validate	Checkout	2026-03-30T21:16:04.6146105Z hint: call:
+validate	Checkout	2026-03-30T21:16:04.6146420Z hint:
+validate	Checkout	2026-03-30T21:16:04.6146846Z hint: 	git config --global init.defaultBranch <name>
+validate	Checkout	2026-03-30T21:16:04.6147444Z hint:
+validate	Checkout	2026-03-30T21:16:04.6147923Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+validate	Checkout	2026-03-30T21:16:04.6148682Z hint: 'development'. The just-created branch can be renamed via this command:
+validate	Checkout	2026-03-30T21:16:04.6149278Z hint:
+validate	Checkout	2026-03-30T21:16:04.6149596Z hint: 	git branch -m <name>
+validate	Checkout	2026-03-30T21:16:04.6149977Z hint:
+validate	Checkout	2026-03-30T21:16:04.6150495Z hint: Disable this message with "git config set advice.defaultBranchName false"
+validate	Checkout	2026-03-30T21:16:04.6151385Z Initialized empty Git repository in /home/runner/work/Open-Eagle-Eye/Open-Eagle-Eye/.git/
+validate	Checkout	2026-03-30T21:16:04.6153407Z [command]/usr/bin/git remote add origin https://github.com/stuchapin909/Open-Eagle-Eye
+validate	Checkout	2026-03-30T21:16:04.6179051Z ##[endgroup]
+validate	Checkout	2026-03-30T21:16:04.6179799Z ##[group]Disabling automatic garbage collection
+validate	Checkout	2026-03-30T21:16:04.6182940Z [command]/usr/bin/git config --local gc.auto 0
+validate	Checkout	2026-03-30T21:16:04.6206362Z ##[endgroup]
+validate	Checkout	2026-03-30T21:16:04.6207765Z ##[group]Setting up auth
+validate	Checkout	2026-03-30T21:16:04.6213865Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+validate	Checkout	2026-03-30T21:16:04.6239743Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+validate	Checkout	2026-03-30T21:16:04.6434152Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+validate	Checkout	2026-03-30T21:16:04.6462357Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+validate	Checkout	2026-03-30T21:16:04.6630406Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+validate	Checkout	2026-03-30T21:16:04.6659518Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+validate	Checkout	2026-03-30T21:16:04.6832372Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+validate	Checkout	2026-03-30T21:16:04.6861176Z ##[endgroup]
+validate	Checkout	2026-03-30T21:16:04.6865101Z [command]/usr/bin/git lfs install --local
+validate	Checkout	2026-03-30T21:16:04.7129536Z Updated Git hooks.
+validate	Checkout	2026-03-30T21:16:04.7130673Z Git LFS initialized.
+validate	Checkout	2026-03-30T21:16:04.7140042Z ##[group]Fetching the repository
+validate	Checkout	2026-03-30T21:16:04.7150877Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +65830abf2cc2710181923805b13edd444e0b2fc4:refs/remotes/pull/49/merge
+validate	Checkout	2026-03-30T21:16:06.1169984Z From https://github.com/stuchapin909/Open-Eagle-Eye
+validate	Checkout	2026-03-30T21:16:06.1172016Z  * [new branch]      gh-evidence                              -> origin/gh-evidence
+validate	Checkout	2026-03-30T21:16:06.1173579Z  * [new branch]      master                                   -> origin/master
+validate	Checkout	2026-03-30T21:16:06.1175262Z  * [new branch]      test-pr-pass                             -> origin/test-pr-pass
+validate	Checkout	2026-03-30T21:16:06.1176882Z  * [new branch]      test-pr-pass2                            -> origin/test-pr-pass2
+validate	Checkout	2026-03-30T21:16:06.1178423Z  * [new branch]      test-pr-validation                       -> origin/test-pr-validation
+validate	Checkout	2026-03-30T21:16:06.1179800Z  * [new tag]         v5.1.0                                   -> v5.1.0
+validate	Checkout	2026-03-30T21:16:06.1180772Z  * [new tag]         v5.1.1                                   -> v5.1.1
+validate	Checkout	2026-03-30T21:16:06.1181406Z  * [new tag]         v5.1.2                                   -> v5.1.2
+validate	Checkout	2026-03-30T21:16:06.1182028Z  * [new tag]         v5.1.3                                   -> v5.1.3
+validate	Checkout	2026-03-30T21:16:06.1182684Z  * [new tag]         v6.0.1                                   -> v6.0.1
+validate	Checkout	2026-03-30T21:16:06.1183482Z  * [new tag]         v6.0.2                                   -> v6.0.2
+validate	Checkout	2026-03-30T21:16:06.1184289Z  * [new tag]         v6.1.0                                   -> v6.1.0
+validate	Checkout	2026-03-30T21:16:06.1185342Z  * [new tag]         v6.1.1                                   -> v6.1.1
+validate	Checkout	2026-03-30T21:16:06.1186002Z  * [new tag]         v6.2.0                                   -> v6.2.0
+validate	Checkout	2026-03-30T21:16:06.1186750Z  * [new ref]         65830abf2cc2710181923805b13edd444e0b2fc4 -> pull/49/merge
+validate	Checkout	2026-03-30T21:16:06.1210723Z ##[endgroup]
+validate	Checkout	2026-03-30T21:16:06.1212005Z ##[group]Determining the checkout info
+validate	Checkout	2026-03-30T21:16:06.1212776Z ##[endgroup]
+validate	Checkout	2026-03-30T21:16:06.1213405Z ##[group]Fetching LFS objects
+validate	Checkout	2026-03-30T21:16:06.1219737Z [command]/usr/bin/git lfs fetch origin refs/remotes/pull/49/merge
+validate	Checkout	2026-03-30T21:16:06.1402075Z Fetching reference refs/remotes/pull/49/merge
+validate	Checkout	2026-03-30T21:16:07.1439047Z ##[endgroup]
+validate	Checkout	2026-03-30T21:16:07.1442942Z [command]/usr/bin/git sparse-checkout disable
+validate	Checkout	2026-03-30T21:16:07.1475926Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+validate	Checkout	2026-03-30T21:16:07.1499037Z ##[group]Checking out the ref
+validate	Checkout	2026-03-30T21:16:07.1503820Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/49/merge
+validate	Checkout	2026-03-30T21:16:07.2037476Z Note: switching to 'refs/remotes/pull/49/merge'.
+validate	Checkout	2026-03-30T21:16:07.2038155Z 
+validate	Checkout	2026-03-30T21:16:07.2038651Z You are in 'detached HEAD' state. You can look around, make experimental
+validate	Checkout	2026-03-30T21:16:07.2039577Z changes and commit them, and you can discard any commits you make in this
+validate	Checkout	2026-03-30T21:16:07.2040519Z state without impacting any branches by switching back to a branch.
+validate	Checkout	2026-03-30T21:16:07.2040991Z 
+validate	Checkout	2026-03-30T21:16:07.2041426Z If you want to create a new branch to retain commits you create, you may
+validate	Checkout	2026-03-30T21:16:07.2042309Z do so (now or later) by using -c with the switch command. Example:
+validate	Checkout	2026-03-30T21:16:07.2043138Z 
+validate	Checkout	2026-03-30T21:16:07.2043469Z   git switch -c <new-branch-name>
+validate	Checkout	2026-03-30T21:16:07.2043943Z 
+validate	Checkout	2026-03-30T21:16:07.2044249Z Or undo this operation with:
+validate	Checkout	2026-03-30T21:16:07.2044623Z 
+validate	Checkout	2026-03-30T21:16:07.2230464Z   git switch -
+validate	Checkout	2026-03-30T21:16:07.2231003Z 
+validate	Checkout	2026-03-30T21:16:07.2231508Z Turn off this advice by setting config variable advice.detachedHead to false
+validate	Checkout	2026-03-30T21:16:07.2232052Z 
+validate	Checkout	2026-03-30T21:16:07.2232640Z HEAD is now at 65830ab Merge 2b03ea0ce45650212a98449ae52585a18ff81a73 into 76f062a05988f25d894a8b385e2718a8583b5691
+validate	Checkout	2026-03-30T21:16:07.2259303Z ##[endgroup]
+validate	Checkout	2026-03-30T21:16:07.2262170Z [command]/usr/bin/git log -1 --format=%H
+validate	Checkout	2026-03-30T21:16:07.2280697Z 65830abf2cc2710181923805b13edd444e0b2fc4
+validate	Setup Node.js	﻿2026-03-30T21:16:07.2519530Z ##[group]Run actions/setup-node@v4
+validate	Setup Node.js	2026-03-30T21:16:07.2520352Z with:
+validate	Setup Node.js	2026-03-30T21:16:07.2521033Z   node-version: 20
+validate	Setup Node.js	2026-03-30T21:16:07.2521738Z   always-auth: false
+validate	Setup Node.js	2026-03-30T21:16:07.2522449Z   check-latest: false
+validate	Setup Node.js	2026-03-30T21:16:07.2523363Z   token: ***
+validate	Setup Node.js	2026-03-30T21:16:07.2524047Z ##[endgroup]
+validate	Setup Node.js	2026-03-30T21:16:07.4223983Z Found in cache @ /opt/hostedtoolcache/node/20.20.1/x64
+validate	Setup Node.js	2026-03-30T21:16:07.4230126Z ##[group]Environment details
+validate	Setup Node.js	2026-03-30T21:16:07.7307856Z node: v20.20.1
+validate	Setup Node.js	2026-03-30T21:16:07.7308559Z npm: 10.8.2
+validate	Setup Node.js	2026-03-30T21:16:07.7308844Z yarn: 1.22.22
+validate	Setup Node.js	2026-03-30T21:16:07.7309605Z ##[endgroup]
+validate	Install dependencies	﻿2026-03-30T21:16:07.7408645Z ##[group]Run npm install
+validate	Install dependencies	2026-03-30T21:16:07.7409030Z [36;1mnpm install[0m
+validate	Install dependencies	2026-03-30T21:16:07.7436729Z shell: /usr/bin/bash -e {0}
+validate	Install dependencies	2026-03-30T21:16:07.7437022Z ##[endgroup]
+validate	Install dependencies	2026-03-30T21:16:09.7209649Z 
+validate	Install dependencies	2026-03-30T21:16:09.7215894Z added 102 packages, and audited 103 packages in 2s
+validate	Install dependencies	2026-03-30T21:16:09.7216401Z 
+validate	Install dependencies	2026-03-30T21:16:09.7216608Z 30 packages are looking for funding
+validate	Install dependencies	2026-03-30T21:16:09.7216929Z   run `npm fund` for details
+validate	Install dependencies	2026-03-30T21:16:09.7219390Z 
+validate	Install dependencies	2026-03-30T21:16:09.7219544Z found 0 vulnerabilities
+validate	Run validator	﻿2026-03-30T21:16:09.7352541Z ##[group]Run node validate-registry.js
+validate	Run validator	2026-03-30T21:16:09.7352873Z [36;1mnode validate-registry.js[0m
+validate	Run validator	2026-03-30T21:16:09.7370296Z shell: /usr/bin/bash -e {0}
+validate	Run validator	2026-03-30T21:16:09.7370719Z env:
+validate	Run validator	2026-03-30T21:16:09.7371151Z   GITHUB_TOKEN: ***
+validate	Run validator	2026-03-30T21:16:09.7371342Z   EVENT_NAME: pull_request
+validate	Run validator	2026-03-30T21:16:09.7371549Z   PR_NUMBER: 49
+validate	Run validator	2026-03-30T21:16:09.7371730Z   REPO_OWNER: stuchapin909
+validate	Run validator	2026-03-30T21:16:09.7371941Z   REPO_NAME: Open-Eagle-Eye
+validate	Run validator	2026-03-30T21:16:09.7372143Z ##[endgroup]
+validate	Run validator	2026-03-30T21:16:10.0112474Z Mode: pull_request
+validate	Run validator	2026-03-30T21:16:10.0116324Z Cameras: 28997
+validate	Run validator	2026-03-30T21:16:10.0116958Z Fetching upstream baseline to identify changed cameras...
+validate	Run validator	2026-03-30T21:16:10.2801920Z Found 28997 changed or new camera(s) to validate.
+validate	Run validator	2026-03-30T21:16:10.2802809Z REJECT: 28997 changed cameras exceeds limit of 500
+validate	Run validator	2026-03-30T21:16:10.7135071Z Comment posted to PR #49
+validate	Run validator	2026-03-30T21:16:10.7200913Z ##[error]Process completed with exit code 1.
+validate	Post Checkout	﻿2026-03-30T21:16:10.7311902Z Post job cleanup.
+validate	Post Checkout	2026-03-30T21:16:10.8204179Z [command]/usr/bin/git version
+validate	Post Checkout	2026-03-30T21:16:10.8238007Z git version 2.53.0
+validate	Post Checkout	2026-03-30T21:16:10.8279738Z Temporarily overriding HOME='/home/runner/work/_temp/55413a00-645b-43bb-a6d2-94654891e84b' before making global git config changes
+validate	Post Checkout	2026-03-30T21:16:10.8281219Z Adding repository directory to the temporary git global config as a safe directory
+validate	Post Checkout	2026-03-30T21:16:10.8294722Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Open-Eagle-Eye/Open-Eagle-Eye
+validate	Post Checkout	2026-03-30T21:16:10.8325019Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+validate	Post Checkout	2026-03-30T21:16:10.8353988Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+validate	Post Checkout	2026-03-30T21:16:10.8530860Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+validate	Post Checkout	2026-03-30T21:16:10.8548112Z http.https://github.com/.extraheader
+validate	Post Checkout	2026-03-30T21:16:10.8558769Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+validate	Post Checkout	2026-03-30T21:16:10.8585096Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+validate	Post Checkout	2026-03-30T21:16:10.8759197Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+validate	Post Checkout	2026-03-30T21:16:10.8785652Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+validate	Complete job	﻿2026-03-30T21:16:10.9056731Z Cleaning up orphan processes
+validate	Complete job	2026-03-30T21:16:10.9270738Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4, actions/setup-node@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
