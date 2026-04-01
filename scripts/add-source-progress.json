@@ -2,177 +2,247 @@
   "us-texas": {
     "status": "added",
     "cameras": 1090,
-    "date": "2026-03-30"
+    "date": "2026-03-30",
+    "commit_hash": "855c6bd",
+    "pushed": true
   },
   "us-california": {
     "status": "added",
     "cameras": 4100,
-    "date": "2026-03-28"
+    "date": "2026-03-28",
+    "commit_hash": "3858bd4",
+    "pushed": true
   },
   "us-florida": {
     "status": "added",
     "cameras": 1800,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "2d170ec",
+    "pushed": true
   },
   "us-washington": {
     "status": "added",
     "cameras": 950,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "ea9f542",
+    "pushed": true
   },
   "us-oregon": {
     "status": "added",
     "cameras": 500,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "6db4f56",
+    "pushed": true
   },
   "us-arizona": {
     "status": "added",
     "cameras": 600,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "e53fb58",
+    "pushed": true
   },
   "us-nevada": {
     "status": "added",
     "cameras": 400,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "1128782",
+    "pushed": true
   },
   "us-utah": {
     "status": "added",
     "cameras": 350,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "8cbbc99",
+    "pushed": true
   },
   "us-colorado": {
     "status": "added",
     "cameras": 300,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "20bf6ae",
+    "pushed": true
   },
   "us-ohio": {
     "status": "added",
     "cameras": 400,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "e8d2ab7",
+    "pushed": true
   },
   "us-minnesota": {
     "status": "added",
     "cameras": 300,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "87fba78",
+    "pushed": true
   },
   "us-new-york": {
     "status": "added",
     "cameras": 400,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "d450c14",
+    "pushed": true
   },
   "us-pennsylvania": {
     "status": "added",
     "cameras": 350,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "7082b56",
+    "pushed": true
   },
   "us-georgia": {
     "status": "added",
     "cameras": 350,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "55d0f06",
+    "pushed": true
   },
   "us-virginia": {
     "status": "added",
     "cameras": 300,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "dc52cce",
+    "pushed": true
   },
   "us-north-carolina": {
     "status": "added",
     "cameras": 300,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "286135d",
+    "pushed": true
   },
   "us-missouri": {
     "status": "added",
     "cameras": 300,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "0e296f0",
+    "pushed": true
   },
   "us-louisiana": {
     "status": "added",
     "cameras": 250,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "d1daccc",
+    "pushed": true
   },
   "us-wisconsin": {
     "status": "added",
     "cameras": 200,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "f488905",
+    "pushed": true
   },
   "us-nyc": {
     "status": "added",
     "cameras": 200,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "b7dc652",
+    "pushed": true
   },
   "us-new-england": {
     "status": "added",
     "cameras": 400,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "738c606",
+    "pushed": true
   },
   "es": {
     "status": "added",
     "cameras": 1787,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "aeaf66f",
+    "pushed": true
   },
   "ca": {
     "status": "added",
     "cameras": 1297,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "ec6d9ce",
+    "pushed": true
   },
   "za": {
     "status": "added",
     "cameras": 1018,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "2dc7eeb",
+    "pushed": true
   },
   "fi": {
     "status": "added",
     "cameras": 1005,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "0fa96b6",
+    "pushed": true
   },
   "hk": {
     "status": "added",
     "cameras": 995,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "d10f1b7",
+    "pushed": true
   },
   "it": {
     "status": "added",
     "cameras": 714,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "8874e81",
+    "pushed": true
   },
   "gb": {
     "status": "added",
     "cameras": 558,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "d8cfc50",
+    "pushed": true
   },
   "nz": {
     "status": "added",
     "cameras": 250,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "7e6a51f",
+    "pushed": true
   },
   "au": {
     "status": "added",
     "cameras": 247,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "eef2501",
+    "pushed": true
   },
   "br": {
     "status": "added",
     "cameras": 169,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "4a9c287",
+    "pushed": true
   },
   "jp": {
     "status": "added",
     "cameras": 98,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "7e6a51f",
+    "pushed": true
   },
   "sg": {
     "status": "added",
     "cameras": 90,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "ec6d9ce",
+    "pushed": true
   },
   "ie": {
     "status": "added",
     "cameras": 49,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "7e6a51f",
+    "pushed": true
   },
   "gb-wales": {
     "status": "added",
     "cameras": 134,
-    "date": "2026-04-01"
+    "date": "2026-04-01",
+    "commit_hash": "d8cfc50",
+    "pushed": true
   },
   "nl": {
     "status": "blocked",
@@ -285,7 +355,9 @@
   "us-illinois": {
     "status": "added",
     "cameras": 34,
-    "date": "2026-04-01"
+    "date": "2026-04-01",
+    "commit_hash": "b36ecb8",
+    "pushed": true
   },
   "mx": {
     "status": "blocked",
@@ -302,27 +374,37 @@
   "ca-alberta": {
     "status": "added",
     "cameras": 337,
-    "date": "2026-04-01"
+    "date": "2026-04-01",
+    "commit_hash": "0adc3a6",
+    "pushed": true
   },
   "uk": {
     "status": "added",
     "cameras": 424,
-    "date": "2026-03-29"
+    "date": "2026-03-29",
+    "commit_hash": "0995467",
+    "pushed": true
   },
   "au-qld": {
     "status": "added",
     "cameras": 247,
-    "date": "2026-03-31"
+    "date": "2026-03-31",
+    "commit_hash": "eef2501",
+    "pushed": true
   },
   "us-wyoming": {
     "status": "added",
     "cameras": 538,
-    "date": "2026-04-01"
+    "date": "2026-04-01",
+    "commit_hash": "282b02a",
+    "pushed": true
   },
   "ch": {
     "status": "added",
     "cameras": 11,
-    "date": "2026-04-01"
+    "date": "2026-04-01",
+    "commit_hash": "2737a99",
+    "pushed": true
   },
   "in": {
     "status": "blocked",
