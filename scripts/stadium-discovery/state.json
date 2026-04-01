@@ -1,9 +1,26 @@
 {
-  "checked_urls": {
-    "https://www.indianapolismotorspeedway.com/webcams": "checked",
-    "https://www.nuerburgring.de/en/webcam.html": "checked",
-    "https://www.spa-francorchamps.be/en/webcam": "checked"
-  },
+  "checked_urls": [
+    "https://www.indianapolismotorspeedway.com/webcams",
+    "https://www.nuerburgring.de/en/webcam.html",
+    "https://www.circuitcat.com/en/webcam",
+    "https://www.monzanet.it/en/webcam",
+    "https://www.silverstone.co.uk/webcams",
+    "https://www.spa-francorchamps.be/en/webcam"
+  ],
   "discovered_cameras": [],
-  "last_run": "2026-04-01T00:42:10.601940Z"
+  "last_run": "2026-04-01T00:42:10.601940Z",
+  "results": {
+    "https://www.circuitcat.com/en/webcam": {
+      "status": "no_cams",
+      "reason": "Only wp-content theme images found"
+    },
+    "https://www.silverstone.co.uk/webcams": {
+      "status": "no_cams",
+      "reason": "404 Not Found"
+    },
+    "https://www.monzanet.it/en/webcam": {
+      "status": "no_cams",
+      "reason": "404 Not Found"
+    }
+  }
 }

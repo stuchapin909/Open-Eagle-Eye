@@ -1,9 +1,12 @@
 {
-  "checked_urls": {
-    "https://www.usgs.gov/volcanoes/kilauea/webcams": "checked",
-    "https://www.usgs.gov/volcanoes/mount-st-helens/webcams": "checked",
-    "https://www.usgs.gov/volcanoes/mount-rainier/webcams": "checked"
-  },
+  "checked_urls": [
+    "https://www.ov.ingv.it/ov/webcam-vesuvio",
+    "https://www.ct.ingv.it/en/webcam-etna",
+    "https://www.usgs.gov/volcanoes/mount-rainier/webcams",
+    "https://www.usgs.gov/volcanoes/mount-st-helens/webcams",
+    "https://www.ct.ingv.it/en/webcam-stromboli",
+    "https://www.usgs.gov/volcanoes/kilauea/webcams"
+  ],
   "discovered_cameras": [
     "https://volcanoes.usgs.gov/observatories/hvo/cams/KWcam/images/M.jpg",
     "https://volcanoes.usgs.gov/observatories/hvo/cams/K2cam/images/M.jpg",
@@ -14,5 +17,19 @@
     "https://volcanoes.usgs.gov/cams/MITDcam/images/M.jpg",
     "https://volcanoes.usgs.gov/cams/KPcam/images/M.jpg"
   ],
-  "last_run": "2026-04-01T00:42:10.601940Z"
+  "last_run": "2026-04-01T00:42:10.601940Z",
+  "results": {
+    "https://www.ct.ingv.it/en/webcam-etna": {
+      "status": "no_cams",
+      "reason": "404 Not Found"
+    },
+    "https://www.ct.ingv.it/en/webcam-stromboli": {
+      "status": "no_cams",
+      "reason": "404 Not Found"
+    },
+    "https://www.ov.ingv.it/ov/webcam-vesuvio": {
+      "status": "no_cams",
+      "reason": "Page loads but no live cam images found"
+    }
+  }
 }

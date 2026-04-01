@@ -1,9 +1,26 @@
 {
-  "checked_urls": {
-    "https://www.usbr.gov/lc/hooverdam/webcam/": "checked",
-    "https://www.usbr.gov/pn/grandcoulee/webcam.html": "checked",
-    "https://www.usbr.gov/pn/bonneville/": "checked"
-  },
+  "checked_urls": [
+    "https://www.usbr.gov/mp/shasta/",
+    "https://www.usbr.gov/lc/hooverdam/webcam/",
+    "https://www.usbr.gov/pn/bonneville/",
+    "https://www.ctg.com.cn/en/",
+    "https://www.usbr.gov/uc/rm/crsp/webcam.html",
+    "https://www.usbr.gov/pn/grandcoulee/webcam.html"
+  ],
   "discovered_cameras": [],
-  "last_run": "2026-04-01T00:42:10.601940Z"
+  "last_run": "2026-04-01T00:42:10.601940Z",
+  "results": {
+    "https://www.usbr.gov/uc/rm/crsp/webcam.html": {
+      "status": "no_cams",
+      "reason": "404 Not Found"
+    },
+    "https://www.usbr.gov/mp/shasta/": {
+      "status": "no_cams",
+      "reason": "404 Not Found"
+    },
+    "https://www.ctg.com.cn/en/": {
+      "status": "no_cams",
+      "reason": "No image URLs found"
+    }
+  }
 }

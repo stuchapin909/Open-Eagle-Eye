@@ -1,11 +1,23 @@
 {
-  "checked_urls": {
-    "https://www.allaboutbirds.org/cams/": "checked",
-    "https://explore.org/livecams": "checked",
-    "https://www.camscape.com/webcam/safari-cam-in-the-masai-mara-kenya/": "checked"
-  },
+  "checked_urls": [
+    "https://explore.org/livecams",
+    "https://www.nps.gov/yell/learn/photosmultimedia/webcams.htm",
+    "https://www.allaboutbirds.org/cams/",
+    "https://www.camscape.com/webcam/safari-cam-in-the-masai-mara-kenya/",
+    "https://www.nps.gov/katm/learn/photosmultimedia/webcams.htm"
+  ],
   "discovered_cameras": [
     "https://files.explore.org/files/Live-Bald-Eagle-Cam-Decorah-Iowa-035375521.jpg"
   ],
-  "last_run": "2026-04-01T00:42:10.601940Z"
+  "last_run": "2026-04-01T00:42:10.601940Z",
+  "results": {
+    "https://www.nps.gov/katm/learn/photosmultimedia/webcams.htm": {
+      "status": "no_cams",
+      "reason": "Uses explore.org embeds, no direct JPEGs"
+    },
+    "https://www.nps.gov/yell/learn/photosmultimedia/webcams.htm": {
+      "status": "found",
+      "cameras_found": 9
+    }
+  }
 }

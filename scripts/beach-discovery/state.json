@@ -1,9 +1,26 @@
 {
-  "checked_urls": {
-    "https://www.surfline.com/surf-report/pipeline-584204184": "checked",
-    "https://www.surfline.com/surf-report/waikiki-beach-584204196": "checked",
-    "https://www.surfline.com/surf-report/huntington-beach-pier-584204200": "checked"
-  },
+  "checked_urls": [
+    "https://www.surfline.com/surf-report/ocean-city-584204219",
+    "https://www.surfline.com/surf-report/huntington-beach-pier-584204200",
+    "https://www.surfline.com/surf-report/malibu-584204198",
+    "https://www.surfline.com/surf-report/waikiki-beach-584204196",
+    "https://www.surfline.com/surf-report/pipeline-584204184",
+    "https://www.surfline.com/surf-report/lower-trestles-584204202"
+  ],
   "discovered_cameras": [],
-  "last_run": "2026-04-01T00:42:10.601940Z"
+  "last_run": "2026-04-01T00:42:10.601940Z",
+  "results": {
+    "https://www.surfline.com/surf-report/malibu-584204198": {
+      "status": "blocked",
+      "reason": "403 Forbidden (Surfline blocks scraping)"
+    },
+    "https://www.surfline.com/surf-report/lower-trestles-584204202": {
+      "status": "blocked",
+      "reason": "403 Forbidden (Surfline blocks scraping)"
+    },
+    "https://www.surfline.com/surf-report/ocean-city-584204219": {
+      "status": "blocked",
+      "reason": "403 Forbidden (Surfline blocks scraping)"
+    }
+  }
 }

@@ -1,9 +1,26 @@
 {
-  "checked_urls": {
-    "https://www.auroraskystation.com/webcam/": "checked",
-    "https://en.visittromso.no/webcam": "checked",
-    "https://www.visitrovaniemi.fi/webcam": "checked"
-  },
+  "checked_urls": [
+    "https://www.auroraskystation.com/webcam/",
+    "https://www.road.is/webcams/",
+    "https://www.gi.alaska.edu/aurora-forecast",
+    "https://spectacularnwt.com/en/webcams",
+    "https://www.visitrovaniemi.fi/webcam",
+    "https://en.visittromso.no/webcam"
+  ],
   "discovered_cameras": [],
-  "last_run": "2026-04-01T00:42:10.601940Z"
+  "last_run": "2026-04-01T00:42:10.601940Z",
+  "results": {
+    "https://spectacularnwt.com/en/webcams": {
+      "status": "no_cams",
+      "reason": "Only wp-content images found"
+    },
+    "https://www.road.is/webcams/": {
+      "status": "no_cams",
+      "reason": "JS-rendered (Next.js), no image URLs in HTML"
+    },
+    "https://www.gi.alaska.edu/aurora-forecast": {
+      "status": "no_cams",
+      "reason": "404 Not Found"
+    }
+  }
 }
