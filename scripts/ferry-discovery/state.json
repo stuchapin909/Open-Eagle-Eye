@@ -1,5 +1,14 @@
 {
-  "checked_urls": {},
-  "discovered_cameras": [],
-  "last_run": null
+  "checked_urls": {
+    "https://www.bcferries.com/current-conditions/": "checked",
+    "https://www.wsdot.com/ferries/vesselwatch/VesselWatchWebcams.aspx": "checked"
+  },
+  "discovered_cameras": [
+    "https://www.bcferries.com/web_image/hdf/h28/8932230397982.jpg",
+    "https://www.bcferries.com/web_image/h71/h12/8851775356958.jpg",
+    "https://www.bcferries.com/web_image/h94/hdc/9079915380766.jpg",
+    "https://www.bcferries.com/web_image/h54/h90/8797249765406.jpg",
+    "https://www.bcferries.com/web_image/h6d/h51/9053309009950.jpg"
+  ],
+  "last_run": "2026-04-01T00:42:10.601940Z"
 }

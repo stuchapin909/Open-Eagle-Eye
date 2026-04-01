@@ -1,5 +1,9 @@
 {
-  "checked_urls": {},
+  "checked_urls": {
+    "https://www.indianapolismotorspeedway.com/webcams": "checked",
+    "https://www.nuerburgring.de/en/webcam.html": "checked",
+    "https://www.spa-francorchamps.be/en/webcam": "checked"
+  },
   "discovered_cameras": [],
-  "last_run": null
+  "last_run": "2026-04-01T00:42:10.601940Z"
 }

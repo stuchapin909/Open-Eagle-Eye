@@ -1,5 +1,9 @@
 {
-  "checked_urls": {},
+  "checked_urls": {
+    "https://www.surfline.com/surf-report/pipeline-584204184": "checked",
+    "https://www.surfline.com/surf-report/waikiki-beach-584204196": "checked",
+    "https://www.surfline.com/surf-report/huntington-beach-pier-584204200": "checked"
+  },
   "discovered_cameras": [],
-  "last_run": null
+  "last_run": "2026-04-01T00:42:10.601940Z"
 }

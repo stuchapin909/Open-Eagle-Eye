@@ -1,5 +1,18 @@
 {
-  "checked_urls": {},
-  "discovered_cameras": [],
-  "last_run": null
+  "checked_urls": {
+    "https://www.usgs.gov/volcanoes/kilauea/webcams": "checked",
+    "https://www.usgs.gov/volcanoes/mount-st-helens/webcams": "checked",
+    "https://www.usgs.gov/volcanoes/mount-rainier/webcams": "checked"
+  },
+  "discovered_cameras": [
+    "https://volcanoes.usgs.gov/observatories/hvo/cams/KWcam/images/M.jpg",
+    "https://volcanoes.usgs.gov/observatories/hvo/cams/K2cam/images/M.jpg",
+    "https://volcanoes.usgs.gov/observatories/hvo/cams/F1cam/images/M.jpg",
+    "https://volcanoes.usgs.gov/observatories/hvo/cams/B1cam/images/M.jpg",
+    "https://volcanoes.usgs.gov/cams/V3cam/images/M.jpg",
+    "https://volcanoes.usgs.gov/vsc/captures/kilauea/hpcam.jpg",
+    "https://volcanoes.usgs.gov/cams/MITDcam/images/M.jpg",
+    "https://volcanoes.usgs.gov/cams/KPcam/images/M.jpg"
+  ],
+  "last_run": "2026-04-01T00:42:10.601940Z"
 }

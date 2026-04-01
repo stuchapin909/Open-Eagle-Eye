@@ -1,5 +1,11 @@
 {
-  "checked_urls": {},
-  "discovered_cameras": [],
-  "last_run": null
+  "checked_urls": {
+    "https://www.allaboutbirds.org/cams/": "checked",
+    "https://explore.org/livecams": "checked",
+    "https://www.camscape.com/webcam/safari-cam-in-the-masai-mara-kenya/": "checked"
+  },
+  "discovered_cameras": [
+    "https://files.explore.org/files/Live-Bald-Eagle-Cam-Decorah-Iowa-035375521.jpg"
+  ],
+  "last_run": "2026-04-01T00:42:10.601940Z"
 }

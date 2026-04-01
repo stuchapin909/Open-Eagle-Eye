@@ -1,5 +1,9 @@
 {
-  "checked_urls": {},
+  "checked_urls": {
+    "https://spaceneedledev.com/panocam/index.html": "checked",
+    "https://www.pancanal.com/eng/webcam/": "checked",
+    "https://constructioncam.com/": "checked"
+  },
   "discovered_cameras": [],
-  "last_run": null
+  "last_run": "2026-04-01T00:42:10.601940Z"
 }

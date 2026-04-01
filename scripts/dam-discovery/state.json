@@ -1,5 +1,9 @@
 {
-  "checked_urls": {},
+  "checked_urls": {
+    "https://www.usbr.gov/lc/hooverdam/webcam/": "checked",
+    "https://www.usbr.gov/pn/grandcoulee/webcam.html": "checked",
+    "https://www.usbr.gov/pn/bonneville/": "checked"
+  },
   "discovered_cameras": [],
-  "last_run": null
+  "last_run": "2026-04-01T00:42:10.601940Z"
 }
