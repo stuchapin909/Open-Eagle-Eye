@@ -24,6 +24,10 @@
   "stadium": [
     "https://webcamexpo.com/category/stadium/"
   ],
-  "volcano": [],
+  "volcano": [
+    "https://www.volcanodiscovery.com/volcano-webcams.html",
+    "https://www.avo.alaska.edu/webcam/",
+    "https://www.geonet.org.nz/volcano/cameras"
+  ],
   "wildlife": []
 }
