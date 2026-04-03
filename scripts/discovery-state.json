@@ -97,7 +97,10 @@
     "https://webcamera24.com/categories/construction/",
     "https://www.truelook.com/cameras/live",
     "https://www.hdrelay.com/industries/construction-sites/",
-    "https://www.sierraind.com/webcams"
+    "https://www.sierraind.com/webcams",
+    "https://webcamindex.com/construction/",
+    "https://webcamexpo.com/category/dam/",
+    "https://www.webcampedia.com/en/webcam/construction.html"
   ],
   "dam": [
     "https://webcam.scs.com.ua/en/europe/russia/irkutsk/dam/",
@@ -127,7 +130,8 @@
     "https://www.hooverdamtours.org/webcams/",
     "https://www.pictimo.com/thailand/thong-pha-phum/501/webcam-vajiralongkorn-hydro-power-plant-and-vajiralongkorn-dam",
     "https://www.cityofkm.com/527/Moss-Lake-Dam-Webcam",
-    "https://www.nps.gov/olym/learn/photosmultimedia/elwha-river-webcams.htm"
+    "https://www.nps.gov/olym/learn/photosmultimedia/elwha-river-webcams.htm",
+    "https://webcamindex.com/dam/"
   ],
   "ferry": [
     "https://wsdot.wa.gov/travel/washington-state-ferries",
@@ -217,7 +221,11 @@
     "https://volcanolive.com/volcanocams.html",
     "https://www.nps.gov/havo/learn/photosmultimedia/webcams.htm",
     "https://volcview.wr.usgs.gov/ashcam-gui/",
-    "https://panlens.com/live-cams-filtered-by-scenes/live-volcano-cams/"
+    "https://panlens.com/live-cams-filtered-by-scenes/live-volcano-cams/",
+    "https://www.camscape.com/volcano-webcams/",
+    "https://webcamindex.com/volcano/",
+    "https://www.etnasci.it/localita/k2/webcam-etnasci",
+    "https://avo.alaska.edu/ashcam-api/webcams"
   ],
   "wildlife": [
     "https://www.nps.gov/glac/learn/photosmultimedia/webcams.htm",
