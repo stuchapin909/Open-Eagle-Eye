@@ -144,6 +144,152 @@ function findWebcam(idOrUrl) {
 
 const ALLOWED_CONTENT_TYPES = ["image/jpeg", "image/png"];
 
+/**
+ * Extract the first JPEG frame from an MJPEG stream.
+ * MJPEG (multipart/x-mixed-replace) is a sequence of JPEG frames in a single
+ * HTTP response, separated by boundary markers. We connect, read until we
+ * have the first complete JPEG, then close.
+ *
+ * Returns { buf: Buffer, contentType: "image/jpeg" } or null on failure.
+ */
+function extractMjpegFrame(url, headers, lookupFn, timeoutMs = 5000) {
+  return new Promise((resolve) => {
+    const urlObj = new URL(url);
+    const mod = urlObj.protocol === "https:" ? https : http;
+    const agentOpts = lookupFn ? { lookup: lookupFn } : {};
+    const agent = urlObj.protocol === "https:"
+      ? new https.Agent({ ...agentOpts, keepAlive: false })
+      : new http.Agent({ ...agentOpts, keepAlive: false });
+
+    const req = mod.get(url, {
+      headers: { ...headers, "Connection": "close" },
+      timeout: timeoutMs,
+      agent,
+    }, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        // Follow one redirect
+        agent.destroy();
+        extractMjpegFrame(res.headers.location, headers, lookupFn, timeoutMs)
+          .then(resolve).catch(() => resolve(null));
+        return;
+      }
+      if (res.statusCode !== 200) {
+        res.destroy();
+        agent.destroy();
+        resolve(null);
+        return;
+      }
+
+      const chunks = [];
+      let foundJpegStart = false;
+      let foundJpegEnd = false;
+      let jpegStartIdx = 0;
+      let boundaryHint = "";
+
+      // Parse boundary from content-type if available
+      const ct = res.headers["content-type"] || "";
+      const bMatch = ct.match(/boundary=([^\s;]+)/);
+      if (bMatch) boundaryHint = bMatch[1];
+
+      res.on("data", (chunk) => {
+        if (foundJpegEnd) return; // Already got our frame
+
+        chunks.push(chunk);
+
+        // Scan for JPEG start (FF D8 FF) in accumulated buffer
+        if (!foundJpegStart) {
+          const combined = Buffer.concat(chunks);
+          for (let i = 0; i < combined.length - 1; i++) {
+            if (combined[i] === 0xFF && combined[i + 1] === 0xD8 && combined[i + 2] === 0xFF) {
+              foundJpegStart = true;
+              jpegStartIdx = i;
+              // Trim buffer to start of JPEG
+              chunks.length = 0;
+              chunks.push(combined.subarray(i));
+              break;
+            }
+          }
+          // If buffer grows too large without finding JPEG start, give up
+          if (!foundJpegStart && Buffer.concat(chunks).length > 100000) {
+            res.destroy();
+            agent.destroy();
+            resolve(null);
+          }
+          return;
+        }
+
+        // Already found JPEG start -- look for JPEG end (FF D9)
+        // or the next boundary marker
+        const combined = Buffer.concat(chunks);
+        for (let i = 2; i < combined.length - 1; i++) {
+          if (combined[i] === 0xFF && combined[i + 1] === 0xD9) {
+            // Found end of JPEG -- extract frame
+            const frame = combined.subarray(0, i + 2);
+            res.destroy();
+            agent.destroy();
+            resolve({ buf: frame, contentType: "image/jpeg" });
+            return;
+          }
+        }
+
+        // Also check for boundary marker (next frame starting)
+        if (boundaryHint) {
+          const combined = Buffer.concat(chunks);
+          const boundaryBuf = Buffer.from(`--${boundaryHint}`);
+          const bIdx = combined.indexOf(boundaryBuf, 10); // skip past first few bytes
+          if (bIdx > 0) {
+            const frame = combined.subarray(0, bIdx);
+            // Trim any trailing whitespace/CRLF before boundary
+            res.destroy();
+            agent.destroy();
+            resolve({ buf: frame, contentType: "image/jpeg" });
+            return;
+          }
+        }
+
+        // Safety: don't buffer more than 2MB for one frame
+        if (Buffer.concat(chunks).length > 2 * 1024 * 1024) {
+          res.destroy();
+          agent.destroy();
+          resolve(null);
+        }
+      });
+
+      res.on("end", () => {
+        agent.destroy();
+        if (!foundJpegEnd && foundJpegStart) {
+          // Stream ended but we have JPEG data -- try to use it
+          const combined = Buffer.concat(chunks);
+          // Find FF D9 in what we have
+          for (let i = 2; i < combined.length - 1; i++) {
+            if (combined[i] === 0xFF && combined[i + 1] === 0xD9) {
+              resolve({ buf: combined.subarray(0, i + 2), contentType: "image/jpeg" });
+              return;
+            }
+          }
+          // No end marker found -- give up
+          resolve(null);
+        } else {
+          resolve(null);
+        }
+      });
+
+      res.on("error", () => {
+        agent.destroy();
+        resolve(null);
+      });
+    });
+
+    req.on("error", () => {
+      resolve(null);
+    });
+    req.on("timeout", () => {
+      req.destroy();
+      resolve(null);
+    });
+  });
+}
+
 function isNighttimeAt(timezone) {
   if (!timezone) return false;
   try {
@@ -250,7 +396,62 @@ async function downloadSnapshot(cam) {
   const filename = `${crypto.randomBytes(8).toString('hex')}.jpg`;
   const fullPath = path.join(SNAPSHOTS_DIR, filename);
 
+  // Build a lookup function for the raw HTTP MJPEG path
+  const rawLookup = resolvedIPs.length > 0
+    ? (_hostname, opts, cb) => {
+        const family = opts.family || 0;
+        let ip = null;
+        if (family === 4) ip = resolvedIPs.find(a => !a.includes(':'));
+        else if (family === 6) ip = resolvedIPs.find(a => a.includes(':'));
+        else ip = resolvedIPs.find(a => !a.includes(':')) || resolvedIPs.find(a => a.includes(':'));
+        if (!ip) return cb(new Error(`No pinned IP found for family ${family}`));
+        cb(null, ip, ip.includes(':') ? 6 : 4);
+      }
+    : undefined;
+
   try {
+    // Probe for MJPEG: do a short GET with streaming to check content-type
+    // without buffering the whole response.
+    const isMjpeg = await new Promise((resolve) => {
+      const urlObj = new URL(config.url);
+      const mod = urlObj.protocol === "https:" ? https : http;
+      const agentOpts = rawLookup ? { lookup: rawLookup } : {};
+      const agent = urlObj.protocol === "https:"
+        ? new https.Agent({ ...agentOpts, keepAlive: false })
+        : new http.Agent({ ...agentOpts, keepAlive: false });
+      const req = mod.get(config.url, {
+        headers: config.headers,
+        timeout: 3000,
+        agent,
+      }, (res) => {
+        const ct = res.headers["content-type"] || "";
+        res.destroy();
+        agent.destroy();
+        resolve(ct.includes("multipart/x-mixed-replace") || ct.includes("multipart/mixed"));
+      });
+      req.on("error", () => resolve(false));
+      req.on("timeout", () => { req.destroy(); resolve(false); });
+    });
+
+    if (isMjpeg) {
+      // MJPEG stream -- extract first JPEG frame
+      const frame = await extractMjpegFrame(config.url, config.headers, rawLookup, 5000);
+      if (!frame || frame.buf.length < 500) {
+        return { error: "MJPEG stream: could not extract a valid frame" };
+      }
+      fs.writeFileSync(fullPath, frame.buf);
+      cleanupSnapshots();
+      return {
+        success: true,
+        file_path: fullPath,
+        size_bytes: frame.buf.length,
+        content_type: "image/jpeg",
+        source: "mjpeg",
+        camera: { id: cam.id, name: cam.name, location: cam.location, category: cam.category }
+      };
+    }
+
+    // Standard image download via axios
     const axiosOpts = {
       responseType: 'arraybuffer',
       timeout: 10000,
