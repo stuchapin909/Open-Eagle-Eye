@@ -212,7 +212,7 @@
     },
     "FMO": {
       "status": "not_found",
-      "note": "M\u00fcnster Osnabr\u00fcck fmo.de - no webcam section",
+      "note": "Münster Osnabrück fmo.de - no webcam section",
       "checked_at": "2026-04-05T21:46:58Z"
     },
     "HAM": {
@@ -227,7 +227,7 @@
     },
     "DUS": {
       "status": "not_found",
-      "note": "D\u00fcsseldorf - webcam page has HLS .m3u8 streams only (1000eyes.de), no direct image URLs",
+      "note": "Düsseldorf - webcam page has HLS .m3u8 streams only (1000eyes.de), no direct image URLs",
       "checked_at": "2026-04-05T21:46:58Z"
     },
     "NUE": {
@@ -672,14 +672,84 @@
       "status": "no_webcam",
       "notes": "website unreachable/empty page",
       "checked_at": "2026-04-06T09:50:17Z"
+    },
+    "SNN": {
+      "status": "unreachable",
+      "note": "Shannon Airport - website not reachable",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "BLL": {
+      "status": "unreachable",
+      "note": "Billund Airport - site returns 500 error",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "FAE": {
+      "status": "bot_blocked",
+      "note": "Vagar Airport Faroe Islands - 403 forbidden",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "TRF": {
+      "status": "not_found",
+      "note": "Torp Sandefjord - no webcam section, only travel info pages",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "WAW": {
+      "status": "bot_blocked",
+      "note": "Warsaw Chopin - Request Rejected (bot detection)",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "WRO": {
+      "status": "bot_blocked",
+      "note": "Wroclaw Airport - 403 forbidden",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "MMX": {
+      "status": "not_found",
+      "note": "Malmö Airport Swedavia - no webcam section exists",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "EDI": {
+      "status": "not_found",
+      "note": "Edinburgh Airport - no webcam section, only passenger info",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "BOS": {
+      "status": "not_found",
+      "note": "Boston Logan Massport - no webcam section in site",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "MAD": {
+      "status": "not_found",
+      "note": "Madrid Barajas AENA - no webcam section",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "MIA": {
+      "status": "not_found",
+      "note": "Miami International Airport - no webcam section",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "NRT": {
+      "status": "not_found",
+      "note": "Narita International Airport - no webcam section",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "SIN": {
+      "status": "not_found",
+      "note": "Singapore Changi Airport - no webcam section",
+      "checked_at": "2026-04-06T19:02:46Z"
+    },
+    "MEL": {
+      "status": "not_found",
+      "note": "Melbourne Airport - no webcam/camera section",
+      "checked_at": "2026-04-06T19:02:46Z"
     }
   },
   "discovered_cameras": [
     "airport-YYT-1775417333"
   ],
-  "last_run": "2026-04-06T09:50:17Z",
+  "last_run": "2026-04-06T19:02:46Z",
   "total_seed": 5264,
-  "total_checked": 134,
+  "total_checked": 148,
   "total_cameras_found": 1,
   "checked": [
     {
@@ -700,7 +770,7 @@
     },
     {
       "iata": "SEA",
-      "name": "Seattle\u2013Tacoma International Airport",
+      "name": "Seattle–Tacoma International Airport",
       "website": "https://www.portseattle.org/sea-tac",
       "status": "no_webcam",
       "notes": "Airport drive cameras page exists but cameras 'currently unavailable'. No other webcam pages.",
@@ -780,7 +850,7 @@
     },
     {
       "iata": "ZRH",
-      "name": "Z\u00fcrich Airport",
+      "name": "Zürich Airport",
       "website": "http://www.zurich-airport.com/",
       "status": "no_webcam",
       "notes": "Site loads (redirects to flughafen-zuerich.ch). No webcam/camera/live stream pages found. Tested /webcam, /en/passengers/experience/webcam, and browsed observation deck pages.",
