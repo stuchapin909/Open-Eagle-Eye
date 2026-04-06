@@ -407,6 +407,30 @@
       "status": "no_webcam",
       "notes": "Airport drive cameras page exists but cameras 'currently unavailable'. No other webcam pages.",
       "checked_at": 1775442201862
+    },
+    {
+      "iata": "GOH",
+      "name": "Nuuk International Airport",
+      "website": "https://www.airports.gl/en/airport/nuuk/",
+      "status": "no_webcam",
+      "notes": "Site loads. All images are static photos/logos from CDN. No webcam or live camera pages found.",
+      "checked_at": 1775458106863
+    },
+    {
+      "iata": "AEY",
+      "name": "Akureyri International Airport",
+      "website": "https://www.innanlandsflugvellir.is/en/akureyri-airport/",
+      "status": "no_webcam",
+      "notes": "Site loads. No webcam, camera, or live stream references. Only flight info pages.",
+      "checked_at": 1775458106863
+    },
+    {
+      "iata": "KEF",
+      "name": "Keflavik International Airport",
+      "website": "https://www.isavia.is/en/keflavik-airport",
+      "status": "no_webcam",
+      "notes": "Redirects to kefairport.com. Camera/stream mentions are generic text only. All images are static contentstack CDN photos. No webcam pages or live feeds found at tested paths.",
+      "checked_at": 1775458106863
     }
   ]
 }
