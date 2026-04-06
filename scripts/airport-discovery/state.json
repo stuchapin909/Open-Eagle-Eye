@@ -609,14 +609,77 @@
       "status": "not_found",
       "note": "Barcelona El Prat (AENA) - no webcam section on site",
       "checked_at": "2026-04-06T13:36:04Z"
+    },
+    "VAA": {
+      "status": "no_webcam",
+      "note": "Finavia site - no webcam pages (/webcam returns 404)",
+      "checked_at": "2026-04-06T14:43:05Z"
+    },
+    "LHR": {
+      "status": "no_webcam",
+      "note": "heathrow.com returns HTTP 403",
+      "checked_at": "2026-04-06T14:43:05Z"
+    },
+    "NCL": {
+      "status": "no_webcam",
+      "note": "newcastleairport.com returns HTTP 403",
+      "checked_at": "2026-04-06T14:43:05Z"
+    },
+    "LBA": {
+      "status": "not_found",
+      "note": "Site dead - 405 after redirect to lba.co.uk",
+      "checked_at": "2026-04-06T15:45:00Z"
+    },
+    "IOM": {
+      "status": "not_found",
+      "note": "Website unreachable - connection refused/timeout",
+      "checked_at": "2026-04-06T15:45:00Z"
+    },
+    "EMA": {
+      "status": "not_found",
+      "note": "East Midlands Airport - no webcam, only parking/travel marketing",
+      "checked_at": "2026-04-06T15:45:00Z"
+    },
+    "ABZ": {
+      "status": "not_found",
+      "note": "Aberdeen Airport - no webcam section exists",
+      "checked_at": "2026-04-06T15:45:00Z"
+    },
+    "AAR": {
+      "status": "not_found",
+      "note": "Aarhus Airport (aar.dk) - no webcam, only flights/parking info",
+      "checked_at": "2026-04-06T15:45:00Z"
+    },
+    "PIK": {
+      "status": "not_found",
+      "note": "Glasgow Prestwick Airport - no webcam section",
+      "checked_at": "2026-04-06T15:45:00Z"
+    },
+    "FNC": {
+      "name": "Cristiano Ronaldo International Airport",
+      "status": "no_webcam",
+      "notes": "website reachable, no webcam/camera content found",
+      "checked_at": "2026-04-06T09:50:17Z"
+    },
+    "CJU": {
+      "name": "Jeju International Airport",
+      "status": "no_webcam",
+      "notes": "website reachable, no webcam/camera content found",
+      "checked_at": "2026-04-06T09:50:17Z"
+    },
+    "VKO": {
+      "name": "Vnukovo International Airport",
+      "status": "no_webcam",
+      "notes": "website unreachable/empty page",
+      "checked_at": "2026-04-06T09:50:17Z"
     }
   },
   "discovered_cameras": [
     "airport-YYT-1775417333"
   ],
-  "last_run": 1775478420981,
+  "last_run": "2026-04-06T09:50:17Z",
   "total_seed": 5264,
-  "total_checked": 111,
+  "total_checked": 134,
   "total_cameras_found": 1,
   "checked": [
     {
