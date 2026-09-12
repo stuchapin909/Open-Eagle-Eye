@@ -386960,22 +386960,6 @@
     }
   },
   {
-    "id": "ga-14192-nwc-els",
-    "name": "GDOT-0461: NWC_EL/I-75 S at WindyRidgePkwy MM 258.8 (Cobb)",
-    "url": "https://511ga.org/map/Cctv/21602",
-    "category": "highway",
-    "location": "Cobb, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Cobb",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.893445,
-      "lng": -84.46451
-    }
-  },
-  {
     "id": "ga-14193-nwc-els",
     "name": "GDOT-0465: NWC_EL/I-75 S at WindyHillRd MM 259.5 (Cobb)",
     "url": "https://511ga.org/map/Cctv/21603",
