@@ -246576,22 +246576,6 @@
     }
   },
   {
-    "id": "pa-turnpike-i-276-westbound-4793",
-    "name": "I-276 @ Exit 340, Virginia Drive",
-    "url": "https://www.511pa.com/map/Cctv/4793",
-    "category": "highway",
-    "location": "Turnpike (I-276), Pennsylvania, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Turnpike (I-276)",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 40.13937,
-      "lng": -75.169641
-    }
-  },
-  {
     "id": "pa-turnpike-i-76-westbound-4794",
     "name": "I-76 @ Exit 161, Breezewood Interchange",
     "url": "https://www.511pa.com/map/Cctv/4794",
