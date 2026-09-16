@@ -76802,22 +76802,6 @@
   {
     "auth": false,
     "category": "highway",
-    "city": "Sherman Oaks",
-    "country": "US",
-    "id": "ca-caltrans-d7-us-101-623-coldwater-canyon",
-    "location": "Sherman Oaks, CA, USA",
-    "name": "US-101 : (623) Coldwater Canyon",
-    "timezone": "America/Los_Angeles",
-    "url": "https://cwwp2.dot.ca.gov/data/d7/cctv/image/us101623coldwatercanyon/us101623coldwatercanyon.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 34.15695,
-      "lng": -118.41412
-    }
-  },
-  {
-    "auth": false,
-    "category": "highway",
     "city": "xxx",
     "country": "US",
     "id": "ca-caltrans-d7-us-101-624-woodman-ave",
