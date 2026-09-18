@@ -456203,24 +456203,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C5158",
-    "name": "T.H.51 SB @ Lydia Ave",
-    "url": "https://public.carsprogram.org/cameras/MN/C5158",
-    "city": "Roseville",
-    "country": "US",
-    "location": "MN 51, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 45.031487,
-      "lng": -93.166561
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C421",
     "name": "I-494 EB @ I-35W SB",
     "url": "https://public.carsprogram.org/cameras/MN/C421",
@@ -460858,24 +460840,6 @@
     "coordinates": {
       "lat": 45.168603,
       "lng": -93.526775
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C312",
-    "name": "U.S.169 NB @ Canterbury Rd (Co Rd 83 - MP 112.9)",
-    "url": "https://public.carsprogram.org/cameras/MN/C312",
-    "city": "Shakopee",
-    "country": "US",
-    "location": "US 169, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.78226,
-      "lng": -93.467862
     },
     "verified": true,
     "auth": {
@@ -466024,24 +465988,6 @@
     "coordinates": {
       "lat": 44.822851,
       "lng": -93.172569
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C5157",
-    "name": "T.H.51 NB @ Co Rd C2",
-    "url": "https://public.carsprogram.org/cameras/MN/C5157",
-    "city": "Roseville",
-    "country": "US",
-    "location": "MN 51, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 45.028008,
-      "lng": -93.166902
     },
     "verified": true,
     "auth": {
