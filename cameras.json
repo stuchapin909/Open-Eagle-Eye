@@ -56866,22 +56866,6 @@
   {
     "auth": false,
     "category": "highway",
-    "city": "Dublin",
-    "country": "US",
-    "id": "ca-caltrans-d4-tva49-i-580-tassajara",
-    "location": "Dublin, CA, USA",
-    "name": "TVA49 -- I-580 : Tassajara",
-    "timezone": "America/Los_Angeles",
-    "url": "https://cwwp2.dot.ca.gov/data/d4/cctv/image/tva49i580tassajara/tva49i580tassajara.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 37.70189,
-      "lng": -121.87167
-    }
-  },
-  {
-    "auth": false,
-    "category": "highway",
     "city": "San Bruno",
     "country": "US",
     "id": "ca-caltrans-d4-tv398-i-380-west-of-us-101",
