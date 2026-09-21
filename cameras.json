@@ -245520,22 +245520,6 @@
     }
   },
   {
-    "id": "pa-turnpike-i-76-eastbound-4803",
-    "name": "I-70 / I-76 @ MP 121.9, Allegheny Tunnel",
-    "url": "https://www.511pa.com/map/Cctv/4803",
-    "category": "highway",
-    "location": "Turnpike (I-76), Pennsylvania, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Turnpike (I-76)",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 39.967876,
-      "lng": -78.872018
-    }
-  },
-  {
     "id": "pa-turnpike-i-76-westbound-4804",
     "name": "I-76 @ Exit 298, Morgantown Interchange",
     "url": "https://www.511pa.com/map/Cctv/4804",
