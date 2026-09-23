@@ -227136,22 +227136,6 @@
     }
   },
   {
-    "id": "nc-331-i-85-south-brookshire-frwy",
-    "name": "I-85 South @ Brookshire Frwy",
-    "url": "https://cfms.services.ncdot.gov/snapshots/chan-5154_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 35.268818,
-      "lng": -80.868065
-    }
-  },
-  {
     "id": "nc-333-i-85-south-of-us-29",
     "name": "I-85 South of US-29",
     "url": "https://cfms.services.ncdot.gov/snapshots/chan-5165_h.jpg",
@@ -227309,22 +227293,6 @@
     "coordinates": {
       "lat": 35.998481,
       "lng": -75.652033
-    }
-  },
-  {
-    "id": "nc-694-nc-168-at-s-tulls-creek-rd",
-    "name": "NC 168 at S. Tulls Creek Rd",
-    "url": "https://cfes.services.ncdot.gov/snapshots/chan-6184_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 36.455117,
-      "lng": -76.029081
     }
   },
   {
@@ -371344,22 +371312,6 @@
     }
   },
   {
-    "id": "ga-13178-i-285u",
-    "name": "GDOT-0947: I-285 CCW at SR139 MM 11.1 (Fulton)",
-    "url": "https://511ga.org/map/Cctv/20588",
-    "category": "highway",
-    "location": "Fulton, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Fulton",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.753884,
-      "lng": -84.495672
-    }
-  },
-  {
     "id": "ga-13179-i-285u",
     "name": "GDOT-0951: I-285 CCW at I-20 MM 12 (Fulton)",
     "url": "https://511ga.org/map/Cctv/20589",
@@ -443064,24 +443016,6 @@
     "coordinates": {
       "lat": 44.988799,
       "lng": -93.423738
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C1724",
-    "name": "T.H.61 SB @ White Bear Ave",
-    "url": "https://public.carsprogram.org/cameras/MN/C1724",
-    "city": "White Bear Lake",
-    "country": "US",
-    "location": "US 61, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 45.073387,
-      "lng": -93.019735
     },
     "verified": true,
     "auth": {
