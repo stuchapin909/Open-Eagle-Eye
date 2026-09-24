@@ -374176,22 +374176,6 @@
     }
   },
   {
-    "id": "ga-13373-i-85s",
-    "name": "GDOT-0132: I-85 S before SugarloafPkwy MM 108.2 (Gwinnett)",
-    "url": "https://511ga.org/map/Cctv/20783",
-    "category": "highway",
-    "location": "Gwinnett, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Gwinnett",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.993383,
-      "lng": -84.080832
-    }
-  },
-  {
     "id": "ga-13375-sr155s",
     "name": "GDOT-0140: SR155/US23 S at I-85 MM 18.9 (DeKalb)",
     "url": "https://511ga.org/map/Cctv/20785",
