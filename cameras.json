@@ -438273,24 +438273,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C30150",
-    "name": "U.S.14 WB @ T.H.22 SB",
-    "url": "https://public.carsprogram.org/cameras/MN/C30150",
-    "city": "Mankato",
-    "country": "US",
-    "location": "US 14, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.175029,
-      "lng": -93.949425
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C215",
     "name": "T.H.100 NB @ T.H.7 EB",
     "url": "https://public.carsprogram.org/cameras/MN/C215",
@@ -504338,22 +504320,6 @@
     "city": "Sète",
     "category": "port",
     "location": "Sète - France",
-    "timezone": "",
-    "coordinates": {
-      "lat": 0,
-      "lng": 0
-    },
-    "verified": true,
-    "auth": false
-  },
-  {
-    "id": "xx-skyline-live1045",
-    "name": "Mġarr - Gozo",
-    "url": "https://cdn.skylinewebcams.com/live1045.jpg",
-    "country": "",
-    "city": "Mġarr",
-    "category": "port",
-    "location": "Mġarr - Gozo",
     "timezone": "",
     "coordinates": {
       "lat": 0,
