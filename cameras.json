@@ -368160,22 +368160,6 @@
     }
   },
   {
-    "id": "ga-12968-i-85s",
-    "name": "GDOT-0188: I-85 S before BuffingtonRd MM 67.6 (Fulton)",
-    "url": "https://511ga.org/map/Cctv/20378",
-    "category": "highway",
-    "location": "Fulton, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Fulton",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.601307,
-      "lng": -84.489559
-    }
-  },
-  {
     "id": "ga-12969-i-85s",
     "name": "GDOT-0191: I-85 S at I-285 MM 68.8 (Fulton)",
     "url": "https://511ga.org/map/Cctv/20379",
@@ -453072,24 +453056,6 @@
     "id": "us-minnesota-mndot-C30399-v1",
     "name": "T.H.89 (Red Lake - MP 19.13) View 1",
     "url": "https://public.carsprogram.org/cameras/MN/C30399-v1",
-    "city": "Unknown",
-    "country": "US",
-    "location": "MN 89, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 47.776473,
-      "lng": -95.006214
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C30399-v2",
-    "name": "T.H.89 (Red Lake - MP 19.13) View 2",
-    "url": "https://public.carsprogram.org/cameras/MN/C30399-v2",
     "city": "Unknown",
     "country": "US",
     "location": "MN 89, Minnesota",
