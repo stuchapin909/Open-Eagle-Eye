@@ -17427,22 +17427,6 @@
     "category": "highway",
     "city": "London",
     "country": "CA",
-    "id": "on-656-highway-401-elgin-road-carpool-lot-looking-north",
-    "location": "Highway 401 at Elgin Road Carpool Lot, Ontario, Canada",
-    "name": "Highway 401 - Elgin Road Carpool Lot - (Looking North)",
-    "timezone": "America/Toronto",
-    "url": "https://511on.ca/map/Cctv/1191",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 42.963149,
-      "lng": -81.016315
-    }
-  },
-  {
-    "category": "highway",
-    "city": "London",
-    "country": "CA",
     "id": "on-657-highway-401-westchester-bourne-looking-west",
     "location": "Highway 401 at Westchester Bourne, Ontario, Canada",
     "name": "Highway 401 - Westchester Bourne - (Looking West)",
@@ -453046,24 +453030,6 @@
     "coordinates": {
       "lat": 47.510087,
       "lng": -92.551578
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C30399-v1",
-    "name": "T.H.89 (Red Lake - MP 19.13) View 1",
-    "url": "https://public.carsprogram.org/cameras/MN/C30399-v1",
-    "city": "Unknown",
-    "country": "US",
-    "location": "MN 89, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 47.776473,
-      "lng": -95.006214
     },
     "verified": true,
     "auth": {
