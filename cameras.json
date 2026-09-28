@@ -419705,38 +419705,6 @@
     "auth": false
   },
   {
-    "id": "co-abasin-mid-mountain",
-    "name": "Arapahoe Basin Mid-Mountain",
-    "url": "https://ftp.purchus.io/wwwroot/abasin/webcam/abasincam1001m.jpg",
-    "country": "US",
-    "city": "Keystone",
-    "category": "ski_resort",
-    "location": "Arapahoe Basin, Colorado, USA",
-    "timezone": "America/Denver",
-    "coordinates": {
-      "lat": 39.6425,
-      "lng": -105.9524
-    },
-    "verified": true,
-    "auth": false
-  },
-  {
-    "id": "co-abasin-base",
-    "name": "Arapahoe Basin Base Area",
-    "url": "https://ftp.purchus.io/wwwroot/abasin/webcam/abasincam5.jpg",
-    "country": "US",
-    "city": "Keystone",
-    "category": "ski_resort",
-    "location": "Arapahoe Basin, Colorado, USA",
-    "timezone": "America/Denver",
-    "coordinates": {
-      "lat": 39.64,
-      "lng": -105.951
-    },
-    "verified": true,
-    "auth": false
-  },
-  {
     "id": "br-cet-63",
     "name": "CET Camera 63",
     "url": "https://cameras.cetsp.com.br/Cams/63/1.jpg",
