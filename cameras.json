@@ -384800,22 +384800,6 @@
     }
   },
   {
-    "id": "ga-14124-i-285u",
-    "name": "GDOT-0231: I-285 CW at US23/BufordHwy MM 33.8 (DeKalb)",
-    "url": "https://511ga.org/map/Cctv/21534",
-    "category": "highway",
-    "location": "DeKalb, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "DeKalb",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.899866,
-      "lng": -84.2701
-    }
-  },
-  {
     "id": "ga-14125-i-285u",
     "name": "GDOT-0234: I-285 CW past I-85 MM 34.9 (DeKalb)",
     "url": "https://511ga.org/map/Cctv/21535",
