@@ -226976,22 +226976,6 @@
     }
   },
   {
-    "id": "nc-91-i-77-s-of-clanton-rd",
-    "name": "I-77 - S of Clanton Rd",
-    "url": "https://cfms.services.ncdot.gov/snapshots/chan-5137_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 35.1915,
-      "lng": -80.88591
-    }
-  },
-  {
     "id": "nc-138-us-158-3rd-st-mm-6-5",
     "name": "US 158 - 3rd St (MM 6.5)",
     "url": "https://cfes.services.ncdot.gov/snapshots/chan-5327_h.jpg",
