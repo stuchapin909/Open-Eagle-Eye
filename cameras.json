@@ -39091,22 +39091,6 @@
     "category": "highway",
     "city": "Washington",
     "country": "US",
-    "id": "wa-i-5-at-mp-93-2-maytown-south-a0d246",
-    "location": "I-5 at MP 93.2: Maytown South, Washington, USA",
-    "name": "I-5 at MP 93.2: Maytown South",
-    "timezone": "America/Los_Angeles",
-    "url": "https://images.wsdot.wa.gov/orflow/005vc09329.jpg",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 46.869358,
-      "lng": -122.9695
-    }
-  },
-  {
-    "category": "highway",
-    "city": "Washington",
-    "country": "US",
     "id": "wa-i-5-at-mp-95-2-maytown-a9ff92",
     "location": "I-5 at MP 95.2: Maytown, Washington, USA",
     "name": "I-5 at MP 95.2: Maytown",
@@ -40237,22 +40221,6 @@
     "coordinates": {
       "lat": 47.241347,
       "lng": -122.340056
-    }
-  },
-  {
-    "category": "highway",
-    "city": "Washington",
-    "country": "US",
-    "id": "wa-i-5-at-mp-138-7-north-of-70th-ave-0bcbca",
-    "location": "I-5 at MP 138.7: North of 70th Ave, Washington, USA",
-    "name": "I-5 at MP 138.7: North of 70th Ave",
-    "timezone": "America/Los_Angeles",
-    "url": "https://images.wsdot.wa.gov/orflow/005vc13871.jpg",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 47.246112,
-      "lng": -122.333995
     }
   },
   {
@@ -368704,22 +368672,6 @@
     }
   },
   {
-    "id": "ga-13008-i-20w",
-    "name": "GDOT-0324: I-20 W past SR139 MM 49.4 (Fulton)",
-    "url": "https://511ga.org/map/Cctv/20418",
-    "category": "highway",
-    "location": "Fulton, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Fulton",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.765438,
-      "lng": -84.513621
-    }
-  },
-  {
     "id": "ga-13009-i-285u",
     "name": "GDOT-0327: I-285 CW at I-20 MM 11.8 (Fulton)",
     "url": "https://511ga.org/map/Cctv/20419",
@@ -453058,24 +453010,6 @@
     "coordinates": {
       "lat": 45.488468,
       "lng": -95.561887
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C30266",
-    "name": "T.H.169 SB @ 23rd St",
-    "url": "https://public.carsprogram.org/cameras/MN/C30266",
-    "city": "Hibbing",
-    "country": "US",
-    "location": "US 169, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 47.424342,
-      "lng": -92.923593
     },
     "verified": true,
     "auth": {
