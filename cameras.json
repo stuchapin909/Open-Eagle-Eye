@@ -413001,22 +413001,6 @@
     }
   },
   {
-    "id": "oh-franklin-county-havens-corners-rd-at-taylor-station-rd",
-    "name": "(Franklin County) Havens Corners Rd at Taylor Station Rd",
-    "url": "https://itscameras.dot.state.oh.us/images/cmh/FCEO-HavensCorners-TaylorStation.jpg",
-    "category": "highway",
-    "location": "Columbus, Ohio, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Columbus",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 40.01666,
-      "lng": -82.83355
-    }
-  },
-  {
     "id": "oh-franklin-county-kenny-rd-at-kinnear-rd",
     "name": "(Franklin County) Kenny Rd at Kinnear Rd",
     "url": "https://itscameras.dot.state.oh.us/images/cmh/FCEO-Kenny-Kinnear.jpg",
@@ -507818,22 +507802,6 @@
     "city": "At Sea",
     "category": "ferry",
     "location": "Norwegian Bliss Bridge",
-    "timezone": "UTC",
-    "coordinates": {
-      "lat": 0,
-      "lng": 0
-    },
-    "verified": true,
-    "auth": false
-  },
-  {
-    "id": "ncl-escape-bridge",
-    "name": "Norwegian Escape Bridge Cam",
-    "url": "https://www.ncl.com/shipcams/escapecam/fullsize.jpg",
-    "country": "US",
-    "city": "At Sea",
-    "category": "ferry",
-    "location": "Norwegian Escape Bridge",
     "timezone": "UTC",
     "coordinates": {
       "lat": 0,
