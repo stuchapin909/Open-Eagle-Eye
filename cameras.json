@@ -468441,24 +468441,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C009",
-    "name": "T.H.36 WB @ T.H.61",
-    "url": "https://public.carsprogram.org/cameras/MN/C009",
-    "city": "Maplewood",
-    "country": "US",
-    "location": "MN 36, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 45.011694,
-      "lng": -93.055554
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C30524",
     "name": "U.S.169 SB @ Jordan Ave (MP 101.8)",
     "url": "https://public.carsprogram.org/cameras/MN/C30524",
