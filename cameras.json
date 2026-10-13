@@ -368448,22 +368448,6 @@
     }
   },
   {
-    "id": "ga-13050-nwc-eln",
-    "name": "GDOT-0464: NWC_EL/I-75 N at WindyHillRd MM 259.5 (Cobb)",
-    "url": "https://511ga.org/map/Cctv/20460",
-    "category": "highway",
-    "location": "Cobb, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Cobb",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.90101,
-      "lng": -84.47229
-    }
-  },
-  {
     "id": "ga-13051-nwc-els",
     "name": "GDOT-0467: NWC_EL/I-75 S before WindyHillRd MM 260.2 (Cobb)",
     "url": "https://511ga.org/map/Cctv/20461",
@@ -373917,22 +373901,6 @@
     "coordinates": {
       "lat": 33.759012,
       "lng": -84.685738
-    }
-  },
-  {
-    "id": "ga-13426-i-20w",
-    "name": "GDOT-0309: I-20 W at LeeRd MM 41.3 (Douglas)",
-    "url": "https://511ga.org/map/Cctv/20836",
-    "category": "highway",
-    "location": "Douglas, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Douglas",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.769039,
-      "lng": -84.652694
     }
   },
   {
