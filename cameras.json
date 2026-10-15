@@ -121938,22 +121938,6 @@
   {
     "auth": false,
     "category": "highway",
-    "city": "11 Miles West Of The Loma",
-    "country": "US",
-    "id": "co-i-70-mp-000-65-eb-0-9-miles-e-of-utah-border",
-    "location": "11 Miles West Of The Loma, Colorado, USA",
-    "name": "I-70 MP 000.65 EB : 0.9 miles E of Utah Border",
-    "timezone": "America/Denver",
-    "url": "https://cocam.carsprogram.org/Cellular/070E00065CAM1MED-E.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 39.18922,
-      "lng": -109.04076
-    }
-  },
-  {
-    "auth": false,
-    "category": "highway",
     "city": "1 Mile North Of The Alma",
     "country": "US",
     "id": "co-co-9-mp-072-75-nb-1-8-miles-n-of-5th-st-in-alma",
