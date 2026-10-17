@@ -367776,22 +367776,6 @@
     }
   },
   {
-    "id": "ga-13007-i-20w",
-    "name": "GDOT-0319: I-20 W at SixFlagsPkwy MM 47.2 (Cobb)",
-    "url": "https://511ga.org/map/Cctv/20417",
-    "category": "highway",
-    "location": "Cobb, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Cobb",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.773008,
-      "lng": -84.551445
-    }
-  },
-  {
     "id": "ga-13009-i-285u",
     "name": "GDOT-0327: I-285 CW at I-20 MM 11.8 (Fulton)",
     "url": "https://511ga.org/map/Cctv/20419",
