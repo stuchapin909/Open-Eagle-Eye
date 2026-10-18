@@ -371728,22 +371728,6 @@
     }
   },
   {
-    "id": "ga-13272-sml-eln",
-    "name": "GDOT-1267: SML_EL/I-75 N before JodecoRd MM 222.1 (Henry)",
-    "url": "https://511ga.org/map/Cctv/20682",
-    "category": "highway",
-    "location": "Henry, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Henry",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.478714,
-      "lng": -84.216297
-    }
-  },
-  {
     "id": "ga-13273-sr22w",
     "name": "GDOT-1270: SR22/US80 W at I-185 MM 3.8 (Muscogee)",
     "url": "https://511ga.org/map/Cctv/20683",
@@ -383184,22 +383168,6 @@
     }
   },
   {
-    "id": "ga-14075-i-85s",
-    "name": "GDOT-0074: I-85 S at WillinghamDr MM 74.2 (Fulton)",
-    "url": "https://511ga.org/map/Cctv/21485",
-    "category": "highway",
-    "location": "Fulton, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Fulton",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.664052,
-      "lng": -84.422195
-    }
-  },
-  {
     "id": "ga-14077-i-75s",
     "name": "GDOT-0080: I-75 S past MtZionRd MM 240.9 (Fulton)",
     "url": "https://511ga.org/map/Cctv/21487",
@@ -385501,22 +385469,6 @@
     "coordinates": {
       "lat": 33.560421,
       "lng": -84.312246
-    }
-  },
-  {
-    "id": "ga-14263-i-75n",
-    "name": "GDOT-0711: I-75 N at SR138 MM 228.1 (Henry)",
-    "url": "https://511ga.org/map/Cctv/21673",
-    "category": "highway",
-    "location": "Henry, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Henry",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.546799,
-      "lng": -84.277911
     }
   },
   {
