@@ -484287,22 +484287,6 @@
     }
   },
   {
-    "id": "fi-neoc-starcam",
-    "name": "NEOC Star Camera",
-    "url": "https://www.neoc.com/wp-content/webcam3/starcamsmall.jpg",
-    "country": "FI",
-    "city": "Kilpisjärvi",
-    "category": "aurora",
-    "location": "NEOC Star Camera, Kilpisjärvi, Finland",
-    "timezone": "Europe/Helsinki",
-    "coordinates": {
-      "lat": 69.05,
-      "lng": 20.79
-    },
-    "verified": true,
-    "auth": false
-  },
-  {
     "id": "at-wallackhaus-nightsky",
     "name": "Wallackhaus Night Sky",
     "url": "https://www.foto-webcam.eu/webcam/wallackhaus/current/1200.jpg",
