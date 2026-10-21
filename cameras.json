@@ -49010,22 +49010,6 @@
   {
     "auth": false,
     "category": "highway",
-    "city": "Eureka",
-    "country": "US",
-    "id": "ca-caltrans-d1-us-101-eureka-piersons-looking-south",
-    "location": "Eureka, CA, USA",
-    "name": "US-101: Eureka / Piersons - Looking South",
-    "timezone": "America/Los_Angeles",
-    "url": "https://cwwp2.dot.ca.gov/data/d1/cctv/image/us101eurekapiersonslookings/us101eurekapiersonslookings.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 40.768783,
-      "lng": -124.191428
-    }
-  },
-  {
-    "auth": false,
-    "category": "highway",
     "city": "Fort Bragg",
     "country": "US",
     "id": "ca-caltrans-d1-sr-1-elm-north",
@@ -386125,22 +386109,6 @@
     "coordinates": {
       "lat": 34.331467,
       "lng": -84.393938
-    }
-  },
-  {
-    "id": "ga-14315-i-285u",
-    "name": "GDOT-0930: I-285 CCW at SR14 MM 1.7 (Fulton)",
-    "url": "https://511ga.org/map/Cctv/21725",
-    "category": "highway",
-    "location": "Fulton, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Fulton",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.621422,
-      "lng": -84.488342
     }
   },
   {
