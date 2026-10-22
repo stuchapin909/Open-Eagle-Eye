@@ -48964,22 +48964,6 @@
     "category": "highway",
     "city": "Eureka",
     "country": "US",
-    "id": "ca-caltrans-d1-us-101-eureka-mccullen-looking-south",
-    "location": "Eureka, CA, USA",
-    "name": "US-101: Eureka / McCullen - Looking South",
-    "timezone": "America/Los_Angeles",
-    "url": "https://cwwp2.dot.ca.gov/data/d1/cctv/image/us101eurekamccullenlookings/us101eurekamccullenlookings.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 40.774303,
-      "lng": -124.190397
-    }
-  },
-  {
-    "auth": false,
-    "category": "highway",
-    "city": "Eureka",
-    "country": "US",
     "id": "ca-caltrans-d1-us-101-eureka-mccullen-ptz-south",
     "location": "Eureka, CA, USA",
     "name": "US-101: Eureka / McCullen (PTZ) - South",
@@ -49373,22 +49357,6 @@
     "coordinates": {
       "lat": 40.896949,
       "lng": -123.768674
-    }
-  },
-  {
-    "auth": false,
-    "category": "highway",
-    "city": "Scotia",
-    "country": "US",
-    "id": "ca-caltrans-d1-us-101-scotia-looking-north",
-    "location": "Scotia, CA, USA",
-    "name": "US-101: Scotia (Looking North)",
-    "timezone": "America/Los_Angeles",
-    "url": "https://cwwp2.dot.ca.gov/data/d1/cctv/image/us101scotialookingn/us101scotialookingn.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 40.468247,
-      "lng": -124.095973
     }
   },
   {
@@ -226605,22 +226573,6 @@
     "coordinates": {
       "lat": 35.268847,
       "lng": -81.149469
-    }
-  },
-  {
-    "id": "nc-1310-i-73-mm-114-bunch-rd",
-    "name": "I-73 MM 114 (Bunch Rd)",
-    "url": "https://cfts.services.ncdot.gov:443/snapshots/chan-5958_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 36.16955,
-      "lng": -79.94787
     }
   },
   {
