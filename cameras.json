@@ -258736,22 +258736,6 @@
     }
   },
   {
-    "id": "pa-us-30-business-eastbound-5720",
-    "name": "US-30 BUSINESS ( LANCASTER AVE) @ GREEN ST (DOWNINGTOWN)",
-    "url": "https://www.511pa.com/map/Cctv/5720",
-    "category": "highway",
-    "location": "US 30 Business, Pennsylvania, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "US 30 Business",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 40.00755,
-      "lng": -75.69989
-    }
-  },
-  {
     "id": "pa-us-30-business-eastbound-5721",
     "name": "US-30 BUSINESS (LINCOLN HWY)  WEST OF PA-10",
     "url": "https://www.511pa.com/map/Cctv/5721",
