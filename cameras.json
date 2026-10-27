@@ -185136,22 +185136,6 @@
     }
   },
   {
-    "id": "fl-2572-cross-creek-blvd-at-kinnan-st",
-    "name": "Cross Creek Blvd at Kinnan St",
-    "url": "https://www.fl511.com/map/Cctv/2572",
-    "category": "highway",
-    "location": "Hillsborough, Florida, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Hillsborough",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 28.141944,
-      "lng": -82.326111
-    }
-  },
-  {
     "id": "fl-2573-sr-690-at-mm-2-8",
     "name": "SR-690 at MM 2.8",
     "url": "https://www.fl511.com/map/Cctv/2573",
