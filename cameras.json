@@ -226944,22 +226944,6 @@
     }
   },
   {
-    "id": "nc-1876-cctv10-i485-62-6o-carmel",
-    "name": "CCTV10-I485-62.6O_Carmel",
-    "url": "https://cfms.services.ncdot.gov/snapshots/chan-6361_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 35.06836620081567,
-      "lng": -80.86542587857865
-    }
-  },
-  {
     "auth": false,
     "category": "city",
     "city": "Hong Kong",
