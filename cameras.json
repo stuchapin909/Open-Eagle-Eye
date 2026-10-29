@@ -373696,22 +373696,6 @@
     }
   },
   {
-    "id": "ga-13425-i-20e",
-    "name": "GDOT-0306: I-20 E before NCountyLineRd MM 39.3 (Douglas)",
-    "url": "https://511ga.org/map/Cctv/20835",
-    "category": "highway",
-    "location": "Douglas, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Douglas",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.759012,
-      "lng": -84.685738
-    }
-  },
-  {
     "id": "ga-13427-i-20e",
     "name": "GDOT-0312: I-20 E past MtVernonRd MM 42.9 (Douglas)",
     "url": "https://511ga.org/map/Cctv/20837",
