@@ -501341,54 +501341,6 @@
     "auth": false
   },
   {
-    "id": "ru-strezhevoy-tomsk-oblastt",
-    "name": "Strezhevoy, Tomsk Oblastt",
-    "url": "https://starvisor.ru/wp-content/uploads/webcam/capture_str.jpg",
-    "country": "RU",
-    "city": "Strezhevoy",
-    "category": "aurora",
-    "location": "Strezhevoy, Tomsk Oblastt",
-    "timezone": "Asia/Tomsk",
-    "coordinates": {
-      "lat": 0,
-      "lng": 0
-    },
-    "verified": true,
-    "auth": false
-  },
-  {
-    "id": "ru-st-petersburg-leningrad-oblast",
-    "name": "St. Petersburg, Leningrad Oblast",
-    "url": "https://starvisor.ru/wp-content/uploads/webcam/cap_spbd.jpg",
-    "country": "RU",
-    "city": "St. Petersburg",
-    "category": "aurora",
-    "location": "St. Petersburg, Leningrad Oblast",
-    "timezone": "Europe/Moscow",
-    "coordinates": {
-      "lat": 0,
-      "lng": 0
-    },
-    "verified": true,
-    "auth": false
-  },
-  {
-    "id": "ru-kalingrad-kaliningrad-oblast",
-    "name": "Kalingrad, Kaliningrad Oblast",
-    "url": "https://starvisor.ru/wp-content/uploads/webcam/cap_klnsky.jpg",
-    "country": "RU",
-    "city": "Kaliningrad",
-    "category": "aurora",
-    "location": "Kalingrad, Kaliningrad Oblast",
-    "timezone": "Europe/Kaliningrad",
-    "coordinates": {
-      "lat": 0,
-      "lng": 0
-    },
-    "verified": true,
-    "auth": false
-  },
-  {
     "id": "de-ettelsberg",
     "name": "Ettelsberg",
     "url": "https://www.foto-webcam.eu/webcam/ettelsberg/current/1920.jpg",
