@@ -317296,22 +317296,6 @@
     }
   },
   {
-    "id": "ut-123047",
-    "name": "I-70 RWIS EB @ Ghost Rocks / MP 123.11, EM",
-    "url": "https://udottraffic.utah.gov/map/Cctv/123047",
-    "category": "city",
-    "location": "Emery, Utah, USA",
-    "timezone": "America/Denver",
-    "country": "US",
-    "city": "Emery",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 38.86581,
-      "lng": -110.80612
-    }
-  },
-  {
     "id": "ut-123049",
     "name": "State St / SR-9 @ 3700 W / Sand Hollow Rd, HRC (Local)",
     "url": "https://udottraffic.utah.gov/map/Cctv/123049",
