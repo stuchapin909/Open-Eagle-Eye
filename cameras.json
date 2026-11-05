@@ -349072,22 +349072,6 @@
     }
   },
   {
-    "id": "ga-11822-north-avee",
-    "name": "ATL-0911: North Ave at Dallas St / Ponce City Mkt (Atlanta)",
-    "url": "https://511ga.org/map/Cctv/19232",
-    "category": "highway",
-    "location": "Atlanta, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Atlanta",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.77113,
-      "lng": -84.3659
-    }
-  },
-  {
     "id": "ga-11823-ivan-allen-jr-blvdn",
     "name": "ATL-0914: Ivan Allen Jr Blvd at Marietta St (Atlanta)",
     "url": "https://511ga.org/map/Cctv/19233",
@@ -374061,22 +374045,6 @@
     "coordinates": {
       "lat": 34.006929,
       "lng": -84.566486
-    }
-  },
-  {
-    "id": "ga-13460-i-75s",
-    "name": "GDOT-0426: I-75 S at BarrettPkwy MM 269 (Cobb)",
-    "url": "https://511ga.org/map/Cctv/20870",
-    "category": "highway",
-    "location": "Cobb, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Cobb",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 34.010026,
-      "lng": -84.568365
     }
   },
   {
