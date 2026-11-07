@@ -3236,22 +3236,6 @@
     "category": "city",
     "city": "London",
     "country": "GB",
-    "id": "tfl-00001.08600",
-    "location": "London, UK",
-    "name": "Craven Rd/Eastborne Terrace",
-    "timezone": "Europe/London",
-    "url": "https://s3-eu-west-1.amazonaws.com/jamcams.tfl.gov.uk/00001.08600.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 51.5152,
-      "lng": -0.17638
-    }
-  },
-  {
-    "auth": false,
-    "category": "city",
-    "city": "London",
-    "country": "GB",
     "id": "tfl-00001.03223",
     "location": "London, UK",
     "name": "Crayford Rd/Crayford Way",
@@ -441267,24 +441251,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C30573",
-    "name": "I-35 NB S of T.H.30 (Freeborn/Steele Co Line)",
-    "url": "https://public.carsprogram.org/cameras/MN/C30573",
-    "city": "13 miles north of Albert Lea",
-    "country": "US",
-    "location": "I-35, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 43.848377,
-      "lng": -93.285258
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C059",
     "name": "I-35 NB @ Co Rd 2 (Broadway Av)",
     "url": "https://public.carsprogram.org/cameras/MN/C059",
@@ -441440,24 +441406,6 @@
     "coordinates": {
       "lat": 45.005006,
       "lng": -93.089439
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C909",
-    "name": "I-394 EB @ Hampshire Ave",
-    "url": "https://public.carsprogram.org/cameras/MN/C909",
-    "city": "Golden Valley",
-    "country": "US",
-    "location": "I-394, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.971228,
-      "lng": -93.3652
     },
     "verified": true,
     "auth": {
@@ -442797,24 +442745,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C30659",
-    "name": "T.H.21 NB @ T.H.60",
-    "url": "https://public.carsprogram.org/cameras/MN/C30659",
-    "city": "Faribault",
-    "country": "US",
-    "location": "MN 21, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.2946,
-      "lng": -93.289991
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C30584",
     "name": "I-35 SB N of I-90 (MP14)",
     "url": "https://public.carsprogram.org/cameras/MN/C30584",
@@ -444032,24 +443962,6 @@
     "coordinates": {
       "lat": 45.12393,
       "lng": -93.335096
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-D6-C103",
-    "name": "I-35 NB (MP 64.7)",
-    "url": "https://public.carsprogram.org/cameras/MN/D6-C103",
-    "city": "4 miles north of Faribault",
-    "country": "US",
-    "location": "I-35, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.399841,
-      "lng": -93.292385
     },
     "verified": true,
     "auth": {
@@ -451185,24 +451097,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C30678",
-    "name": "I-94 EB @ U.S.75",
-    "url": "https://public.carsprogram.org/cameras/MN/C30678",
-    "city": "Moorhead",
-    "country": "US",
-    "location": "I-94, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 46.846966,
-      "lng": -96.769133
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C606",
     "name": "I-35W NB @ Co Rd 42",
     "url": "https://public.carsprogram.org/cameras/MN/C606",
@@ -452852,24 +452746,6 @@
     "coordinates": {
       "lat": 44.868692,
       "lng": -93.432362
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C351",
-    "name": "U.S.169 NB @ Main St",
-    "url": "https://public.carsprogram.org/cameras/MN/C351",
-    "city": "Anoka",
-    "country": "US",
-    "location": "US 169, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 45.198631,
-      "lng": -93.392785
     },
     "verified": true,
     "auth": {
@@ -455858,24 +455734,6 @@
     "coordinates": {
       "lat": 45.379956,
       "lng": -92.872014
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C30749",
-    "name": "I-94 WB W of Western Ave",
-    "url": "https://public.carsprogram.org/cameras/MN/C30749",
-    "city": "Saint Paul",
-    "country": "US",
-    "location": "I-94, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.951405,
-      "lng": -93.118955
     },
     "verified": true,
     "auth": {
@@ -460844,24 +460702,6 @@
     "coordinates": {
       "lat": 45.166754,
       "lng": -93.391283
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C858",
-    "name": "I-94 EB @ White Bear Ave",
-    "url": "https://public.carsprogram.org/cameras/MN/C858",
-    "city": "Saint Paul",
-    "country": "US",
-    "location": "I-94, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.951214,
-      "lng": -93.025453
     },
     "verified": true,
     "auth": {
