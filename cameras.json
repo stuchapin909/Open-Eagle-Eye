@@ -349056,22 +349056,6 @@
     }
   },
   {
-    "id": "ga-11823-ivan-allen-jr-blvdn",
-    "name": "ATL-0914: Ivan Allen Jr Blvd at Marietta St (Atlanta)",
-    "url": "https://511ga.org/map/Cctv/19233",
-    "category": "highway",
-    "location": "Atlanta, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Atlanta",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.764263,
-      "lng": -84.39735
-    }
-  },
-  {
     "id": "ga-11824-centennial-olympic-park-drn",
     "name": "ATL-0917: Centennial Olympic Park Dr at Martin Luther King Jr Dr (Atlanta)",
     "url": "https://511ga.org/map/Cctv/19234",
