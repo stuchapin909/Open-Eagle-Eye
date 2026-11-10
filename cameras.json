@@ -377328,22 +377328,6 @@
     }
   },
   {
-    "id": "ga-13704-i-75n",
-    "name": "GDOT-1300: I-75 N past MtCarmelRd MM 220.1 (Henry)",
-    "url": "https://511ga.org/map/Cctv/21114",
-    "category": "highway",
-    "location": "Henry, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Henry",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.452302,
-      "lng": -84.203869
-    }
-  },
-  {
     "id": "ga-13705-sr155n",
     "name": "GDOT-1303: SR155 N at AvalonPkwy MM 5.2 (Henry)",
     "url": "https://511ga.org/map/Cctv/21115",
