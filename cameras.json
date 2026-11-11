@@ -367280,22 +367280,6 @@
     }
   },
   {
-    "id": "ga-12985-i-285u",
-    "name": "GDOT-0242: I-285 CCW past LawrencevilleHwy MM 38.7 (DeKalb)",
-    "url": "https://511ga.org/map/Cctv/20395",
-    "category": "highway",
-    "location": "DeKalb, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "DeKalb",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.83649,
-      "lng": -84.248799
-    }
-  },
-  {
     "id": "ga-12987-i-285u",
     "name": "GDOT-0248: I-285 CW at EPonceDeLeonAve MM 41 (DeKalb)",
     "url": "https://511ga.org/map/Cctv/20397",
@@ -437655,24 +437639,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C61-052",
-    "name": "T.H.61 NB (Silver Cliff Tunnel 2)",
-    "url": "https://public.carsprogram.org/cameras/MN/C61-052",
-    "city": "4 miles north of Two Harbors",
-    "country": "US",
-    "location": "MN 61, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 47.067706,
-      "lng": -91.59402
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C30290",
     "name": "I-94 SB S of Dunwoody Blvd",
     "url": "https://public.carsprogram.org/cameras/MN/C30290",
@@ -451965,24 +451931,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C6212",
-    "name": "I-35W NB @ 36th St",
-    "url": "https://public.carsprogram.org/cameras/MN/C6212",
-    "city": "Minneapolis",
-    "country": "US",
-    "location": "I-35W, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.937209,
-      "lng": -93.274555
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C797",
     "name": "I-94 WB E of Co Rd 37 (MP 203)",
     "url": "https://public.carsprogram.org/cameras/MN/C797",
@@ -455468,24 +455416,6 @@
     "coordinates": {
       "lat": 44.511648,
       "lng": -93.288048
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C61-053",
-    "name": "T.H.61 NB (Silver Cliff Tunnel 1)",
-    "url": "https://public.carsprogram.org/cameras/MN/C61-053",
-    "city": "4 miles north of Two Harbors",
-    "country": "US",
-    "location": "MN 61, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 47.066766,
-      "lng": -91.595294
     },
     "verified": true,
     "auth": {
