@@ -373584,22 +373584,6 @@
     }
   },
   {
-    "id": "ga-13422-i-20e",
-    "name": "GDOT-0296: I-20 E at ChapelHillRd MM 35.7 (Douglas)",
-    "url": "https://511ga.org/map/Cctv/20832",
-    "category": "highway",
-    "location": "Douglas, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Douglas",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.732643,
-      "lng": -84.737247
-    }
-  },
-  {
     "id": "ga-13423-i-20e",
     "name": "GDOT-0300: I-20 E at PryorSt MM 56.8 (Fulton)",
     "url": "https://511ga.org/map/Cctv/20833",
