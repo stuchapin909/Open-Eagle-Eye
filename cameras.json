@@ -374752,22 +374752,6 @@
     }
   },
   {
-    "id": "ga-13513-sr141s",
-    "name": "GDOT-0592: SR141 S past HolcombBridgeRd MM 2.2 (Gwinnett)",
-    "url": "https://511ga.org/map/Cctv/20923",
-    "category": "highway",
-    "location": "Gwinnett, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Gwinnett",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.948977,
-      "lng": -84.235519
-    }
-  },
-  {
     "id": "ga-13516-i-75s",
     "name": "GDOT-0601: I-75/I-85 S before 5thSt MM 249.2 (Fulton)",
     "url": "https://511ga.org/map/Cctv/20926",
