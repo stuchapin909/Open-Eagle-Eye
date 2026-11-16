@@ -373552,22 +373552,6 @@
     }
   },
   {
-    "id": "ga-13418-i-285u",
-    "name": "GDOT-0275: I-285 CCW at ForrestParkRd MM 55.3 (Fulton)",
-    "url": "https://511ga.org/map/Cctv/20828",
-    "category": "highway",
-    "location": "Fulton, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Fulton",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.662107,
-      "lng": -84.353594
-    }
-  },
-  {
     "id": "ga-13419-i-285u",
     "name": "GDOT-0278: I-285 CCW at ConleyRd MM 56.9 (Clayton)",
     "url": "https://511ga.org/map/Cctv/20829",
