@@ -226432,22 +226432,6 @@
     }
   },
   {
-    "id": "nc-1242-i-85-n-cox-rd",
-    "name": "I-85 N @ Cox Rd",
-    "url": "https://cfms.services.ncdot.gov/snapshots/chan-5346_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 35.264878,
-      "lng": -81.133654
-    }
-  },
-  {
     "id": "nc-1243-i-85-n-main-st",
     "name": "I-85 N @ Main St",
     "url": "https://cfms.services.ncdot.gov/snapshots/chan-5347_h.jpg",
@@ -226525,22 +226509,6 @@
     "coordinates": {
       "lat": 35.263797,
       "lng": -81.08888
-    }
-  },
-  {
-    "id": "nc-1257-i-85-s-new-hope-rd",
-    "name": "I-85 S @ New Hope Rd",
-    "url": "https://cfms.services.ncdot.gov/snapshots/chan-5345_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 35.268847,
-      "lng": -81.149469
     }
   },
   {
