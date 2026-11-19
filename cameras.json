@@ -226400,38 +226400,6 @@
     }
   },
   {
-    "id": "nc-1238-i-85-n-edgewood-rd",
-    "name": "I-85 N @ Edgewood Rd",
-    "url": "https://cfms.services.ncdot.gov/snapshots/chan-5335_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 35.266158,
-      "lng": -81.257243
-    }
-  },
-  {
-    "id": "nc-1239-i-85-n-bessemer-city-rd",
-    "name": "I-85 N @ Bessemer City Rd",
-    "url": "https://cfms.services.ncdot.gov/snapshots/chan-5336_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 35.276584,
-      "lng": -81.229839
-    }
-  },
-  {
     "id": "nc-1243-i-85-n-main-st",
     "name": "I-85 N @ Main St",
     "url": "https://cfms.services.ncdot.gov/snapshots/chan-5347_h.jpg",
@@ -324477,22 +324445,6 @@
     "coordinates": {
       "lat": 40.7607,
       "lng": -111.85391
-    }
-  },
-  {
-    "id": "ut-123615",
-    "name": "Blacksmith Fork Canyon Rd / SR-101 @ Hyrum City Park / MP 14.2, CA",
-    "url": "https://udottraffic.utah.gov/map/Cctv/123615",
-    "category": "highway",
-    "location": "Callao, Utah, USA",
-    "timezone": "America/Denver",
-    "country": "US",
-    "city": "Callao",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 41.627232,
-      "lng": -111.68774
     }
   },
   {
@@ -440223,24 +440175,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C30153",
-    "name": "U.S.169 SB @ Lookout Dr",
-    "url": "https://public.carsprogram.org/cameras/MN/C30153",
-    "city": "North Mankato",
-    "country": "US",
-    "location": "US 169, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.16672,
-      "lng": -94.015564
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-D6-C6024",
     "name": "T.H.52 NB S Jct C.S.A.H.12 (MP 64.2)",
     "url": "https://public.carsprogram.org/cameras/MN/D6-C6024",
@@ -446937,24 +446871,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C30152",
-    "name": "U.S.169 NB @ Riverfront Dr",
-    "url": "https://public.carsprogram.org/cameras/MN/C30152",
-    "city": "Mankato",
-    "country": "US",
-    "location": "US 169, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.159587,
-      "lng": -94.020443
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C5071",
     "name": "T.H.77 S of T.H.13",
     "url": "https://public.carsprogram.org/cameras/MN/C5071",
@@ -447164,24 +447080,6 @@
     "coordinates": {
       "lat": 45.324472,
       "lng": -93.003229
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C30151",
-    "name": "T.H.22 SB N of Madison Ave",
-    "url": "https://public.carsprogram.org/cameras/MN/C30151",
-    "city": "Mankato",
-    "country": "US",
-    "location": "MN 22, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.169185,
-      "lng": -93.948877
     },
     "verified": true,
     "auth": {
@@ -448431,24 +448329,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C30146",
-    "name": "U.S.14 EB W of U.S.169",
-    "url": "https://public.carsprogram.org/cameras/MN/C30146",
-    "city": "North Mankato",
-    "country": "US",
-    "location": "US 14, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.183865,
-      "lng": -94.0276
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C1684",
     "name": "T.H.61 NB @ Lower Afton Rd",
     "url": "https://public.carsprogram.org/cameras/MN/C1684",
@@ -449403,24 +449283,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C30147",
-    "name": "U.S.14 WB @ U.S.169 NB",
-    "url": "https://public.carsprogram.org/cameras/MN/C30147",
-    "city": "Mankato",
-    "country": "US",
-    "location": "US 169, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.191723,
-      "lng": -94.016708
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C788",
     "name": "I-94 EB @ Co Rd 18 (MP 195)",
     "url": "https://public.carsprogram.org/cameras/MN/C788",
@@ -449612,24 +449474,6 @@
     "coordinates": {
       "lat": 45.553524,
       "lng": -92.990554
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C30148",
-    "name": "U.S.14 WB E of U.S.169",
-    "url": "https://public.carsprogram.org/cameras/MN/C30148",
-    "city": "Mankato",
-    "country": "US",
-    "location": "US 14, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.191234,
-      "lng": -94.004775
     },
     "verified": true,
     "auth": {
@@ -451322,24 +451166,6 @@
     "coordinates": {
       "lat": 44.948456,
       "lng": -92.843078
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C30155",
-    "name": "U.S.169 NB S of Webster Ave",
-    "url": "https://public.carsprogram.org/cameras/MN/C30155",
-    "city": "North Mankato",
-    "country": "US",
-    "location": "US 169, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.179596,
-      "lng": -94.005938
     },
     "verified": true,
     "auth": {
