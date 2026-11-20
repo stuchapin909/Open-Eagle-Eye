@@ -120994,22 +120994,6 @@
   {
     "auth": false,
     "category": "highway",
-    "city": "La Salle",
-    "country": "US",
-    "id": "co-us-85-mp-263-65-nb-0-3-miles-n-of-wcr-394-in-evans",
-    "location": "La Salle, Colorado, USA",
-    "name": "US 85 MP 263.65 NB : 0.3 miles N of WCR 394 in Evans",
-    "timezone": "America/Denver",
-    "url": "https://cocam.carsprogram.org/Cellular/085N26365CAM1MED-N.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 40.36384,
-      "lng": -104.69659
-    }
-  },
-  {
-    "auth": false,
-    "category": "highway",
     "city": "Nunn",
     "country": "US",
     "id": "co-us-85-mp-289-05-nb-at-wcr-100-in-nunn",
@@ -121778,22 +121762,6 @@
   {
     "auth": false,
     "category": "highway",
-    "city": "Silt",
-    "country": "US",
-    "id": "co-i-70-mp-096-40-eb-1-2-miles-w-of-9th-st",
-    "location": "Silt, Colorado, USA",
-    "name": "I-70 MP 096.40 EB : 1.2 miles W of 9th St",
-    "timezone": "America/Denver",
-    "url": "https://cocam.carsprogram.org/Cellular/070E09640CAM1RHS-E.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 39.54332,
-      "lng": -107.67178
-    }
-  },
-  {
-    "auth": false,
-    "category": "highway",
     "city": "Parachute",
     "country": "US",
     "id": "co-i-70-mp-074-65-eb-at-co-215-in-parachute",
@@ -122178,22 +122146,6 @@
   {
     "auth": false,
     "category": "highway",
-    "city": "Idaho Springs",
-    "country": "US",
-    "id": "co-i-70-mp-242-00-wb-at-e-veterans-memorial-tunnels",
-    "location": "Idaho Springs, Colorado, USA",
-    "name": "I-70 MP 242.00 WB at E Veterans Memorial Tunnels",
-    "timezone": "America/Denver",
-    "url": "https://cocam.carsprogram.org/Cellular/070E24200CAM1RP1-W.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 39.743847,
-      "lng": -105.48102
-    }
-  },
-  {
-    "auth": false,
-    "category": "highway",
     "city": "Mountain Village",
     "country": "US",
     "id": "co-co-145-mp-070-55-sb-0-8-miles-s-of-society-dr-in-telluride",
@@ -122445,22 +122397,6 @@
     "coordinates": {
       "lat": 39.65743,
       "lng": -108.790855
-    }
-  },
-  {
-    "auth": false,
-    "category": "highway",
-    "city": "5 Miles East Of The Winter Park",
-    "country": "US",
-    "id": "co-us-40-mp-243-00-wb-berthoud-pass",
-    "location": "5 Miles East Of The Winter Park, Colorado, USA",
-    "name": "US-40 MP 243.00 WB : Berthoud Pass",
-    "timezone": "America/Denver",
-    "url": "https://cocam.carsprogram.org/Cellular/040W24300CAM1RHS-E.jpg",
-    "verified": true,
-    "coordinates": {
-      "lat": 39.79776,
-      "lng": -105.7776
     }
   },
   {
