@@ -226048,22 +226048,6 @@
     }
   },
   {
-    "id": "nc-221-i-40-us-1",
-    "name": "I-40 @ US-1",
-    "url": "https://cfss.services.ncdot.gov/snapshots/chan-5676_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 35.767216,
-      "lng": -78.735468
-    }
-  },
-  {
     "id": "nc-260-us-64-nc-345",
     "name": "US 64 - NC 345",
     "url": "https://cfss.services.ncdot.gov/snapshots/chan-5363_h.jpg",
@@ -226333,22 +226317,6 @@
     "coordinates": {
       "lat": 35.837122,
       "lng": -80.859387
-    }
-  },
-  {
-    "id": "nc-1243-i-85-n-main-st",
-    "name": "I-85 N @ Main St",
-    "url": "https://cfms.services.ncdot.gov/snapshots/chan-5347_h.jpg",
-    "category": "highway",
-    "location": "North Carolina, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Unknown",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 35.260288,
-      "lng": -81.10499
     }
   },
   {
