@@ -375008,22 +375008,6 @@
     }
   },
   {
-    "id": "ga-13549-sml-eln",
-    "name": "GDOT-0743: SML_EL/I-75 N before EaglesLandingPkwy MM 223.5 (Henry)",
-    "url": "https://511ga.org/map/Cctv/20959",
-    "category": "highway",
-    "location": "Henry, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Henry",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.49781,
-      "lng": -84.222944
-    }
-  },
-  {
     "id": "ga-13550-sml-els",
     "name": "GDOT-0747: SML_EL/I-75 S before JonesboroRd MM 221.5 (Henry)",
     "url": "https://511ga.org/map/Cctv/20960",
@@ -441944,24 +441928,6 @@
     "coordinates": {
       "lat": 44.876483,
       "lng": -93.350348
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C30118",
-    "name": "T.H.52 SB S of Highview Rd (MP 94.8)",
-    "url": "https://public.carsprogram.org/cameras/MN/C30118",
-    "city": "2 miles south of Cannon Falls",
-    "country": "US",
-    "location": "US 52, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.462608,
-      "lng": -92.905372
     },
     "verified": true,
     "auth": {
