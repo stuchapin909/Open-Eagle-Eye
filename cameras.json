@@ -357968,22 +357968,6 @@
     }
   },
   {
-    "id": "ga-12400-sr-8-hollowell-pkwye",
-    "name": "ATL-0278: SR 8 / Hollowell Pkwy at Marietta Blvd (Atlanta)",
-    "url": "https://511ga.org/map/Cctv/19810",
-    "category": "highway",
-    "location": "Atlanta, Georgia, USA",
-    "timezone": "America/New_York",
-    "country": "US",
-    "city": "Atlanta",
-    "verified": true,
-    "auth": false,
-    "coordinates": {
-      "lat": 33.77279,
-      "lng": -84.425255
-    }
-  },
-  {
     "id": "ga-12401-sr-154-memorial-dre",
     "name": "ATL-0422: SR 154 / Memorial Dr at Hill St (Atlanta)",
     "url": "https://511ga.org/map/Cctv/19811",
@@ -395965,23 +395949,6 @@
     "coordinates": {
       "lat": 61.107798,
       "lng": -149.744807
-    }
-  },
-  {
-    "id": "us-mo-modot-001",
-    "name": "BUS-60 @ US-67 Poplar Bluff",
-    "url": "https://traveler.modot.org/traffic_camera_snapshots/BUS-60@US-67_PoplarBluff/BUS-60@US-67_PoplarBluff.jpg",
-    "category": "highway",
-    "location": "Poplar Bluff, Missouri, USA",
-    "timezone": "America/Chicago",
-    "country": "US",
-    "city": "Poplar Bluff",
-    "verified": true,
-    "auth": false,
-    "source": "missouri-modot",
-    "coordinates": {
-      "lat": 36.758706,
-      "lng": -90.407865
     }
   },
   {
