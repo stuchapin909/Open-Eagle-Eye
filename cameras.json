@@ -396054,23 +396054,6 @@
     }
   },
   {
-    "id": "us-mo-modot-011",
-    "name": "US-61@MO-114 Sikeston",
-    "url": "https://traveler.modot.org/traffic_camera_snapshots/US-61@MO-114_Sikeston/US-61@MO-114_Sikeston.jpg",
-    "category": "highway",
-    "location": "Sikeston, Missouri, USA",
-    "timezone": "America/Chicago",
-    "country": "US",
-    "city": "Sikeston",
-    "verified": true,
-    "auth": false,
-    "source": "missouri-modot",
-    "coordinates": {
-      "lat": 36.87898,
-      "lng": -89.580078
-    }
-  },
-  {
     "id": "us-mo-modot-013",
     "name": "US-169 @ Gene Field",
     "url": "https://traveler.modot.org/traffic_camera_snapshots/US-169@Gene-Field/US-169@Gene-Field.jpg",
@@ -437800,24 +437783,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C103",
-    "name": "T.H.55 WB @ Mendota Heights Rd",
-    "url": "https://public.carsprogram.org/cameras/MN/C103",
-    "city": "Mendota Heights",
-    "country": "US",
-    "location": "MN 55, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.865573,
-      "lng": -93.153827
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C30482",
     "name": "T.H.62 EB E of T.H.100",
     "url": "https://public.carsprogram.org/cameras/MN/C30482",
@@ -443182,24 +443147,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C1300",
-    "name": "T.H.13 NB @ Pilot Knob Rd",
-    "url": "https://public.carsprogram.org/cameras/MN/C1300",
-    "city": "Mendota Heights",
-    "country": "US",
-    "location": "MN 13, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.872342,
-      "lng": -93.167438
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C028",
     "name": "I-35E SB @ W. 7th St",
     "url": "https://public.carsprogram.org/cameras/MN/C028",
@@ -446494,24 +446441,6 @@
     }
   },
   {
-    "id": "us-minnesota-mndot-C1301",
-    "name": "T.H.13 SB @ Mendota Heights Rd",
-    "url": "https://public.carsprogram.org/cameras/MN/C1301",
-    "city": "Mendota Heights",
-    "country": "US",
-    "location": "MN 913A, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.866261,
-      "lng": -93.172425
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
     "id": "us-minnesota-mndot-C30112",
     "name": "T.H.52 NB @ 100th Ave (MP 88)",
     "url": "https://public.carsprogram.org/cameras/MN/C30112",
@@ -448035,24 +447964,6 @@
     "coordinates": {
       "lat": 44.874905,
       "lng": -93.052412
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C1299",
-    "name": "T.H.55 WB @ T.H.13",
-    "url": "https://public.carsprogram.org/cameras/MN/C1299",
-    "city": "Mendota Heights",
-    "country": "US",
-    "location": "MN 13, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.873893,
-      "lng": -93.162765
     },
     "verified": true,
     "auth": {
@@ -450123,24 +450034,6 @@
     "coordinates": {
       "lat": 45.149551,
       "lng": -93.501653
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C101",
-    "name": "T.H.55 EB @ Argenta Tr",
-    "url": "https://public.carsprogram.org/cameras/MN/C101",
-    "city": "Inver Grove Heights",
-    "country": "US",
-    "location": "MN 55, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.839072,
-      "lng": -93.099947
     },
     "verified": true,
     "auth": {
@@ -452895,24 +452788,6 @@
     "coordinates": {
       "lat": 45.296766,
       "lng": -93.560133
-    },
-    "verified": true,
-    "auth": {
-      "required": false
-    }
-  },
-  {
-    "id": "us-minnesota-mndot-C102",
-    "name": "T.H.55 EB @ Lexington Ave",
-    "url": "https://public.carsprogram.org/cameras/MN/C102",
-    "city": "Eagan",
-    "country": "US",
-    "location": "MN 55, Minnesota",
-    "category": "highway",
-    "timezone": "America/Chicago",
-    "coordinates": {
-      "lat": 44.857976,
-      "lng": -93.143804
     },
     "verified": true,
     "auth": {
